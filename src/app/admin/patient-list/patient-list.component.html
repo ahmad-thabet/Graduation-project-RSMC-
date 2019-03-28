@@ -1,0 +1,38 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<hr>
+<div class="container bootstrap snippet">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+          <div class="table-responsive">
+            <table class="table user-list">
+              <thead>
+              <tr>
+                <th><span>Name</span></th>
+                <th><span>Personal ID</span></th>
+                <th><span>Email</span></th>
+                <th><span>Phone Number</span></th>
+                <th><span>Mobile Number</span></th>
+                <th><span>Insurance Company</span></th>
+                <th>&nbsp;</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let patient of patients">
+                <!--TODO: implement td's-->
+                <td>{{patient.firstname}}</td>
+                <td>{{patient.personalID}}</td>
+                <td>{{patient.email}}</td>
+                <td>{{patient.phonenumber}}</td>
+                <td>{{patient.mobilenumber}}</td>
+                <td>{{patient.insurancecompany}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
