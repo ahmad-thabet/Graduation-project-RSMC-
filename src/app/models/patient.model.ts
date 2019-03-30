@@ -8,13 +8,13 @@ export class Patient {
   public dateofbirth: Date;
   public phonenumber: string;
   public mobilenumber: string;
-  public insuranceID: number;
-  public subinsuranceID: number;
+  public insuranceID: string;
+  public subinsuranceID: string;
   public insurancecompany: string;
   public gender: string;
   public address: string;
-  public city: string;
-  public quantum: string;
+  public cityID: string;
+  public qID: string;
   public personalID: string;
 
   constructor(
@@ -27,13 +27,13 @@ export class Patient {
     dateofbirth: Date,
     phonenumber: string,
     mobilenumber: string,
-    insuranceID: number,
-    subinsuranceID: number,
+    insuranceID: string,
+    subinsuranceID: string,
     insurancecompany: string,
     gender: string,
     address: string,
-    city: string,
-    quantum: string,
+    cityID: string,
+    qID: string,
     personalID: string) {
 
     this.firstname = firstname;
@@ -50,8 +50,8 @@ export class Patient {
     this.insurancecompany = insurancecompany;
     this.gender = gender;
     this.address = address;
-    this.city = city;
-    this.quantum = quantum;
+    this.cityID = cityID;
+    this.qID= qID;
     this.personalID = personalID;
   }
 

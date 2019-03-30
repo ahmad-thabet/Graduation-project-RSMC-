@@ -97,7 +97,7 @@
       <div class="row">
         <div class="col-md-6">
           <label>select city</label>
-          <select class="custom-select" id="city" [(ngModel)]="patient.city" name="city">
+          <select class="custom-select" id="city" [(ngModel)]="patient.cityID" name="city">
             <option hidden>Select city</option>
             <option *ngFor="let x of cities" [value]="x.cityID">{{x.cityname}}</option>
           </select>
@@ -105,7 +105,7 @@
 
         <div class="col-md-6">
           <label>select quantum</label>
-          <select class="custom-select" id="quantum" [(ngModel)]="patient.quantom" name="quantom">
+          <select class="custom-select" id="quantum" [(ngModel)]="patient.qID" name="quantom">
             <option hidden>Select quantum</option>
             <option *ngFor="let x of quantom" [value]="x.qID">{{x.qname}}</option>
           </select>

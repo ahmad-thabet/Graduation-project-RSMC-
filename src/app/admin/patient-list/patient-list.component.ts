@@ -15,7 +15,7 @@ export class PatientListComponent implements OnInit {
   ngOnInit() {
    const x = new Patient('Ahmad', 'Jamal', 'Ahmad', 'Thabet',
       'ahmad.j.thabet@gmail.com', 'pp', new Date(),
-      '0598223589', '0598223589', 1, 1, 'trust',
+      '0598223589', '0598223589', '8908', '90909090', 'trust',
       'male', 'r', 'Ramallah', 'Ramallah', '96682828282');
    this.patients.push(x);
   }

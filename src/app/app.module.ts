@@ -11,9 +11,11 @@ import {PatientListComponent} from './admin/patient-list/patient-list.component'
 import {PatientProfileDetailsComponent} from './admin/patient-list/patient-profile-details/patient-profile-details.component';
 import {PatientCreateComponent} from './admin/patient-create/patient-create.component';
 import {CommonModule} from '@angular/common';
-import { AdminAppointmentsComponent } from './admin/admin-appointments/admin-appointments.component';
-import { AppointmentsListComponent } from './admin/admin-appointments/appointments-list/appointments-list.component';
-import { AppointmentsCreateComponent } from './admin/admin-appointments/appointments-create/appointments-create.component';
+import {AdminAppointmentsComponent} from './admin/admin-appointments/admin-appointments.component';
+import {AppointmentsListComponent} from './admin/admin-appointments/appointments-list/appointments-list.component';
+import {AppointmentsCreateComponent} from './admin/admin-appointments/appointments-create/appointments-create.component';
+import {PatinetSeviceService} from './service/patinet-sevice.service';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -37,15 +39,17 @@ const appRoutes: Routes = [
     PatientCreateComponent,
     AdminAppointmentsComponent,
     AppointmentsListComponent,
-    AppointmentsCreateComponent
+    AppointmentsCreateComponent,
+
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [PatinetSeviceService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
