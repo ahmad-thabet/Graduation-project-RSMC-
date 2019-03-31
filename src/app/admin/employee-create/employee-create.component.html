@@ -37,8 +37,10 @@
         </div>
         <div class="col-md-6">
           <label>Specialist ID</label>
-          <input type="text" class="form-control" placeholder="Specialist ID" [(ngModel)]="employee.sID"
-                 name="sID">
+          <select class="custom-select" id="specialist" [(ngModel)]="employee.sID" name="specialist">
+            <option hidden>Select</option>
+            <option *ngFor="let x of specialists" [value]="x.sID">{{x.sname}}</option>
+          </select>
         </div>
       </div>
       <div class="row">

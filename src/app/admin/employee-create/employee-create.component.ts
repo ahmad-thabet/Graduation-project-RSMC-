@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Quantom} from '../../models/quantom.model';
 import {City} from '../../models/city.model';
 import {Employee} from '../../models/employee.model';
+import {Specialist} from '../../models/specialist.model';
 
 @Component({
   selector: 'app-employee-create',
@@ -14,6 +15,7 @@ export class EmployeeCreateComponent implements OnInit {
 
   quantom: Quantom[];
   cities: City[];
+  specialists: Specialist[];
 
   error = '';
   success = '';
