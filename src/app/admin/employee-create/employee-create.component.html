@@ -1,17 +1,17 @@
-<h1>Add Patient</h1>
+<h1>Add Employee</h1>
 <hr size="30">
 <div class="row justify-content-around">
   <div class="col-md-10">
-    <form #f="ngForm" (submit)="add_patient(f)" name="theform">
+    <form #f="ngForm" (submit)="add_employee(f)" name="theform">
       <div class="row">
         <div class="col-md-6">
           <label>First name</label>
-          <input type="text" class="form-control" placeholder="First name" [(ngModel)]="patient.firstname"
+          <input type="text" class="form-control" placeholder="First name" [(ngModel)]="employee.firstname"
                  name="firstname">
         </div>
         <div class="col-md-6">
           <label>Second name</label>
-          <input type="text" class="form-control" placeholder="Second name" [(ngModel)]="patient.secondname"
+          <input type="text" class="form-control" placeholder="Second name" [(ngModel)]="employee.secondname"
                  name="secondname">
         </div>
       </div>
@@ -19,36 +19,36 @@
       <div class="row">
         <div class="col-md-6">
           <label>Third name</label>
-          <input type="text" class="form-control" placeholder="third name" [(ngModel)]="patient.thirdname"
+          <input type="text" class="form-control" placeholder="third name" [(ngModel)]="employee.thirdname"
                  name="thirdname">
         </div>
         <div class="col-md-6">
           <label>Last name</label>
-          <input type="text" class="form-control" placeholder="Last name" [(ngModel)]="patient.lastname"
+          <input type="text" class="form-control" placeholder="Last name" [(ngModel)]="employee.lastname"
                  name="lastname">
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6">
-          <label>personal ID</label>
-          <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.personalID"
-                 name="personalID">
+          <label>Job ID</label>
+          <input type="text" class="form-control" placeholder="Job ID" [(ngModel)]="employee.jobID"
+                 name="jobID">
         </div>
         <div class="col-md-6">
-          <label>Password</label>
-          <input type="text" class="form-control" placeholder="password" [(ngModel)]="patient.password"
-                 name="password">
+          <label>Specialist ID</label>
+          <input type="text" class="form-control" placeholder="Specialist ID" [(ngModel)]="employee.sID"
+                 name="sID">
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label>Date of birth</label>
-          <input type="date" class="form-control" placeholder="" [(ngModel)]="patient.dateofbirth" name="dateofbirth">
+          <input type="date" class="form-control" placeholder="" [(ngModel)]="employee.dateofbirth" name="dateofbirth">
         </div>
         <div class="col-md-6">
           <label>Gender</label>
-          <select class="custom-select" id="gender" [(ngModel)]="patient.gender" name="gender">
+          <select class="custom-select" id="gender" [(ngModel)]="employee.gender" name="gender">
             <option selected value="male">male</option>
             <option selected value="female">female</option>
 
@@ -57,41 +57,39 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Insurance ID</label>
-          <input type="text" class="form-control" placeholder="Insurance ID" [(ngModel)]="patient.insuranceID"
-                 name="insuranceID">
+          <label>Emergency Number</label>
+          <input type="text" class="form-control" placeholder="Emergency Number" [(ngModel)]="employee.emergencynumber"
+                 name="emergencynumber">
         </div>
         <div class="col-md-6">
-          <label>subInsurance ID</label>
-          <input type="text" class="form-control" placeholder="subInsurance ID" [(ngModel)]="patient.subinsuranceID"
-                 name="subinsuranceID">
+          <label>Phone Number</label>
+          <input type="text" class="form-control" placeholder="Phone Number" [(ngModel)]="employee.phonenumber"
+                 name="phonenumber">
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>insurance company</label>
-          <select class="custom-select" id="insurance_compamy" [(ngModel)]="patient.insurancecompany"
-                  name="insurancecompany">
-            <option selected value="trust">Select</option>
-          </select>
+          <label>Mobile Number</label>
+          <input type="text" class="form-control" placeholder="05XXXXXXXX" [(ngModel)]="employee.mobilenumber"
+                 name="mobilenumber">
         </div>
         <div class="col-md-6">
           <label>Email</label>
-          <input type="email" class="form-control" placeholder="example@example.com" [(ngModel)]="patient.email"
+          <input type="email" class="form-control" placeholder="example@example.com" [(ngModel)]="employee.email"
                  name="email">
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6">
-          <label>Phone number</label>
-          <input type="text" class="form-control" placeholder="phone number" [(ngModel)]="patient.phonenumber"
-                 name="phonenumber">
+          <label>Username</label>
+          <input type="text" class="form-control" placeholder="User Name" [(ngModel)]="employee.username"
+                 name="username">
         </div>
         <div class="col-md-6">
-          <label>mobile number</label>
-          <input type="text" class="form-control" placeholder="mobile number" [(ngModel)]="patient.mobilenumber"
-                 name="mobilenumber">
+          <label>empID</label>
+          <input type="text" class="form-control" placeholder="Emp ID" [(ngModel)]="employee.empID"
+                 name="empID">
         </div>
       </div>
       <div class="row">
@@ -114,7 +112,11 @@
       <div class="row">
         <div class="col-md-6">
           <label> Addresses</label>
-          <input type="text" class="form-control" placeholder="address" [(ngModel)]="patient.address" name="address">
+          <input type="text" class="form-control" placeholder="address" [(ngModel)]="employee.address" name="address">
+        </div>
+        <div class="col-md-6">
+          <label>Password</label>
+          <input type="text" class="form-control" placeholder="address" [(ngModel)]="employee.password" name="password">
         </div>
       </div>
       <hr>

@@ -10,29 +10,27 @@
               <thead>
               <tr>
                 <th><span>Name</span></th>
-                <th><span>ID</span></th>
+                <th><span>Emergency Number</span></th>
                 <th><span>Email</span></th>
                 <th><span>Phone Number</span></th>
                 <th><span>Mobile Number</span></th>
                 <th><span>Date Of Birth</span></th>
-                <th><span>Insurance CO.</span></th>
                 <th><span>&nbsp;</span></th>
                 <th>&nbsp;</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let patient of patients">
+              <tr *ngFor="let empp of emps">
                 <td>
                   <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
-                  {{patient.firstname}} {{patient.lastname}}
+                  {{empp.firstname}} {{empp.lastname}}
                 </td>
-                <td>{{patient.personalID}}</td>
-                <td>{{patient.email}}</td>
-                <td>{{patient.phonenumber}}</td>
-                <td>{{patient.mobilenumber}}</td>
-                <td>{{patient.dateofbirth.getFullYear()}}-{{patient.dateofbirth.getMonth()}}
+                <td>{{empp.emergencynumber}}</td>
+                <td>{{empp.email}}</td>
+                <td>{{empp.phonenumber}}</td>
+                <td>{{empp.mobilenumber}}</td>
+                <td>{{empp.dateofbirth.getFullYear()}}-{{empp.dateofbirth.getMonth()}}
                 </td>
-                <td>{{patient.insurancecompany}}</td>
                 <td>
                   <a href="#" class="table-link">
                     <span class="fa-stack">

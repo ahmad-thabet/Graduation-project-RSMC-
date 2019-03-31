@@ -14,6 +14,10 @@ import {CommonModule} from '@angular/common';
 import {AdminAppointmentsComponent} from './admin/admin-appointments/admin-appointments.component';
 import {AppointmentsListComponent} from './admin/admin-appointments/appointments-list/appointments-list.component';
 import {AppointmentsCreateComponent} from './admin/admin-appointments/appointments-create/appointments-create.component';
+import {PatinetSeviceService} from './service/patinet-sevice.service';
+import {HttpClientModule} from '@angular/common/http';
+import { EmployeeCreateComponent } from './admin/employee-create/employee-create.component';
+import { EmployeeListComponent } from './admin/employee-list/employee-list.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -21,8 +25,11 @@ const appRoutes: Routes = [
     path: 'admin', component: AdminComponent, children: [
       {path: 'patient-create', component: PatientCreateComponent},
       {path: 'patient-list', component: PatientListComponent},
+      {path: 'emp-create', component: EmployeeCreateComponent},
+      {path: 'emp-list', component: EmployeeListComponent}
     ]
   },
+
 ];
 
 @NgModule({
@@ -36,15 +43,19 @@ const appRoutes: Routes = [
     PatientCreateComponent,
     AdminAppointmentsComponent,
     AppointmentsListComponent,
-    AppointmentsCreateComponent
+    AppointmentsCreateComponent,
+    EmployeeCreateComponent,
+    EmployeeListComponent,
+
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [PatinetSeviceService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
