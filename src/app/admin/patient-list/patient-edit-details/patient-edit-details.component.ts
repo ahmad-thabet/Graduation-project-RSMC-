@@ -101,7 +101,4 @@ export class PatientEditDetailsComponent implements OnInit {
     );
   }
 
-  CancelEdit() {
-    this.router.navigate(['../']);
-  }
 }

@@ -66,4 +66,9 @@ export class EmployeeServiceService {
       }),
       catchError(this.handleError));
   }
+
+  // TODO: implement this function
+  updateEmployee(employee: Employee) {
+    return undefined;
+  }
 }
