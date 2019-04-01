@@ -70,7 +70,7 @@ export class PatinetSeviceService {
 
   // TODO: implement this function
   getPatientById(id: number) {
-    return undefined;xs
+    return undefined;
   }
 
   // TODO: implement this function
