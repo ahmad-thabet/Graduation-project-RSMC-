@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Patient} from '../../models/patient.model';
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
-import {error} from "selenium-webdriver";
 
 @Component({
   selector: 'app-patient-list',

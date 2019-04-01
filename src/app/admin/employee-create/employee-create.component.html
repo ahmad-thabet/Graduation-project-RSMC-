@@ -32,8 +32,10 @@
       <div class="row">
         <div class="col-md-6">
           <label>Job ID</label>
-          <input type="text" class="form-control" placeholder="Job ID" [(ngModel)]="employee.jobID"
-                 name="jobID">
+          <select class="custom-select" id="job" [(ngModel)]="employee.jobID" name="specialist">
+            <option hidden>Select</option>
+            <option *ngFor="let x of jobs" [value]="x.jobID">{{x.jobname}}</option>
+          </select>
         </div>
         <div class="col-md-6">
           <label>Specialist ID</label>
@@ -97,7 +99,7 @@
       <div class="row">
         <div class="col-md-6">
           <label>select city</label>
-          <select class="custom-select" id="city" [(ngModel)]="patient.cityID" name="city">
+          <select class="custom-select" id="city" [(ngModel)]="employee.cityID" name="city">
             <option hidden>Select city</option>
             <option *ngFor="let x of cities" [value]="x.cityID">{{x.cityname}}</option>
           </select>
@@ -105,7 +107,7 @@
 
         <div class="col-md-6">
           <label>select quantum</label>
-          <select class="custom-select" id="quantum" [(ngModel)]="patient.qID" name="quantom">
+          <select class="custom-select" id="quantum" [(ngModel)]="employee.qID" name="quantom">
             <option hidden>Select quantum</option>
             <option *ngFor="let x of quantom" [value]="x.qID">{{x.qname}}</option>
           </select>
