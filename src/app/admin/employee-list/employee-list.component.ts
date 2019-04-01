@@ -10,8 +10,8 @@ import {EmployeeServiceService} from '../../service/employee-service.service';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-  // emp = new Employee('', '', '', '', '', '', '', '', new Date()
-  //   , '', '', '', '', '', '', '', '', '');
+  emp = new Employee('', '', '', '', '', '', '', '', new Date()
+    , '', '', '', '', '', '', '', '', '');
   error = '';
   success = '';
   employees: Employee[];

@@ -12,9 +12,12 @@ import {Specialist} from '../models/specialist.model';
 })
 export class EmployeeServiceService {
   employees: Employee[];
-  url = 'http://localhost/api';
+  url = 'http://localhost:8080/api';
+  // url = 'http://localhost/api';
+
   jobs: Job[];
   sp: Specialist[];
+
 
   constructor(private  http: HttpClient) {
   }

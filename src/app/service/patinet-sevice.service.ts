@@ -15,8 +15,8 @@ export class PatinetSeviceService {
   quantom: Quantom[];
   patients: Patient[];
 
+  url = 'http://localhost:8080/api';
   // url = 'http://localhost/api';
-  url = 'http://localhost/api';
 
   constructor(private  http: HttpClient) {
   }
@@ -56,6 +56,7 @@ export class PatinetSeviceService {
     // return an observable with a user friendly message
     return throwError('Error! something went wrong.');
   }
+
   get_patient(): Observable<Patient[]> {
     return this.http.get(`${this.url}/get-patient`, {responseType: 'json'}).pipe(
       map((res) => {
