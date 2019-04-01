@@ -8,9 +8,7 @@ import {PatinetSeviceService} from '../../service/patinet-sevice.service';
   styleUrls: ['./patient-list.component.css']
 })
 export class PatientListComponent implements OnInit {
-  patients: Patient[];
-  error = '';
-  success = '';
+
 
   constructor(private patientservice: PatinetSeviceService) {
   }
@@ -21,17 +19,7 @@ export class PatientListComponent implements OnInit {
     //   '0598223589', '0598223589', '8908', '90909090', 'trust',
     //   'male', 'r', 'Ramallah', 'Ramallah', '96682828282');
     // this.patients.push(x);
-    this.loadpatient();
   }
 
-  private loadpatient() {
-    this.patientservice.get_patient().subscribe(
-      (res: Patient[]) => {
-        this.patients = res;
-      },
-      (err) => {
-        this.error = err;
-      }
-    );
-  }
+
 }

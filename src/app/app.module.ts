@@ -16,27 +16,41 @@ import {AppointmentsListComponent} from './admin/admin-appointments/appointments
 import {AppointmentsCreateComponent} from './admin/admin-appointments/appointments-create/appointments-create.component';
 import {PatinetSeviceService} from './service/patinet-sevice.service';
 import {HttpClientModule} from '@angular/common/http';
-import { EmployeeCreateComponent } from './admin/employee-create/employee-create.component';
-import { EmployeeListComponent } from './admin/employee-list/employee-list.component';
-import { AppointmentListComponent } from './admin/appointment-list/appointment-list.component';
-import { AppointmentCreateComponent } from './admin/appointment-create/appointment-create.component';
+import {EmployeeCreateComponent} from './admin/employee-create/employee-create.component';
+import {EmployeeListComponent} from './admin/employee-list/employee-list.component';
+import {AppointmentListComponent} from './admin/appointment-list/appointment-list.component';
+import {AppointmentCreateComponent} from './admin/appointment-create/appointment-create.component';
+
+import {AccordionModule} from 'primeng/accordion';
+import {MenuItem} from 'primeng/api';
 import {CalendarModule} from 'primeng/calendar';
+import {SchaduleGeneratorComponent} from './admin/schadule-generator/schadule-generator.component';
+import {PatientEditDetailsComponent} from './admin/patient-list/patient-edit-details/patient-edit-details.component';
+import { PatientListFullComponent } from './admin/patient-list/patient-list-full/patient-list-full.component';
 
 
 const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {
-    path: 'admin', component: AdminComponent, children: [
-      {path: 'patient-create', component: PatientCreateComponent},
-      {path: 'patient-list', component: PatientListComponent},
-      {path: 'emp-create', component: EmployeeCreateComponent},
-      {path: 'emp-list', component: EmployeeListComponent},
-      {path: 'app-create', component: AppointmentCreateComponent},
-      {path: 'app-list', component: AppointmentListComponent}
-    ]
-  },
+    {path: 'login', component: LoginComponent},
+    {
+      path: 'admin', component: AdminComponent, children: [
+        {path: 'patient-create', component: PatientCreateComponent},
+        {
+          path: 'patient-list', component: PatientListComponent, children: [
+            {path: '', component: PatientListFullComponent},
+            {path: ':id/edit', component: PatientEditDetailsComponent},
+            {path: ':id', component: PatientProfileDetailsComponent}
+          ]
+        },
+        {path: 'emp-create', component: EmployeeCreateComponent},
+        {path: 'emp-list', component: EmployeeListComponent},
+        {path: 'app-create', component: AppointmentCreateComponent},
+        {path: 'app-list', component: AppointmentListComponent},
+        {path: 'sch-list', component: SchaduleGeneratorComponent},
+        {path: 'sch-gen', component: SchaduleGeneratorComponent}
+      ]
+    },
 
-];
+  ];
 
 @NgModule({
   declarations: [
@@ -54,6 +68,9 @@ const appRoutes: Routes = [
     EmployeeListComponent,
     AppointmentListComponent,
     AppointmentCreateComponent,
+    SchaduleGeneratorComponent,
+    PatientEditDetailsComponent,
+    PatientListFullComponent,
 
   ],
   imports: [

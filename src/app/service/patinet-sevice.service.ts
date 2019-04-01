@@ -66,4 +66,9 @@ export class PatinetSeviceService {
       }),
       catchError(this.handleError));
   }
+
+  // TODO: implement this function
+  getPatientById(id: number) {
+    return undefined;
+  }
 }
