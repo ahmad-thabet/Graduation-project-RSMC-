@@ -13,6 +13,7 @@ export class PatientCreateComponent implements OnInit {
   patient = new Patient('', '', '', '', '', '',
     new Date(), '', '', '', '', '',
     '', '', '', '', '');
+
   quantom: Quantom[];
   cities: City[];
   error = '';

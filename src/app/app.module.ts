@@ -18,6 +18,10 @@ import {PatinetSeviceService} from './service/patinet-sevice.service';
 import {HttpClientModule} from '@angular/common/http';
 import { EmployeeCreateComponent } from './admin/employee-create/employee-create.component';
 import { EmployeeListComponent } from './admin/employee-list/employee-list.component';
+import { AppointmentListComponent } from './admin/appointment-list/appointment-list.component';
+import { AppointmentCreateComponent } from './admin/appointment-create/appointment-create.component';
+import {CalendarModule} from 'primeng/calendar';
+
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -26,7 +30,9 @@ const appRoutes: Routes = [
       {path: 'patient-create', component: PatientCreateComponent},
       {path: 'patient-list', component: PatientListComponent},
       {path: 'emp-create', component: EmployeeCreateComponent},
-      {path: 'emp-list', component: EmployeeListComponent}
+      {path: 'emp-list', component: EmployeeListComponent},
+      {path: 'app-create', component: AppointmentCreateComponent},
+      {path: 'app-list', component: AppointmentListComponent}
     ]
   },
 
@@ -46,6 +52,8 @@ const appRoutes: Routes = [
     AppointmentsCreateComponent,
     EmployeeCreateComponent,
     EmployeeListComponent,
+    AppointmentListComponent,
+    AppointmentCreateComponent,
 
   ],
   imports: [
@@ -53,7 +61,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    CalendarModule
   ],
   providers: [PatinetSeviceService, AuthService],
   bootstrap: [AppComponent]

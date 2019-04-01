@@ -99,7 +99,7 @@
           <label>select city</label>
           <select class="custom-select" id="city" [(ngModel)]="patient.cityID" name="city">
             <option hidden>Select city</option>
-            <option *ngFor="let x of cities" [value]="x.cityID">{{x.cityname}}</option>
+            <option *ngFor="let x of cities" [value]="x.id">{{x.cityname}}</option>
           </select>
         </div>
 

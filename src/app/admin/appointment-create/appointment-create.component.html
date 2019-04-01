@@ -1,0 +1,36 @@
+<h1>Create New Appointment</h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
+<!--
+      <p-calendar [(ngModel)]="value" [inline]="true"></p-calendar>
+-->
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <div class="input-group input-group-lg">
+          <input type="text" class="form-control" placeholder="Search">
+          <button type="button" class="btn btn-secondary">Search</button>
+        </div>
+      </div>
+      <div class="row">
+        <label for="Clinic">Select Clinic</label>
+        <select class="custom-select" id="Clinic">
+          <option selected value="1">Select Clinic</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="doctor">Select Doctor</label>
+        <select class="custom-select" id="doctor">
+          <option selected value="1">Select Doctor</option>
+        </select>
+      </div>
+      <br>
+      <div class="row">
+        <button type="button" class="btn btn-block btn-success">Submit</button>
+      </div>
+
+    </div>
+  </div>
+</div>
