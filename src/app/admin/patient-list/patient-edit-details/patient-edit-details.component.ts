@@ -37,12 +37,13 @@ export class PatientEditDetailsComponent implements OnInit {
     // this will return patient by id
     const i = this.route.params.subscribe((params: Params) => {
       this.id = +params[`id`];
-      // this.patient = this.patientService.getPatientById(this.id);
+      this.patients = this.patientService.patients;
+      this.patient = this.patients[this.id];
 
-      this.patient = new Patient('Ahmad', 'Jamal', 'Ahmad', 'Thabet',
-        'ahmad.j.thabet@gmail.com', 'pp', new Date(),
-        '0598223589', '0598223589', '8908', '90909090', 'trust',
-        'male', 'Ramallah', 'Ramallah', 'Ramallah', '96682828282');
+      /*      this.patient = new Patient('Ahmad', 'Jamal', 'Ahmad', 'Thabet',
+              'ahmad.j.thabet@gmail.com', 'pp', new Date(),
+              '0598223589', '0598223589', '8908', '90909090', 'trust',
+              'male', 'Ramallah', 'Ramallah', 'Ramallah', '96682828282');*/
     });
 
 
@@ -61,7 +62,7 @@ export class PatientEditDetailsComponent implements OnInit {
           console.log(this.success);
           // Reset the form
           f.reset();
-          this.router.navigate(['/']);
+          this.router.navigate(['../']);
         },
         (err) => this.error = err
       );
@@ -100,4 +101,7 @@ export class PatientEditDetailsComponent implements OnInit {
     );
   }
 
+  CancelEdit() {
+    this.router.navigate(['../']);
+  }
 }

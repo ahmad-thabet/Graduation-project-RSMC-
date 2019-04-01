@@ -25,11 +25,11 @@ export class PatientProfileDetailsComponent implements OnInit {
     // this will return patient by id
     const id = this.route.params.subscribe((params: Params) => {
       this.id = +params[`id`];
-      // this.patient = this.patientService.getPatientById(this.id);
-      this.patient = new Patient('Ahmad', 'Jamal', 'Ahmad', 'Thabet',
+      this.patient = this.patientService.patients[this.id];
+      /*      this.patient = new Patient('Ahmad', 'Jamal', 'Ahmad', 'Thabet',
         'ahmad.j.thabet@gmail.com', 'pp', new Date(),
         '0598223589', '0598223589', '8908', '90909090', 'trust',
-        'male', 'Ramallah', 'Ramallah', 'Ramallah', '96682828282');
+        'male', 'Ramallah', 'Ramallah', 'Ramallah', '96682828282');*/
     });
   }
 
