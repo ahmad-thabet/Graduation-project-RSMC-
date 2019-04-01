@@ -16,6 +16,7 @@ export class PatinetSeviceService {
   patients: Patient[];
 
   url = 'http://localhost:8080/api';
+
   // url = 'http://localhost/api';
 
   constructor(private  http: HttpClient) {
@@ -69,6 +70,11 @@ export class PatinetSeviceService {
 
   // TODO: implement this function
   getPatientById(id: number) {
+    return undefined;xs
+  }
+
+  // TODO: implement this function
+  UpdatePatient(patient: Patient) {
     return undefined;
   }
 }
