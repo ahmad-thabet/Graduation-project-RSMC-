@@ -30,7 +30,15 @@
         <div class="col">
           <label>personal ID</label>
           <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.personalID"
-                 name="personalID">
+                 name="personalID" >
+        </div>
+        <div class="col">
+          <div class="col">
+            <label>Confirm ID</label>
+            <input type="text" class="form-control" placeholder="Confirm personalID" [(ngModel)]="personalIDMatch"
+                   name="personalIDMatch" #p="ngModel">
+            <label style="color: red;" *ngIf="p.touched && (patient.personalID != personalIDMatch)">Double Check!!</label>
+          </div>
         </div>
         <div class="col">
           <label>Password</label>
