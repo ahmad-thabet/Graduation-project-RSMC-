@@ -44,8 +44,8 @@
         <div class="col">
           <label>Gender</label>
           <select class="custom-select" id="gender" [(ngModel)]="patient.gender" name="gender">
-            <option selected value="male">male</option>
-            <option selected value="female">female</option>
+            <option selected value="male">Male</option>
+            <option selected value="female">Female</option>
           </select>
         </div>
       </div>
@@ -70,7 +70,8 @@
       </div>
       <hr>
       <h2>Insurance</h2>
-      <div class="row">
+      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has Insurance?
+      <div class="row" *ngIf="hasInsurance">
         <div class="col">
           <label>Insurance ID</label>
           <input type="text" class="form-control" placeholder="Insurance ID" [(ngModel)]="patient.insuranceID"

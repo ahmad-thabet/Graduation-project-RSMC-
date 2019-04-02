@@ -10,6 +10,7 @@ import {PatinetSeviceService} from '../../service/patinet-sevice.service';
   styleUrls: ['./patient-create.component.css']
 })
 export class PatientCreateComponent implements OnInit {
+  // TODO: implement insurance stuff as null by default
   patient = new Patient('', '', '', '', '', '',
     new Date(), '', '', '', '', '',
     '', '', '', '', '');
@@ -19,6 +20,8 @@ export class PatientCreateComponent implements OnInit {
   error = '';
   success = '';
   patients: Patient[];
+
+  hasInsurance: false;
 
   constructor(private patinetservice: PatinetSeviceService) {
   }
