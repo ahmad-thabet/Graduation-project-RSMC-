@@ -1,3 +1,102 @@
-<p>
-  schadule-generator works!
-</p>
+<!--
+<h1>Schedule Generator</h1>
+<div class="container">
+  <form>
+    <div class="row">
+      <div class="col">
+        <ul class="list-group" style="text-align: center">
+          <li class="list-group-item">
+            <input type="checkbox"> Saturday /
+            <input type="checkbox"> Sunday /
+            <input type="checkbox"> Monday /
+            <input type="checkbox"> Tuesday /
+            <input type="checkbox"> Wednesday /
+            <input type="checkbox"> Thursday /
+            <input type="checkbox"> Friday
+          </li>
+          <li class="list-group-item">
+            From :  <input type="time"> -
+            To :  <input type="time">
+          </li>
+          <li class="list-group-item">
+            <label for="slotlength">Slot Length: </label>
+            <input type="number" value="0" min="0" step="5" id="slotlength">
+             -
+            <label for="timebetween">Time between slots: </label>
+            <input type="number" value="0" min="0" step="5" id="timebetween">
+          </li>
+          <li class="list-group-item">
+            &#45;&#45; Calendar Goes here &#45;&#45;
+          </li>
+          <li class="list-group-item">
+            <button class="btn btn-primary">Generate</button>
+            <button class="btn btn-success" type="submit">Submit</button>
+            <button class="btn btn-danger" type="reset">Clear</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+</div>
+-->
+<h1>Schedule Generator</h1>
+<div class="container" style="text-align: center;">
+  <form>
+    <div class="row">
+      <div class="col">
+        <label for="saturday">Saturday
+          <input type="checkbox" id="saturday" name="saturday"></label>
+      </div>
+      <div class="col">
+        <label for="Sunday">Sunday
+          <input type="checkbox" id="Sunday" name="Sunday"></label>
+      </div>
+      <div class="col">
+        <label for="monday">Monday
+          <input type="checkbox" id="monday" name="monday"></label>
+      </div>
+      <div class="col">
+        <label for="tuesday">Tuesday
+          <input type="checkbox" id="tuesday" name="tuesday"></label>
+      </div>
+      <div class="col">
+        <label for="wednesday">Wednesday
+          <input type="checkbox" id="wednesday" name="wednesday"></label>
+      </div>
+      <div class="col">
+        <label for="thursday">Thursday
+          <input type="checkbox" id="thursday" name="thursday"></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="fromtime">From <input type="time" id="fromtime"></label>
+      </div>
+      <div class="col">
+        <label for="totime">From <input type="time" id="totime"></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="slotlength">Slot Length: </label>
+        <input type="number" value="0" min="0" step="5" id="slotlength">
+      </div>
+      <div class="col">
+        <label for="timebetween">Time between slots: </label>
+        <input type="number" value="0" min="0" step="5" id="timebetween">
+      </div>
+    </div>
+    <div class="row">
+      Calendar Goes Here
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <button class="btn btn-primary btn-block">Generate</button>
+      </div>
+      <div class="col">
+        <button class="btn btn-success" type="submit">Submit</button>
+        <button class="btn btn-danger" type="reset">Clear</button>
+      </div>
+    </div>
+  </form>
+</div>

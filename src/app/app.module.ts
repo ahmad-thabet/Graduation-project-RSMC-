@@ -29,8 +29,11 @@ import {EmployeeListFullComponent} from './admin/employee-list/employee-list-ful
 import {EmployeeProfileDetailsComponent} from './admin/employee-list/employee-profile-details/employee-profile-details.component';
 import {AccordionModule} from 'primeng/accordion';
 import {MenuItem} from 'primeng/api';
-import { ExceptionDateComponent } from './admin/exception-date/exception-date.component';
-import { VacationDateComponent } from './admin/vacation-date/vacation-date.component';
+import {ExceptionDateComponent} from './admin/exception-date/exception-date.component';
+import {VacationDateComponent} from './admin/vacation-date/vacation-date.component';
+import {InsuranceComponent} from './admin/insurance/insurance.component';
+import {InsuranceCreateComponent} from './admin/insurance/insurance-create/insurance-create.component';
+import {InsuranceUpdateComponent} from './admin/insurance/insurance-update/insurance-update.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -57,7 +60,8 @@ const appRoutes: Routes = [
       {path: 'sch-list', component: SchaduleGeneratorComponent},
       {path: 'sch-gen', component: SchaduleGeneratorComponent},
       {path: 'exc-date', component: ExceptionDateComponent},
-      {path: 'vac-date', component: VacationDateComponent}
+      {path: 'vac-date', component: VacationDateComponent},
+      {path: 'insurance', component: InsuranceComponent}
     ]
   },
 
@@ -87,6 +91,9 @@ const appRoutes: Routes = [
     EmployeeProfileDetailsComponent,
     ExceptionDateComponent,
     VacationDateComponent,
+    InsuranceComponent,
+    InsuranceCreateComponent,
+    InsuranceUpdateComponent
 
   ],
   imports: [

@@ -30,19 +30,20 @@
         <div class="col">
           <label>personal ID</label>
           <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.personalID"
-                 name="personalID" >
+                 name="personalID">
         </div>
         <div class="col">
           <div class="col">
             <label>Confirm ID</label>
             <input type="text" class="form-control" placeholder="Confirm personalID" [(ngModel)]="personalIDMatch"
                    name="personalIDMatch" #p="ngModel">
-            <label style="color: red;" *ngIf="p.touched && (patient.personalID != personalIDMatch)">Double Check!!</label>
+            <label style="color: red;" *ngIf="p.touched && (patient.personalID != personalIDMatch)">Double
+              Check!!</label>
           </div>
         </div>
         <div class="col">
           <label>Password</label>
-          <input type="text" class="form-control" placeholder="password" [(ngModel)]="patient.password"
+          <input type="password" class="form-control" placeholder="password" [(ngModel)]="patient.password"
                  name="password">
         </div>
         <div class="col">
@@ -77,31 +78,30 @@
         </div>
       </div>
       <hr>
-<!--      <h2>Insurance</h2>
-      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has Insurance?
-      <div class="row" *ngIf="hasInsurance">
-        <div class="col">
-          <label>Insurance ID</label>
-          <input type="text" class="form-control" placeholder="Insurance ID" [(ngModel)]="patient.insuranceID"
-                 name="insuranceID">
-        </div>
-        <div class="col">
-          <label>subInsurance ID</label>
-          <input type="text" class="form-control" placeholder="subInsurance ID" [(ngModel)]="patient.subinsuranceID"
-                 name="subinsuranceID">
-        </div>
-        <div class="col">
-          <label>insurance company</label>
-          <select class="custom-select" id="insurance_compamy" [(ngModel)]="patient.insurancecompany"
-                  name="insurancecompany">
-            <option selected value="trust">Select</option>
-          </select>
-        </div>
-      </div>-->
-
-      <hr>
+      <!--      <h2>Insurance</h2>
+            <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has Insurance?
+            <div class="row" *ngIf="hasInsurance">
+              <div class="col">
+                <label>Insurance ID</label>
+                <input type="text" class="form-control" placeholder="Insurance ID" [(ngModel)]="patient.insuranceID"
+                       name="insuranceID">
+              </div>
+              <div class="col">
+                <label>subInsurance ID</label>
+                <input type="text" class="form-control" placeholder="subInsurance ID" [(ngModel)]="patient.subinsuranceID"
+                       name="subinsuranceID">
+              </div>
+              <div class="col">
+                <label>insurance company</label>
+                <select class="custom-select" id="insurance_compamy" [(ngModel)]="patient.insurancecompany"
+                        name="insurancecompany">
+                  <option selected value="trust">Select</option>
+                </select>
+              </div>
+            </div>-->
       <h2>Insurance</h2>
-      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has Insurance?
+      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has
+      Insurance?
       <div class="row" *ngIf="hasInsurance">
         <div class="col">
           <label>Insurance Number</label>
@@ -112,7 +112,6 @@
           <label>insurance company</label>
           <select class="custom-select" id="insurance_compamy" [(ngModel)]="insuranceCompanyList"
                   name="insurancecompany">
-            <option selected value="trust">Select</option>
             <option *ngFor="let x of insuranceCompanyList">{{x}}</option>
           </select>
         </div>
@@ -120,7 +119,6 @@
           <label>subInsurance Type</label>
           <select class="custom-select" id="insurance_type" [(ngModel)]="insuranceTypeList"
                   name="insurancetype">
-            <option selected value="trust">Select</option>
             <option *ngFor="let x of insuranceTypeList" value="">{{x}}</option>
           </select>
         </div>
