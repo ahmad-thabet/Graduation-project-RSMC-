@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Clinic Details</h1>
+  <h2>{{clinic.name}} § {{clinic.id}}</h2>
+  <hr>
+  <div class="row">
+    <form (submit)="add_doctorClinic(f)" #f=ngForm name="theform">
+      <div class="col">
+        <label>Select Doctor from list</label>
+        <select *ngFor="let x of AllDoctors">
+          <option [value]="[x.id]">{{x.name}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" type="submit">Add</button>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <table>
+    <thead>
+    <tr>
+      <!--TODO: Add all needed details for doctors, each in a col like following-->
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tr *ngFor="let x of doctors">
+      <td>{{x.name}}</td>
+    </tr>
+  </table>
+</div>
