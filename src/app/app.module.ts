@@ -38,6 +38,10 @@ import {ClinicComponent} from './admin/clinic/clinic.component';
 import {ClinicCreateComponent} from './admin/clinic/clinic-create/clinic-create.component';
 import {ClinicListComponent} from './admin/clinic/clinic-list/clinic-list.component';
 import {ClinicDetailsComponent} from './admin/clinic/clinic-details/clinic-details.component';
+import { SchedulerModule } from '@progress/kendo-angular-scheduler';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -116,7 +120,9 @@ const appRoutes: Routes = [
     CommonModule,
     HttpClientModule,
     CalendarModule,
-    CommonModule
+    CommonModule,
+    SchedulerModule,
+    BrowserAnimationsModule
   ],
   providers: [PatinetSeviceService, AuthService],
   bootstrap: [AppComponent]

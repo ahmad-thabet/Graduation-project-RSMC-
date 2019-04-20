@@ -78,27 +78,6 @@
         </div>
       </div>
       <hr>
-      <!--      <h2>Insurance</h2>
-            <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has Insurance?
-            <div class="row" *ngIf="hasInsurance">
-              <div class="col">
-                <label>Insurance ID</label>
-                <input type="text" class="form-control" placeholder="Insurance ID" [(ngModel)]="patient.insuranceID"
-                       name="insuranceID">
-              </div>
-              <div class="col">
-                <label>subInsurance ID</label>
-                <input type="text" class="form-control" placeholder="subInsurance ID" [(ngModel)]="patient.subinsuranceID"
-                       name="subinsuranceID">
-              </div>
-              <div class="col">
-                <label>insurance company</label>
-                <select class="custom-select" id="insurance_compamy" [(ngModel)]="patient.insurancecompany"
-                        name="insurancecompany">
-                  <option selected value="trust">Select</option>
-                </select>
-              </div>
-            </div>-->
       <h2>Insurance</h2>
       <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has
       Insurance?
@@ -122,9 +101,18 @@
             <option *ngFor="let x of insuranceTypeList" value="">{{x}}</option>
           </select>
         </div>
-
       </div>
-
+      <hr>
+      <h2>Parent</h2>
+      <input type="checkbox" name="hasParent" value="hasParent" id="hasParent" [(ngModel)]="hasParent"> Has
+      Parent?
+      <div class="row" *ngIf="hasParent">
+        <div class="col">
+          <label>Parent ID</label>
+          <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="parentID"
+                 name="parentID">
+        </div>
+      </div>
       <hr>
       <h2>Address</h2>
       <div class="row">
@@ -135,7 +123,6 @@
             <option *ngFor="let x of cities" [value]="x.cityID">{{x.cityname}}</option>
           </select>
         </div>
-
         <div class="col">
           <label>select quantum</label>
           <select class="custom-select" id="quantum" [(ngModel)]="patient.qID" name="quantom">
@@ -155,132 +142,3 @@
     </form>
   </div>
 </div>
-
-<!--
-<h1>Add Patient</h1>
-<hr size="30">
-<div class="row justify-content-around">
-  <div class="col-md-10">
-    <form #f="ngForm" (submit)="add_patient(f)" name="theform">
-      <div class="row">
-        <div class="col-md-6">
-          <label>First name</label>
-          <input type="text" class="form-control" placeholder="First name" [(ngModel)]="patient.firstname"
-                 name="firstname">
-        </div>
-        <div class="col-md-6">
-          <label>Second name</label>
-          <input type="text" class="form-control" placeholder="Second name" [(ngModel)]="patient.secondname"
-                 name="secondname">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <label>Third name</label>
-          <input type="text" class="form-control" placeholder="third name" [(ngModel)]="patient.thirdname"
-                 name="thirdname">
-        </div>
-        <div class="col-md-6">
-          <label>Last name</label>
-          <input type="text" class="form-control" placeholder="Last name" [(ngModel)]="patient.lastname"
-                 name="lastname">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <label>personal ID</label>
-          <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.personalID"
-                 name="personalID">
-        </div>
-        <div class="col-md-6">
-          <label>Password</label>
-          <input type="text" class="form-control" placeholder="password" [(ngModel)]="patient.password"
-                 name="password">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <label>Date of birth</label>
-          <input type="date" class="form-control" placeholder="" [(ngModel)]="patient.dateofbirth" name="dateofbirth">
-        </div>
-        <div class="col-md-6">
-          <label>Gender</label>
-          <select class="custom-select" id="gender" [(ngModel)]="patient.gender" name="gender">
-            <option selected value="male">male</option>
-            <option selected value="female">female</option>
-
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <label>Insurance ID</label>
-          <input type="text" class="form-control" placeholder="Insurance ID" [(ngModel)]="patient.insuranceID"
-                 name="insuranceID">
-        </div>
-        <div class="col-md-6">
-          <label>subInsurance ID</label>
-          <input type="text" class="form-control" placeholder="subInsurance ID" [(ngModel)]="patient.subinsuranceID"
-                 name="subinsuranceID">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <label>insurance company</label>
-          <select class="custom-select" id="insurance_compamy" [(ngModel)]="patient.insurancecompany"
-                  name="insurancecompany">
-            <option selected value="trust">Select</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label>Email</label>
-          <input type="email" class="form-control" placeholder="example@example.com" [(ngModel)]="patient.email"
-                 name="email">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <label>Phone number</label>
-          <input type="text" class="form-control" placeholder="phone number" [(ngModel)]="patient.phonenumber"
-                 name="phonenumber">
-        </div>
-        <div class="col-md-6">
-          <label>mobile number</label>
-          <input type="text" class="form-control" placeholder="mobile number" [(ngModel)]="patient.mobilenumber"
-                 name="mobilenumber">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <label>select city</label>
-          <select class="custom-select" id="city" [(ngModel)]="patient.cityID" name="city">
-            <option hidden>Select city</option>
-            <option *ngFor="let x of cities" [value]="x.cityID">{{x.cityname}}</option>
-          </select>
-        </div>
-
-        <div class="col-md-6">
-          <label>select quantum</label>
-          <select class="custom-select" id="quantum" [(ngModel)]="patient.qID" name="quantom">
-            <option hidden>Select quantum</option>
-            <option *ngFor="let x of quantom" [value]="x.qID">{{x.qname}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <label> Addresses</label>
-          <input type="text" class="form-control" placeholder="address" [(ngModel)]="patient.address" name="address">
-        </div>
-      </div>
-      <hr>
-      <div class="row" style="margin-bottom: 50px;">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
-      </div>
-    </form>
-  </div>
-</div>
--->

@@ -70,7 +70,8 @@
       </div>
       <hr>
       <h2>Insurance</h2>
-      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has Insurance?
+      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has
+      Insurance?
       <div class="row" *ngIf="hasInsurance">
         <div class="col">
           <label>Insurance Number</label>
@@ -92,6 +93,17 @@
             <option selected value="trust">Select</option>
             <option *ngFor="let x of insuranceTypeList" value="">{{x}}</option>
           </select>
+        </div>
+      </div>
+      <hr>
+      <h2>Parent</h2>
+      <input type="checkbox" name="hasParent" value="hasParent" id="hasParent" [(ngModel)]="hasParent"> Has
+      Parent?
+      <div class="row" *ngIf="hasParent">
+        <div class="col">
+          <label>Parent ID</label>
+          <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="parentID"
+                 name="parentID">
         </div>
       </div>
       <hr>

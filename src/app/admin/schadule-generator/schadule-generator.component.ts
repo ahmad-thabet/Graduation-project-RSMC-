@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SchedulerEvent} from '@progress/kendo-angular-scheduler';
+import {displayDate, sampleData} from './events-utc';
 
 @Component({
   selector: 'app-schadule-generator',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SchaduleGeneratorComponent implements OnInit {
 
-  constructor() { }
+  public selectedDate: Date = displayDate;
+  public events: SchedulerEvent[] = sampleData;
+
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
