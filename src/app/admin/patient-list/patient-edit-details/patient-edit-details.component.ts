@@ -24,6 +24,13 @@ export class PatientEditDetailsComponent implements OnInit {
   patients: Patient[];
   id: number;
 
+  insuranceCompanyList: [];
+  insuranceTypeList: [];
+
+  hasParent: boolean;
+  hasInsurance: boolean;
+
+
   constructor(private patientService: PatinetSeviceService,
               public route: ActivatedRoute,
               public router: Router) {

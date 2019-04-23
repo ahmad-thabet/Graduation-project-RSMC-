@@ -22,6 +22,11 @@ export class PatientCreateComponent implements OnInit {
   patients: Patient[];
 
   hasInsurance: false;
+  hasParent: false;
+  personalIDMatch: any;
+
+  insuranceCompanyList: [];
+  insuranceTypeList: [];
 
   constructor(private patinetservice: PatinetSeviceService) {
   }

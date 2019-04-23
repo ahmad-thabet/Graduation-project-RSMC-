@@ -29,6 +29,19 @@ import {EmployeeListFullComponent} from './admin/employee-list/employee-list-ful
 import {EmployeeProfileDetailsComponent} from './admin/employee-list/employee-profile-details/employee-profile-details.component';
 import {AccordionModule} from 'primeng/accordion';
 import {MenuItem} from 'primeng/api';
+import {ExceptionDateComponent} from './admin/exception-date/exception-date.component';
+import {VacationDateComponent} from './admin/vacation-date/vacation-date.component';
+import {InsuranceComponent} from './admin/insurance/insurance.component';
+import {InsuranceCreateComponent} from './admin/insurance/insurance-create/insurance-create.component';
+import {InsuranceUpdateComponent} from './admin/insurance/insurance-update/insurance-update.component';
+import {ClinicComponent} from './admin/clinic/clinic.component';
+import {ClinicCreateComponent} from './admin/clinic/clinic-create/clinic-create.component';
+import {ClinicListComponent} from './admin/clinic/clinic-list/clinic-list.component';
+import {ClinicDetailsComponent} from './admin/clinic/clinic-details/clinic-details.component';
+import { SchedulerModule } from '@progress/kendo-angular-scheduler';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -53,7 +66,15 @@ const appRoutes: Routes = [
       {path: 'app-create', component: AppointmentCreateComponent},
       {path: 'app-list', component: AppointmentListComponent},
       {path: 'sch-list', component: SchaduleGeneratorComponent},
-      {path: 'sch-gen', component: SchaduleGeneratorComponent}
+      {path: 'sch-gen', component: SchaduleGeneratorComponent},
+      {path: 'exc-date', component: ExceptionDateComponent},
+      {path: 'vac-date', component: VacationDateComponent},
+      {path: 'insurance', component: InsuranceComponent},
+      {
+        path: 'clinics', component: ClinicComponent, children: [
+          {path: ':id', component: ClinicDetailsComponent}
+        ]
+      }
     ]
   },
 
@@ -81,6 +102,15 @@ const appRoutes: Routes = [
     EmployeeEditDetailsComponent,
     EmployeeListFullComponent,
     EmployeeProfileDetailsComponent,
+    ExceptionDateComponent,
+    VacationDateComponent,
+    InsuranceComponent,
+    InsuranceCreateComponent,
+    InsuranceUpdateComponent,
+    ClinicComponent,
+    ClinicCreateComponent,
+    ClinicListComponent,
+    ClinicDetailsComponent
 
   ],
   imports: [
@@ -89,7 +119,10 @@ const appRoutes: Routes = [
     FormsModule,
     CommonModule,
     HttpClientModule,
-    CalendarModule
+    CalendarModule,
+    CommonModule,
+    SchedulerModule,
+    BrowserAnimationsModule
   ],
   providers: [PatinetSeviceService, AuthService],
   bootstrap: [AppComponent]

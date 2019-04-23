@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-<hr>
+<h1>Clinics List</h1>
 <div class="container">
   <div class="row">
     <div class="col-6">
@@ -30,41 +30,21 @@
             <table class="table user-list">
               <thead>
               <tr>
+                <th><span>Clinic ID</span></th>
                 <th><span>Name</span></th>
-                <th><span>ID</span></th>
-                <th><span>Email</span></th>
-                <th><span>Phone Number</span></th>
-                <th><span>Mobile Number</span></th>
-                <th><span>Date Of Birth</span></th>
-                <th><span>Insurance CO.</span></th>
-                <th><span>&nbsp;</span></th>
                 <th>&nbsp;</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let patient of patients; let i = index">
-                <td>
-                  <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
-                  {{patient.firstname}} {{patient.lastname}}
-                </td>
-                <td>{{patient.personalID}}</td>
-                <td>{{patient.email}}</td>
-                <td>{{patient.phonenumber}}</td>
-                <td>{{patient.mobilenumber}}</td>
-                <td>{{patient.dateofbirth}}</td>
-                <td>{{patient.insurancecompany}}</td>
+              <tr *ngFor="let x of clinics; let i = index">
+                <td>{{x.id}}</td>
+                <td>{{x.name}}</td>
                 <td>
                   <a [routerLink]="[i]" class="table-link">
                     <span class="fa-stack">
                       <i class="fa fa-square fa-stack-2x"></i>
                       <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
                     </span>
-                  </a>
-                  <a [routerLink]="[i,'edit']" class="table-link">
-                     <span class="fa-stack">
-                       <i class="fa fa-square fa-stack-2x"></i>
-                       <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                     </span>
                   </a>
                 </td>
               </tr>

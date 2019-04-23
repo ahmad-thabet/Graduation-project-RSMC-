@@ -1,9 +1,11 @@
 <h1>Create New Appointment</h1>
 <div class="container">
   <div class="row">
-    <div class="col">
-      <p-calendar [(ngModel)]="value" [inline]="true"></p-calendar>
-    </div>
+    <!--
+        <div class="col">
+          <p-calendar [(ngModel)]="value" [inline]="true"></p-calendar>
+        </div>
+    -->
 
     <div class="col">
       <div class="row">
@@ -26,9 +28,32 @@
       </div>
       <br>
       <div class="row">
+        <hr>
+        <kendo-scheduler [kendoSchedulerBinding]="events"
+                         [selectedDate]="selectedDate"
+                         startTime="07:00"
+                         style="height: 600px;">
+          <kendo-scheduler-day-view>
+          </kendo-scheduler-day-view>
+
+          <kendo-scheduler-week-view>
+          </kendo-scheduler-week-view>
+
+          <kendo-scheduler-month-view>
+          </kendo-scheduler-month-view>
+
+          <kendo-scheduler-timeline-view>
+          </kendo-scheduler-timeline-view>
+
+          <kendo-scheduler-agenda-view>
+          </kendo-scheduler-agenda-view>
+        </kendo-scheduler>
+
+        <hr>
+      </div>
+      <div class="row" style="margin-bottom: 30px;">
         <button type="button" class="btn btn-block btn-success">Submit</button>
       </div>
-
     </div>
   </div>
 </div>

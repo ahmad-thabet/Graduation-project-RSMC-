@@ -70,24 +70,40 @@
       </div>
       <hr>
       <h2>Insurance</h2>
-      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has Insurance?
+      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has
+      Insurance?
       <div class="row" *ngIf="hasInsurance">
         <div class="col">
-          <label>Insurance ID</label>
-          <input type="text" class="form-control" placeholder="Insurance ID" [(ngModel)]="patient.insuranceID"
+          <label>Insurance Number</label>
+          <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="patient.insuranceID"
                  name="insuranceID">
         </div>
         <div class="col">
-          <label>subInsurance ID</label>
-          <input type="text" class="form-control" placeholder="subInsurance ID" [(ngModel)]="patient.subinsuranceID"
-                 name="subinsuranceID">
-        </div>
-        <div class="col">
           <label>insurance company</label>
-          <select class="custom-select" id="insurance_compamy" [(ngModel)]="patient.insurancecompany"
+          <select class="custom-select" id="insurance_compamy" [(ngModel)]="insuranceCompanyList"
                   name="insurancecompany">
             <option selected value="trust">Select</option>
+            <option *ngFor="let x of insuranceCompanyList">{{x}}</option>
           </select>
+        </div>
+        <div class="col">
+          <label>subInsurance Type</label>
+          <select class="custom-select" id="insurance_type" [(ngModel)]="insuranceTypeList"
+                  name="insurancetype">
+            <option selected value="trust">Select</option>
+            <option *ngFor="let x of insuranceTypeList" value="">{{x}}</option>
+          </select>
+        </div>
+      </div>
+      <hr>
+      <h2>Parent</h2>
+      <input type="checkbox" name="hasParent" value="hasParent" id="hasParent" [(ngModel)]="hasParent"> Has
+      Parent?
+      <div class="row" *ngIf="hasParent">
+        <div class="col">
+          <label>Parent ID</label>
+          <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="parentID"
+                 name="parentID">
         </div>
       </div>
       <hr>
