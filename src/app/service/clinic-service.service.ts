@@ -3,10 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
-import {Employee} from '../models/employee.model';
-import {Job} from '../models/job.model';
-import {Specialist} from '../models/specialist.model';
-import {Clinic} from "../models/clinic.model";
+import {Clinic} from '../models/clinic.model';
 
 @Injectable({
   providedIn: 'root'
