@@ -38,9 +38,14 @@ import {ClinicComponent} from './admin/clinic/clinic.component';
 import {ClinicCreateComponent} from './admin/clinic/clinic-create/clinic-create.component';
 import {ClinicListComponent} from './admin/clinic/clinic-list/clinic-list.component';
 import {ClinicDetailsComponent} from './admin/clinic/clinic-details/clinic-details.component';
-import { SchedulerModule } from '@progress/kendo-angular-scheduler';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {SchedulerModule} from '@progress/kendo-angular-scheduler';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DoctorComponent} from './doctor/doctor.component';
+import {DoctorMenuComponent} from './doctor/doctor-menu/doctor-menu.component';
+import {DoctorScheduleComponent} from './doctor/doctor-schedule/doctor-schedule.component';
+import {DoctorVacationComponent} from './doctor/doctor-vacation/doctor-vacation.component';
+import {DoctorExceptionComponent} from './doctor/doctor-exception/doctor-exception.component';
+import {DoctorServiceService} from './service/doctor-service.service';
 
 
 const appRoutes: Routes = [
@@ -77,6 +82,13 @@ const appRoutes: Routes = [
       }
     ]
   },
+  {
+    path: 'doctor', component: DoctorComponent, children: [
+      {path: 'schedule', component: DoctorScheduleComponent},
+      {path: 'vacation', component: DoctorVacationComponent},
+      {path: 'exception', component: DoctorExceptionComponent}
+    ]
+  },
 
 ];
 
@@ -110,7 +122,12 @@ const appRoutes: Routes = [
     ClinicComponent,
     ClinicCreateComponent,
     ClinicListComponent,
-    ClinicDetailsComponent
+    ClinicDetailsComponent,
+    DoctorComponent,
+    DoctorMenuComponent,
+    DoctorScheduleComponent,
+    DoctorVacationComponent,
+    DoctorExceptionComponent
 
   ],
   imports: [
@@ -124,7 +141,7 @@ const appRoutes: Routes = [
     SchedulerModule,
     BrowserAnimationsModule
   ],
-  providers: [PatinetSeviceService, AuthService],
+  providers: [PatinetSeviceService, AuthService, DoctorServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
