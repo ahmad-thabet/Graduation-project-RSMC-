@@ -2,22 +2,22 @@
   <h1>Request Vacation Day</h1>
   <form #f="ngForm" (submit)="add_vacation(f)" name="theform">
     <div class="row">
-      <label for="date">Select Date: </label>
-      <input type="date" id="date" name="date" [(ngModel)]="selectedDate">
-    </div>
-    <div class="row">
+      <div class="col">
+        <label for="date">Select Date: </label>
+        <input type="date" id="date" name="date" [(ngModel)]="selectedDate" class="form-control">
+      </div>
       <div class="col">
         <label for="fromtime">From: </label>
-        <input type="time" id="fromtime" name="fromtime" [(ngModel)]="fromtime">
+        <input type="time" id="fromtime" name="fromtime" [(ngModel)]="fromtime" class="form-control">
       </div>
       <div class="col">
         <label for="totime">To: </label>
-        <input type="time" id="totime" name="totime" [(ngModel)]="totime">
+        <input type="time" id="totime" name="totime" [(ngModel)]="totime" class="form-control">
       </div>
     </div>
     <div class="row">
       <label for="notes">Notes: </label>
-      <input type="text" id="notes" name="notes" [(ngModel)]="notes">
+      <input type="text" id="notes" name="notes" [(ngModel)]="notes" class="form-control">
     </div>
     <br>
     <div class="row" style="margin-bottom: 50px;">
