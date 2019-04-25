@@ -33,7 +33,7 @@ import {ClinicDetailsComponent} from './admin/clinic/clinic-details/clinic-detai
 import {SchedulerModule} from '@progress/kendo-angular-scheduler';
 import {PatientComponent} from './patient/patient.component';
 import {PatientMenuComponent} from './patient/patient-menu/patient-menu.component';
-import {AddAppointmentComponent} from './patient/add-appointment/add-appointment.component';
+import {AddAppointmentComponent} from './patient/add-view-appointments/add-appointment.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {NgModule} from '@angular/core';
@@ -84,7 +84,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'patient', component: PatientComponent, children: [
-      {path: 'add-appointment', component: AddAppointmentComponent},
+      {path: 'add-view-appointments', component: AddAppointmentComponent},
 
     ]
   }
