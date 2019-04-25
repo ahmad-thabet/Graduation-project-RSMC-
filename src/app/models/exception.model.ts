@@ -4,22 +4,25 @@ export class Exception {
   public clinicID: number;
   public empID: number;
   public edate: Date;
-  public start: Time;
-  public end: Time;
+  public start: string;
+  public end: string;
   public note: string;
+  public status: boolean;
 
   constructor(clinicID: number,
               empID: number,
               edate: Date,
-              start: Time,
-              end: Time,
-              note: string) {
+              start: string,
+              end: string,
+              note: string,
+              status: boolean) {
     this.clinicID = clinicID;
     this.empID = empID;
     this.edate = edate;
     this.start = start;
     this.end = end;
     this.note = note;
+    this.status = status;
 
   }
 

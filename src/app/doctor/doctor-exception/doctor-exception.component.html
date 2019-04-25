@@ -4,20 +4,20 @@
     <div class="row">
       <div class="col">
         <label for="date">Select Date: </label>
-        <input type="date" id="date" name="date" [(ngModel)]="selectedDate" class="form-control">
+        <input type="date" id="date" name="date" [(ngModel)]="exception.edate" class="form-control">
       </div>
       <div class="col">
         <label for="fromtime">From: </label>
-        <input type="time" id="fromtime" name="fromtime" [(ngModel)]="fromtime" class="form-control">
+        <input type="time" id="fromtime" name="fromtime" [(ngModel)]="exception.start" class="form-control">
       </div>
       <div class="col">
         <label for="totime">To: </label>
-        <input type="time" id="totime" name="totime" [(ngModel)]="totime" class="form-control">
+        <input type="time" id="totime" name="totime" [(ngModel)]="exception.end" class="form-control">
       </div>
     </div>
     <div class="row">
       <label for="notes">Notes: </label>
-      <input type="text" id="notes" name="notes" [(ngModel)]="notes" class="form-control">
+      <input type="text" id="notes" name="notes" [(ngModel)]="exception.note" class="form-control">
     </div>
     <br>
     <div class="row" style="margin-bottom: 50px;">

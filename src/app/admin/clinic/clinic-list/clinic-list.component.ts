@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
 import {Clinic} from '../../../models/clinic.model';
+import {ClinicServiceService} from '../../../service/clinic-service.service';
 
 
 @Component({
@@ -9,11 +10,13 @@ import {Clinic} from '../../../models/clinic.model';
   styleUrls: ['./clinic-list.component.css']
 })
 export class ClinicListComponent implements OnInit {
-  clinics: Clinic[];
+  clinic = new Clinic('', 0);
+
+  clinics: Clinic[] = [];
   error = '';
   success = '';
 
-  constructor(private patientService: PatinetSeviceService) {
+  constructor(private clinicService: ClinicServiceService) {
   }
 
   ngOnInit() {
@@ -21,9 +24,10 @@ export class ClinicListComponent implements OnInit {
   }
 
   private loadClinics() {
-    this.patientService.get_clinics().subscribe(
+    this.clinicService.get_clinic().subscribe(
       (res: Clinic[]) => {
         this.clinics = res;
+        console.log(res);
       },
       (err) => {
         this.error = err;
