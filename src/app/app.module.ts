@@ -33,7 +33,6 @@ import {ClinicDetailsComponent} from './admin/clinic/clinic-details/clinic-detai
 import {SchedulerModule} from '@progress/kendo-angular-scheduler';
 import {PatientComponent} from './patient/patient.component';
 import {PatientMenuComponent} from './patient/patient-menu/patient-menu.component';
-import {AddAppointmentComponent} from './patient/add-appointment/add-appointment.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {NgModule} from '@angular/core';
@@ -46,6 +45,10 @@ import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import 'flatpickr/dist/flatpickr.css';
+import {ProfileComponent} from './patient/profile/profile.component';
+import {NgxFileHelpersModule} from 'ngx-file-helpers';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {DlDateTimeDateModule, DlDateTimePickerModule} from 'angular-bootstrap-datetimepicker';
 import {DoctorComponent} from './doctor/doctor.component';
 import {DoctorMenuComponent} from './doctor/doctor-menu/doctor-menu.component';
@@ -55,6 +58,7 @@ import {DoctorExceptionComponent} from './doctor/doctor-exception/doctor-excepti
 import {DoctorServiceService} from './service/doctor-service.service';
 import {ReceptionComponent} from './reception/reception.component';
 import {ReceptionMenuComponent} from './reception/reception-menu/reception-menu.component';
+import {AddAppointmentComponent} from './patient/add-view-appointments/add-appointment.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -92,7 +96,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'patient', component: PatientComponent, children: [
-      {path: 'add-appointment', component: AddAppointmentComponent},
+      {path: 'add-view-appointments', component: AddAppointmentComponent},
+      {path: 'profile', component: ProfileComponent},
 
     ]
   },
@@ -143,6 +148,7 @@ const appRoutes: Routes = [
     PatientComponent,
     PatientMenuComponent,
     AddAppointmentComponent,
+    ProfileComponent,
     DoctorComponent,
     DoctorMenuComponent,
     DoctorScheduleComponent,
@@ -167,6 +173,9 @@ const appRoutes: Routes = [
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    NgxFileHelpersModule,
+    MatFormFieldModule,
+    MatInputModule,
     DlDateTimeDateModule,
     DlDateTimePickerModule,
   ],
@@ -174,6 +183,5 @@ const appRoutes: Routes = [
   providers: [PatinetSeviceService, AuthService, DoctorServiceService, FormsModule],
   bootstrap: [AppComponent]
 })
-
 export class AppModule {
 }

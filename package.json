@@ -55,6 +55,7 @@
     "jquery": "^3.4.0",
     "moment": "^2.24.0",
     "ng-material-datetimepicker": "^1.18.3",
+    "ngx-file-helpers": "^2.0.0",
     "open-iconic": "^1.1.1",
     "popper": "^1.0.1",
     "popper.js": "^1.14.7",

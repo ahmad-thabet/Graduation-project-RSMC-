@@ -1,11 +1,11 @@
 export class Clinic {
-  public name: string;
-  public id: number;
+  public clinicname: string;
+  public clinicID: number;
 
-  constructor(name: string,
-              id: number) {
-    this.name = name;
-    this.id = id;
+  constructor(clinicname: string,
+              clinicID: number) {
+    this.clinicname = clinicname;
+    this.clinicID = clinicID;
   }
 
 }

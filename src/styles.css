@@ -3,6 +3,8 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~open-iconic/font/css/open-iconic-bootstrap.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 body {
   /*
   background-image: url("https://www.incomeactivator.com/images/freebg1.jpg");

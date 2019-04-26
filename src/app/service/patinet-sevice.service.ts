@@ -17,9 +17,9 @@ export class PatinetSeviceService {
   patients: Patient[];
   clinics: Clinic[];
 
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
-  // url = 'http://localhost/api';
+   url = 'http://localhost/api';
 
   constructor(private  http: HttpClient) {
   }

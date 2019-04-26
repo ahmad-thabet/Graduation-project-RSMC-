@@ -53,6 +53,4 @@ export class Patient {
     this.qID = qID;
     this.personalID = personalID;
   }
-
-
 }

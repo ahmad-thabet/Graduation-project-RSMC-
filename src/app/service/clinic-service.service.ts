@@ -27,7 +27,7 @@ export class ClinicServiceService {
     return this.http.get(`${this.url}/get-clinic`, {responseType: 'json'}).pipe(
       map((res) => {
         this.clinics = res[`data`];
-        console.log(this.clinics);
+        // console.log(this.clinics);
         return this.clinics;
       }),
       catchError(this.handleError));
