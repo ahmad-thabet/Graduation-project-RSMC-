@@ -147,5 +147,10 @@
       }
     }
   },
-  "defaultProject": "Fronend-NEW"
+  "defaultProject": "Fronend-NEW",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

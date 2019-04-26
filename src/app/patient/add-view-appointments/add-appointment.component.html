@@ -57,7 +57,7 @@
     </div>
   </div>
 </div>
-<br />
+<br/>
 <div [ngSwitch]="view">
   <mwl-calendar-month-view
     *ngSwitchCase="CalendarView.Month"
@@ -90,9 +90,7 @@
   </mwl-calendar-day-view>
 </div>
 
-<!-- Everything you see below is just for the demo, you don't need to include it in your app -->
-
-<br /><br /><br />
+<br/><br/><br/>
 
 <h3>
   Edit Appointments
@@ -140,24 +138,34 @@
         />
       </td>
       <td>
-        <dl-date-time-picker
-          startView="day"
-          maxView="year"
-          minView="minute"
-          minuteStep="5"
+        <input
+          class="form-control"
+          type="text"
+          mwlFlatpickr
           [(ngModel)]="event.start"
-        >
-        </dl-date-time-picker>
+          (ngModelChange)="refresh.next()"
+          [altInput]="true"
+          [convertModelValue]="true"
+          [enableTime]="true"
+          dateFormat="Y-m-dTH:i"
+          altFormat="F j, Y H:i"
+          placeholder="Not set"
+        />
       </td>
       <td>
-        <dl-date-time-picker
-          startView="day"
-          maxView="year"
-          minView="minute"
-          minuteStep="5"
+        <input
+          class="form-control"
+          type="text"
+          mwlFlatpickr
           [(ngModel)]="event.end"
-        >
-        </dl-date-time-picker>
+          (ngModelChange)="refresh.next()"
+          [altInput]="true"
+          [convertModelValue]="true"
+          [enableTime]="true"
+          dateFormat="Y-m-dTH:i"
+          altFormat="F j, Y H:i"
+          placeholder="Not set"
+        />
       </td>
       <td>
         <button class="btn btn-danger" (click)="deleteEvent(event)">

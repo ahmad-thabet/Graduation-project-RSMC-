@@ -1,0 +1,86 @@
+<div class="row">
+
+  <div class="col-lg-3">
+    <img class="rounded-circle profile-img" [src]="src" height="150" width="150" alt="User Profile"/>
+    <h3>{{getFullName() | uppercase}}</h3>
+    <button type="button" ngxFilePicker accept="image/*"
+            (filePick)='onFilePicked($event)' mat-button class="btn btn-dark">Edit Profile Picture
+    </button>
+  </div>
+  <div class="col-lg-4">
+    <form [formGroup]="myFormGroup">
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="personalID" matInput placeholder="Personal ID"
+                   [(ngModel)]="user.personalID">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="name" matInput placeholder="First Name"
+                   [(ngModel)]="user.firstname">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="secondName" matInput placeholder="Second Name"
+                   [(ngModel)]="user.secondname">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="thirdName" matInput placeholder="Third Name"
+                   [(ngModel)]="user.thirdname">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="lastName" matInput placeholder="Last Name"
+                   [(ngModel)]="user.lastname">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="gender" matInput placeholder="Gender"
+                   [(ngModel)]="user.gender">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="address" matInput placeholder="Address"
+                   [(ngModel)]="user.address">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="email" matInput placeholder="Email" [(ngModel)]="user.email">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="phonenumber" matInput placeholder="Phone No."
+                   [(ngModel)]="user.phonenumber">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="insurancecompany" matInput placeholder="Insurance Company"
+                   [(ngModel)]="user.insurancecompany">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input [readonly]="disable" formControlName="insuranceID" matInput placeholder="Insurance ID"
+                   [(ngModel)]="user.insuranceID">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col button">
+    <button (click)="makeEditable()" class="btn editButton mat-button btn-dark">Edit</button>
+  </div>
+</div>
