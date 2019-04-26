@@ -46,14 +46,15 @@ import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import 'flatpickr/dist/flatpickr.css';
-import {DlDateTimeDateModule, DlDateTimePickerModule} from "angular-bootstrap-datetimepicker";
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DlDateTimeDateModule, DlDateTimePickerModule} from 'angular-bootstrap-datetimepicker';
 import {DoctorComponent} from './doctor/doctor.component';
 import {DoctorMenuComponent} from './doctor/doctor-menu/doctor-menu.component';
 import {DoctorScheduleComponent} from './doctor/doctor-schedule/doctor-schedule.component';
 import {DoctorVacationComponent} from './doctor/doctor-vacation/doctor-vacation.component';
 import {DoctorExceptionComponent} from './doctor/doctor-exception/doctor-exception.component';
 import {DoctorServiceService} from './service/doctor-service.service';
+import {ReceptionComponent} from './reception/reception.component';
+import {ReceptionMenuComponent} from './reception/reception-menu/reception-menu.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -96,12 +97,14 @@ const appRoutes: Routes = [
     ]
   },
   {
-      path: 'doctor', component: DoctorComponent, children: [
+    path: 'doctor', component: DoctorComponent, children: [
       {path: 'schedule', component: DoctorScheduleComponent},
       {path: 'vacation', component: DoctorVacationComponent},
-      {path: 'exception', component: DoctorExceptionComponent}}
-
+      {path: 'exception', component: DoctorExceptionComponent}
     ]
+  },
+  {
+    path: 'reception', component: ReceptionComponent, children: []
   }
 ];
 
@@ -139,12 +142,14 @@ const appRoutes: Routes = [
     ClinicDetailsComponent,
     PatientComponent,
     PatientMenuComponent,
-    AddAppointmentComponent
+    AddAppointmentComponent,
     DoctorComponent,
     DoctorMenuComponent,
     DoctorScheduleComponent,
     DoctorVacationComponent,
-    DoctorExceptionComponent
+    DoctorExceptionComponent,
+    ReceptionComponent,
+    ReceptionMenuComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -162,12 +167,13 @@ const appRoutes: Routes = [
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
-    DlDateTimeDateModule,  // <--- Determines the data type of the model
+    DlDateTimeDateModule,
     DlDateTimePickerModule,
   ],
   exports: [AddAppointmentComponent],
-  providers: [PatinetSeviceService, AuthService, DoctorServiceService,FormsModule],
+  providers: [PatinetSeviceService, AuthService, DoctorServiceService, FormsModule],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

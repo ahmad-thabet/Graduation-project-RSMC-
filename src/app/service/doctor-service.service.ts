@@ -15,8 +15,8 @@ export class DoctorServiceService {
   }
 
   url = 'http://localhost/api';
-  vac = Vacation[];
-  exc = Exception[];
+  vac: Vacation[];
+  exc: Exception[];
 
   private handleError(error: HttpErrorResponse) {
     console.log(error);

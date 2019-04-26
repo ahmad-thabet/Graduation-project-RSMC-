@@ -3,6 +3,7 @@ import {endOfDay, isSameDay, isSameMonth, startOfDay} from 'date-fns';
 import {Subject} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
+
 const colors: any = {
   red: {
     primary: '#ad2121',
