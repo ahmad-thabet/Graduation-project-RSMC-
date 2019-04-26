@@ -46,7 +46,10 @@ import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import 'flatpickr/dist/flatpickr.css';
-import {DlDateTimeDateModule, DlDateTimePickerModule} from "angular-bootstrap-datetimepicker";
+import {ProfileComponent} from './patient/profile/profile.component';
+import { NgxFileHelpersModule } from 'ngx-file-helpers';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -85,6 +88,7 @@ const appRoutes: Routes = [
   {
     path: 'patient', component: PatientComponent, children: [
       {path: 'add-view-appointments', component: AddAppointmentComponent},
+      {path: 'profile', component: ProfileComponent},
 
     ]
   }
@@ -124,7 +128,8 @@ const appRoutes: Routes = [
     ClinicDetailsComponent,
     PatientComponent,
     PatientMenuComponent,
-    AddAppointmentComponent
+    AddAppointmentComponent,
+    ProfileComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -142,8 +147,9 @@ const appRoutes: Routes = [
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
-    DlDateTimeDateModule,  // <--- Determines the data type of the model
-    DlDateTimePickerModule,
+    NgxFileHelpersModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [AddAppointmentComponent],
   providers: [PatinetSeviceService, AuthService, FormsModule],
