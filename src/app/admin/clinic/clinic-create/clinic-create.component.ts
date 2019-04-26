@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
+import {ClinicServiceService} from '../../../service/clinic-service.service';
+import {Clinic} from '../../../models/clinic.model';
 
 @Component({
   selector: 'app-clinic-create',
@@ -8,22 +10,22 @@ import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
 })
 export class ClinicCreateComponent implements OnInit {
   clinics = [];
-  clinic = '';
+  clinic = new Clinic('', 0);
 
   error = '';
   success = '';
 
-  constructor(private patientService: PatinetSeviceService) {
+  constructor(private clinicservice: ClinicServiceService) {
   }
 
   ngOnInit() {
+    this.loadclinic();
   }
 
   add_clinic(f) {
-    this.patientService.add_clinic(this.clinic)
+    this.clinicservice.add_clinic(this.clinic)
       .subscribe(
-        // change type from any to clinics
-        (res: any[]) => {
+        (res: Clinic[]) => {
           // Update the list of cars
           this.clinics = res;
           // Inform the user
@@ -37,5 +39,16 @@ export class ClinicCreateComponent implements OnInit {
       );
 
 
+  }
+
+  private loadclinic() {
+    this.clinicservice.get_clinic().subscribe(
+      (res: Clinic[]) => {
+        this.clinics = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }

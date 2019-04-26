@@ -50,6 +50,14 @@ import {ProfileComponent} from './patient/profile/profile.component';
 import { NgxFileHelpersModule } from 'ngx-file-helpers';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {DlDateTimeDateModule, DlDateTimePickerModule} from "angular-bootstrap-datetimepicker";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DoctorComponent} from './doctor/doctor.component';
+import {DoctorMenuComponent} from './doctor/doctor-menu/doctor-menu.component';
+import {DoctorScheduleComponent} from './doctor/doctor-schedule/doctor-schedule.component';
+import {DoctorVacationComponent} from './doctor/doctor-vacation/doctor-vacation.component';
+import {DoctorExceptionComponent} from './doctor/doctor-exception/doctor-exception.component';
+import {DoctorServiceService} from './service/doctor-service.service';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -91,6 +99,14 @@ const appRoutes: Routes = [
       {path: 'profile', component: ProfileComponent},
 
     ]
+  },
+  {
+      path: 'doctor', component: DoctorComponent, children: [
+      {path: 'schedule', component: DoctorScheduleComponent},
+      {path: 'vacation', component: DoctorVacationComponent},
+      {path: 'exception', component: DoctorExceptionComponent}}
+
+    ]
   }
 ];
 
@@ -130,6 +146,11 @@ const appRoutes: Routes = [
     PatientMenuComponent,
     AddAppointmentComponent,
     ProfileComponent,
+    DoctorComponent,
+    DoctorMenuComponent,
+    DoctorScheduleComponent,
+    DoctorVacationComponent,
+    DoctorExceptionComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -152,7 +173,7 @@ const appRoutes: Routes = [
     MatInputModule
   ],
   exports: [AddAppointmentComponent],
-  providers: [PatinetSeviceService, AuthService, FormsModule],
+  providers: [PatinetSeviceService, AuthService, DoctorServiceService,FormsModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {

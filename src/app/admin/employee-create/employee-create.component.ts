@@ -6,7 +6,6 @@ import {Specialist} from '../../models/specialist.model';
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 import {EmployeeServiceService} from '../../service/employee-service.service';
 import {Job} from '../../models/job.model';
-import {Patient} from "../../models/patient.model";
 
 @Component({
   selector: 'app-employee-create',
