@@ -24,7 +24,7 @@ export class ClinicServiceService {
   }
 
   get_clinic(): Observable<Clinic[]> {
-    return this.http.get(`${this.url}/get-clinic`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/clinic/get/get-clinic`, {responseType: 'json'}).pipe(
       map((res) => {
         this.clinics = res[`data`];
         // console.log(this.clinics);
@@ -34,7 +34,7 @@ export class ClinicServiceService {
   }
 
   add_clinic(clinic: Clinic): Observable<Clinic[]> {
-    return this.http.post(`${this.url}/add-clinic`, {data: clinic}, {responseType: 'text'})
+    return this.http.post(`${this.url}/clinic/add/add-clinic`, {data: clinic}, {responseType: 'text'})
       .pipe(map((res) => {
           this.clinics = res[`data`];
           console.log('ok');

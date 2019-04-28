@@ -23,7 +23,7 @@ export class EmployeeServiceService {
   }
 
   add_employee(employee: Employee): Observable<Employee[]> {
-    return this.http.post(`${this.url}/add-employee`, {data: employee}, {responseType: 'text'})
+    return this.http.post(`${this.url}/employee/add/add-employee`, {data: employee}, {responseType: 'text'})
       .pipe(map((res) => {
           this.employees = res[`data`];
           console.log('ok');
@@ -40,7 +40,7 @@ export class EmployeeServiceService {
   }
 
   get_employee(): Observable<Employee[]> {
-    return this.http.get(`${this.url}/get-employee`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/employee/get/get-employee`, {responseType: 'json'}).pipe(
       map((res) => {
         this.employees = res[`data`];
         console.log(this.employees);
@@ -50,7 +50,7 @@ export class EmployeeServiceService {
   }
 
   getjob(): Observable<Job[]> {
-    return this.http.get(`${this.url}/get-job`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/employee/get/get-job`, {responseType: 'json'}).pipe(
       map((res) => {
         this.jobs = res[`data`];
         return this.jobs;
@@ -59,7 +59,7 @@ export class EmployeeServiceService {
   }
 
   getsp(): Observable<Specialist[]> {
-    return this.http.get(`${this.url}/get-sp`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/employee/get/get-sp`, {responseType: 'json'}).pipe(
       map((res) => {
         this.sp = res[`data`];
         return this.sp;

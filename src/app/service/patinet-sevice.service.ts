@@ -25,7 +25,7 @@ export class PatinetSeviceService {
   }
 
   getcity(): Observable<City[]> {
-    return this.http.get(`${this.url}/get-city`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/general/get-city`, {responseType: 'json'}).pipe(
       map((res) => {
         this.cities = res[`data`];
         return this.cities;
@@ -34,7 +34,7 @@ export class PatinetSeviceService {
   }
 
   getquantom(): Observable<Quantom[]> {
-    return this.http.get(`${this.url}/get-quantom`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/general/get-quantom`, {responseType: 'json'}).pipe(
       map((res) => {
         this.quantom = res[`data`];
         console.log(this.quantom);
@@ -44,7 +44,7 @@ export class PatinetSeviceService {
   }
 
   add_patient(patient: Patient): Observable<Patient[]> {
-    return this.http.post(`${this.url}/add-patient`, {data: patient}, {responseType: 'text'})
+    return this.http.post(`${this.url}/patient/add/add-patient`, {data: patient}, {responseType: 'text'})
       .pipe(map((res) => {
           this.patients = res[`data`];
           console.log('ok');
@@ -61,7 +61,7 @@ export class PatinetSeviceService {
   }
 
   get_patient(): Observable<Patient[]> {
-    return this.http.get(`${this.url}/get-patient`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/patient/get/get-patient`, {responseType: 'json'}).pipe(
       map((res) => {
         this.patients = res[`data`];
         console.log(this.patients);

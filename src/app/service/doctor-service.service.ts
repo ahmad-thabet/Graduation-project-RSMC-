@@ -25,7 +25,7 @@ export class DoctorServiceService {
   }
 
   get_exception(): Observable<Exception[]> {
-    return this.http.get(`${this.url}/get-exception`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/admin/get/get-exception`, {responseType: 'json'}).pipe(
       map((res) => {
         this.exc = res[`data`];
         console.log(this.exc);
@@ -35,7 +35,7 @@ export class DoctorServiceService {
   }
 
   add_exception(ex: Exception): Observable<Exception[]> {
-    return this.http.post(`${this.url}/add-exception`, {data: ex}, {responseType: 'text'})
+    return this.http.post(`${this.url}/admin/add/add-exception`, {data: ex}, {responseType: 'text'})
       .pipe(map((res) => {
           this.exc = res[`data`];
           console.log('ok');
@@ -46,7 +46,7 @@ export class DoctorServiceService {
   }
 
   get_vacation(): Observable<Vacation[]> {
-    return this.http.get(`${this.url}/get-vacation`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/admin/get/get-vacation`, {responseType: 'json'}).pipe(
       map((res) => {
         this.vac = res[`data`];
         console.log(this.vac);
@@ -56,7 +56,7 @@ export class DoctorServiceService {
   }
 
   add_vacation(vacation: Vacation): Observable<Vacation[]> {
-    return this.http.post(`${this.url}/add-vacation`, {data: vacation}, {responseType: 'text'})
+    return this.http.post(`${this.url}/admin/add/add-vacation`, {data: vacation}, {responseType: 'text'})
       .pipe(map((res) => {
           this.vac = res[`data`];
           console.log('ok');
