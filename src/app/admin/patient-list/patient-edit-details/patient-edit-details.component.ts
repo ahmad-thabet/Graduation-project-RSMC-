@@ -4,6 +4,9 @@ import {Quantom} from '../../../models/quantom.model';
 import {City} from '../../../models/city.model';
 import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Insurance} from '../../../models/insurance.model';
+import {Subinsurance} from '../../../models/subinsurance.model';
+import {InsuranceServiceService} from '../../../service/insurance-service.service';
 
 @Component({
   selector: 'app-patient-edit-details',
@@ -13,9 +16,12 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class PatientEditDetailsComponent implements OnInit {
 
   patient = new Patient('', '', '', '', '', '',
-    new Date(), '', '', '', '', '',
+    new Date(), '', '', '', '', 0,
     '', '', '', '', '');
-
+  insurance = new Insurance(0, ' ');
+  subinsurance = new Subinsurance(0, 0, 0, '');
+  insurances: Insurance[];
+  subincurances: Subinsurance[];
 
   quantom: Quantom[];
   cities: City[];
@@ -33,13 +39,16 @@ export class PatientEditDetailsComponent implements OnInit {
 
   constructor(private patientService: PatinetSeviceService,
               public route: ActivatedRoute,
-              public router: Router) {
+              public router: Router,
+              private insuranceservice: InsuranceServiceService) {
   }
 
   ngOnInit() {
     this.loadCities();
     this.loadquantom();
     this.loadpatient();
+    this.loadinsurance();
+    this.loadsubinsurance();
 
     // this will return patient by id
     const i = this.route.params.subscribe((params: Params) => {
@@ -107,5 +116,25 @@ export class PatientEditDetailsComponent implements OnInit {
       }
     );
   }
+  private loadinsurance() {
+    this.insuranceservice.getinsurance().subscribe(
+      (res: Insurance[]) => {
+        this.insurances = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
 
+  private loadsubinsurance() {
+    this.insuranceservice.getsubinsurance().subscribe(
+      (res: Subinsurance[]) => {
+        this.subincurances = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
 }

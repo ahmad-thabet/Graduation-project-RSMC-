@@ -75,23 +75,23 @@
       <div class="row" *ngIf="hasInsurance">
         <div class="col">
           <label>Insurance Number</label>
-          <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="patient.insuranceID"
+          <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="patient.insurancenumber"
                  name="insuranceID">
         </div>
         <div class="col">
           <label>insurance company</label>
-          <select class="custom-select" id="insurance_compamy" [(ngModel)]="insuranceCompanyList"
+          <select class="custom-select" id="insurance_compamy" [(ngModel)]="insurance.insuranceID"
                   name="insurancecompany">
             <option selected value="trust">Select</option>
-            <option *ngFor="let x of insuranceCompanyList">{{x}}</option>
+            <option *ngFor="let x of insurances">{{x.insurancecompany}}</option>
           </select>
         </div>
         <div class="col">
           <label>subInsurance Type</label>
-          <select class="custom-select" id="insurance_type" [(ngModel)]="insuranceTypeList"
+          <select class="custom-select" id="insurance_type" [(ngModel)]="subinsurance.subinsuranceID"
                   name="insurancetype">
             <option selected value="trust">Select</option>
-            <option *ngFor="let x of insuranceTypeList" value="">{{x}}</option>
+            <option *ngFor="let x of subincurances" value="">{{x.membership}}</option>
           </select>
         </div>
       </div>

@@ -3,6 +3,9 @@ import {Patient} from '../../models/patient.model';
 import {City} from '../../models/city.model';
 import {Quantom} from '../../models/quantom.model';
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
+import {InsuranceServiceService} from '../../service/insurance-service.service';
+import {Insurance} from '../../models/insurance.model';
+import {Subinsurance} from '../../models/subinsurance.model';
 
 @Component({
   selector: 'app-patient-create',
@@ -12,29 +15,31 @@ import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 export class PatientCreateComponent implements OnInit {
   // TODO: implement insurance stuff as null by default
   patient = new Patient('', '', '', '', '', '',
-    new Date(), '', '', '', '', '',
+    new Date(), '', '', '', '', 0,
     '', '', '', '', '');
 
+  insurance = new Insurance(0, ' ');
+  subinsurance = new Subinsurance(0, 0, 0, '');
   quantom: Quantom[];
   cities: City[];
   error = '';
   success = '';
   patients: Patient[];
-
+  insurances: Insurance[];
+  subincurances: Subinsurance[];
   hasInsurance: false;
   hasParent: false;
   personalIDMatch: any;
 
-  insuranceCompanyList: [];
-  insuranceTypeList: [];
-
-  constructor(private patinetservice: PatinetSeviceService) {
+  constructor(private patinetservice: PatinetSeviceService, private insuranceservice: InsuranceServiceService) {
   }
 
   ngOnInit() {
     this.loadCities();
     this.loadquantom();
     this.loadpatient();
+    this.loadinsurance();
+    this.loadsubinsurance();
   }
 
   add_patient(f) {
@@ -87,4 +92,25 @@ export class PatientCreateComponent implements OnInit {
     );
   }
 
+  private loadinsurance() {
+    this.insuranceservice.getinsurance().subscribe(
+      (res: Insurance[]) => {
+        this.insurances = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadsubinsurance() {
+    this.insuranceservice.getsubinsurance().subscribe(
+      (res: Subinsurance[]) => {
+        this.subincurances = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
 }
