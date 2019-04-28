@@ -10,7 +10,7 @@ export class Patient {
   public mobilenumber: string;
   public insuranceID: string;
   public subinsuranceID: string;
-  public insurancecompany: string;
+  public insurancenumber: number;
   public gender: string;
   public address: string;
   public cityID: string;
@@ -29,7 +29,7 @@ export class Patient {
     mobilenumber: string,
     insuranceID: string,
     subinsuranceID: string,
-    insurancecompany: string,
+    insurancenumber: number,
     gender: string,
     address: string,
     cityID: string,
@@ -46,7 +46,7 @@ export class Patient {
     this.mobilenumber = mobilenumber;
     this.insuranceID = insuranceID;
     this.subinsuranceID = subinsuranceID;
-    this.insurancecompany = insurancecompany;
+    this.insurancenumber = insurancenumber;
     this.gender = gender;
     this.address = address;
     this.cityID = cityID;

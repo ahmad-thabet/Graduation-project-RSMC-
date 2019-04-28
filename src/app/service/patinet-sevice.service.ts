@@ -79,8 +79,13 @@ export class PatinetSeviceService {
 
   // TODO: implement this function
   UpdatePatient(patient: Patient) {
-    return undefined;
-  }
+    return this.http.get(`${this.url}/patient/update/update-patient`, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.patients = res[`data`];
+        console.log(this.patients);
+        return this.patients;
+      }),
+      catchError(this.handleError));  }
 
   // TODO: implement this function
   add_clinic(clinic: string) {
