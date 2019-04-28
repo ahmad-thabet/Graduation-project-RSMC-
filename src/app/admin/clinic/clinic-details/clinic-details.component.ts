@@ -18,9 +18,14 @@ export class ClinicDetailsComponent implements OnInit {
   success = '';
   error = '';
 
+  hasDiscount: false;
+
   // TODO: implement doctor model
   doctors: Employee[];
   AllDoctors: Employee[]; // all docotors in the system
+  AllInsurance: any[];
+  AllMempership: any[];
+
 
   constructor(private clinicService: ClinicServiceService,
               public route: ActivatedRoute) {
@@ -63,5 +68,13 @@ export class ClinicDetailsComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  update_insurance_price(f) {
+
+  }
+
+  add_insurance_price(f) {
+
   }
 }

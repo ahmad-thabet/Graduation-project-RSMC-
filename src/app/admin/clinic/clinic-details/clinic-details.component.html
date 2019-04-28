@@ -2,19 +2,69 @@
 <hr>
 <h2>Clinic Name: {{clinic.clinicname}}</h2>
 <hr>
-<div class="row">
-  <form (submit)="add_doctorClinic(f)" #f=ngForm name="theform">
-    <div class="col">
-      <label>Select Doctor from list</label>
-      <select *ngFor="let x of AllDoctors">
-        <option hidden>-Select-</option>
-        <option [value]="[x.empID]">{{x.firstname}} {{x.secondname}} {{x.lastname}} </option>
-      </select>
-    </div>
-    <div class="col">
-      <button class="btn btn-primary" type="submit">Add</button>
-    </div>
-  </form>
+<div class="row justify-content-around">
+  <div class="col-md-10">
+    <form (submit)="add_insurance_price(ff)" #ff=ngForm>
+      <div class="row  align-items-center">
+        <div class="col">
+          <label>Price</label>
+          <input type="text" class="form-control" id="price" name="price">
+        </div>
+        <div class="col">
+          <label></label>
+          <button class="btn btn-success btn-block" type="submit">Add</button>
+        </div>
+        <div class="col">
+          <label>discount</label>
+          <input type="checkbox" class="form-control" [(ngModel)]="hasDiscount" value="hasDiscount" id="hasDiscount">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<hr>
+<div class="row justify-content-around" *ngIf="hasDiscount">
+  <div class="col-md-10">
+    <form (submit)="update_insurance_price(fff)" #fff=ngForm>
+      <div class="row  align-items-center">
+        <div class="col">
+          <label>Insurance Company</label>
+          <select *ngFor="let x of AllInsurance">
+            <option [value]="[x.insuranceID]">{{x.company}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Membership</label>
+          <select *ngFor="let x of AllMempership">
+            <option [value]="[x.subinsuranceID]">{{x.membership}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label></label>
+          <button class="btn btn-success btn-block" type="submit">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<hr>
+<div class="row justify-content-around">
+  <div class="col-md-10">
+    <form (submit)="add_doctorClinic(f)" #f=ngForm name="theform">
+      <div class="row  align-items-center">
+        <div class="col">
+          <label>Select Doctor from list</label>
+          <select *ngFor="let x of AllDoctors">
+            <option [value]="[x.empID]">{{x.firstname}} {{x.secondname}} {{x.lastname}} </option>
+          </select>
+        </div>
+        <div class="col">
+          <label></label>
+          <button class="btn btn-success btn-block" type="submit">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 <hr>
 <div class="container bootstrap snippet">
