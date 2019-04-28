@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {InsuranceServiceService} from '../../../service/insurance-service.service';
+import {Insurance} from '../../../models/insurance.model';
+import {Subinsurance} from '../../../models/subinsurance.model';
+import {Employee} from '../../../models/employee.model';
 
 @Component({
   selector: 'app-insurance-create',
@@ -7,9 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InsuranceCreateComponent implements OnInit {
 
-  constructor() { }
+  insurance = new Insurance(0, '');
+  subInsurance = new Subinsurance(0, 0, 0, '');
+
+  constructor(private insuranceService: InsuranceServiceService) {
+  }
 
   ngOnInit() {
   }
 
+
+  add_insurance(f) {
+    this.insuranceService.add_insurance(this.insurance, this.subInsurance)
+      .subscribe(
+        (res: any[]) => {
+          // Reset the form
+          f.reset();
+        },
+        (err) => console.log(err)
+      );
+
+  }
 }

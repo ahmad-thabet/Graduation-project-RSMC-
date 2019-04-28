@@ -1,17 +1,17 @@
 <h1>Add</h1>
-<form>
+<form  #f="ngForm" (submit)="add_insurance(f)" name="theform">
   <div class="row">
     <div class="col">
       <label for="companyName">Company Name</label>
-      <input type="text" id="companyName" class="form-control">
+      <input type="text" id="companyName" class="form-control" [(ngModel)]="insurance.insurancecompany">
     </div>
     <div class="col">
-      <label for="companyBranch">Company Branch</label>
-      <input type="text" id="companyBranch" class="form-control">
+      <label for="membership">Membership</label>
+      <input type="text" id="membership" class="membership" [(ngModel)]="subInsurance.membership">
     </div>
     <div class="col">
       <label for="discount">Discount</label>
-      <input type="text" id="discount" class="form-control">
+      <input type="text" id="discount" class="form-control" [(ngModel)]="subInsurance.discount">
     </div>
   </div>
   <br>

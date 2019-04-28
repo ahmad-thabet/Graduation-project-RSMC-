@@ -14,7 +14,12 @@ export class DoctorServiceService {
   constructor(private  http: HttpClient) {
   }
 
-  url = 'http://localhost/api';
+  /*For mac*/
+  url = 'http://localhost:8080/api';
+
+  /*For Windows*/
+  // url = 'http://localhost/api';
+
   vac: Vacation[];
   exc: Exception[];
 

@@ -13,8 +13,12 @@ export class ClinicServiceService {
   constructor(private  http: HttpClient) {
   }
 
-  // url = 'http://localhost:8080/api';
-  url = 'http://localhost/api';
+  /*For mac*/
+  url = 'http://localhost:8080/api';
+
+  /*For Windows*/
+  // url = 'http://localhost/api';
+
   clinics: Clinic[];
 
   private handleError(error: HttpErrorResponse) {
@@ -42,5 +46,9 @@ export class ClinicServiceService {
           return this.clinics;
         }),
         catchError(this.handleError));
+  }
+
+  add_doctorClinic(clinic: Clinic) {
+    return null;
   }
 }

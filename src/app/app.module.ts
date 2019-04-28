@@ -59,12 +59,18 @@ import {DoctorServiceService} from './service/doctor-service.service';
 import {ReceptionComponent} from './reception/reception.component';
 import {ReceptionMenuComponent} from './reception/reception-menu/reception-menu.component';
 import {AddAppointmentComponent} from './patient/add-view-appointments/add-appointment.component';
+import {ClinicServiceService} from './service/clinic-service.service';
+import {ClinicListFullComponent} from './admin/clinic/clinic-list-full/clinic-list-full.component';
+import {AdminPaymentComponent} from './admin/admin-payment/admin-payment.component';
+import {InsuranceServiceService} from './service/insurance-service.service';
+import { PatientPaymentListComponent } from './patient/patient-payment-list/patient-payment-list.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {
     path: 'admin', component: AdminComponent, children: [
       {path: 'patient-create', component: PatientCreateComponent},
+      {path: 'payments', component: AdminPaymentComponent},
       {
         path: 'patient-list', component: PatientListComponent, children: [
           {path: '', component: PatientListFullComponent},
@@ -89,7 +95,8 @@ const appRoutes: Routes = [
       {path: 'insurance', component: InsuranceComponent},
       {
         path: 'clinics', component: ClinicComponent, children: [
-          {path: ':id', component: ClinicDetailsComponent}
+          {path: ':id', component: ClinicDetailsComponent},
+          {path: '', component: ClinicListFullComponent}
         ]
       },
     ]
@@ -98,6 +105,7 @@ const appRoutes: Routes = [
     path: 'patient', component: PatientComponent, children: [
       {path: 'add-view-appointments', component: AddAppointmentComponent},
       {path: 'profile', component: ProfileComponent},
+      {path: 'payments', component: PatientPaymentListComponent}
 
     ]
   },
@@ -109,7 +117,29 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'reception', component: ReceptionComponent, children: []
+    path: 'reception', component: ReceptionComponent, children: [
+      {path: 'patient-create', component: PatientCreateComponent},
+      {path: 'payments', component: AdminPaymentComponent},
+      {
+        path: 'patient-list', component: PatientListComponent, children: [
+          {path: '', component: PatientListFullComponent},
+          {path: ':id/edit', component: PatientEditDetailsComponent},
+          {path: ':id', component: PatientProfileDetailsComponent}
+        ]
+      },
+      {path: 'app-create', component: AppointmentCreateComponent},
+      {path: 'app-list', component: AppointmentListComponent},
+      {path: 'sch-list', component: SchaduleGeneratorComponent},
+      {path: 'exc-date', component: ExceptionDateComponent},
+      {path: 'vac-date', component: VacationDateComponent},
+      {path: 'insurance', component: InsuranceUpdateComponent},
+      {
+        path: 'clinics', component: ClinicComponent, children: [
+          {path: ':id', component: ClinicDetailsComponent},
+          {path: '', component: ClinicListComponent}
+        ]
+      }
+    ]
   }
 ];
 
@@ -155,7 +185,10 @@ const appRoutes: Routes = [
     DoctorVacationComponent,
     DoctorExceptionComponent,
     ReceptionComponent,
-    ReceptionMenuComponent
+    ReceptionMenuComponent,
+    ClinicListFullComponent,
+    AdminPaymentComponent,
+    PatientPaymentListComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -180,7 +213,7 @@ const appRoutes: Routes = [
     DlDateTimePickerModule,
   ],
   exports: [AddAppointmentComponent],
-  providers: [PatinetSeviceService, AuthService, DoctorServiceService, FormsModule],
+  providers: [PatinetSeviceService, AuthService, DoctorServiceService, ClinicServiceService, FormsModule, InsuranceServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

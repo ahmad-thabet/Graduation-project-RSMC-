@@ -1,0 +1,36 @@
+<h1>Payments List</h1>
+<div class="container bootstrap snippet">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+          <div class="table-responsive">
+            <table class="table user-list">
+              <thead>
+              <tr>
+                <th><span>Name</span></th>
+                <th><span>Amount</span></th>
+                <th><span>Date</span></th>
+                <th><span>Payment Type</span></th>
+                <th><span>Receiver Employee</span></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let x of list; let i = index">
+                <td>{{x.personalID}}</td>
+                <td>
+                  {{x.firstname}} {{x.secondname}} {{x.lastname}}
+                </td>
+                <td>{{x.amount}}</td>
+                <td>{{x.date}}</td>
+                <td>{{x.paymentType}}</td>
+                <td>{{x.empFirstName}} {{x.empLastName}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

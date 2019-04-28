@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
 import {Clinic} from '../../../models/clinic.model';
 import {ClinicServiceService} from '../../../service/clinic-service.service';
 

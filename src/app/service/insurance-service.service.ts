@@ -11,6 +11,13 @@ import {Subinsurance} from '../models/subinsurance.model';
 })
 export class InsuranceServiceService {
 
+  /*For mac*/
+  url = 'http://localhost:8080/api';
+
+  /*For Windows*/
+
+  // url = 'http://localhost/api';
+
   constructor(private  http: HttpClient) {
   }
 
@@ -20,7 +27,7 @@ export class InsuranceServiceService {
   subinsurances: Subinsurance[];
   success = '';
   error = '';
-  url = 'http://localhost/api';
+
 
   getinsurance(): Observable<Insurance[]> {
     return this.http.get(`${this.url}/insurance/get/get-insurance`, {responseType: 'json'}).pipe(
@@ -45,7 +52,8 @@ export class InsuranceServiceService {
       }),
       catchError(this.handleError));
   }
-  add_insurance(insurance: Insurance): Observable<Insurance[]> {
+
+  add_insurance(insurance: Insurance, subInsurance: Subinsurance): Observable<Insurance[]> {
     return this.http.post(`${this.url}/insurance/add/add-insurance`, {data: insurance}, {responseType: 'text'})
       .pipe(map((res) => {
           this.insurances = res[`data`];

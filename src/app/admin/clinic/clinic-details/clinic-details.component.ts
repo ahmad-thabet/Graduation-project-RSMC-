@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Clinic} from '../../../models/clinic.model';
-import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import {ClinicServiceService} from '../../../service/clinic-service.service';
+import {Employee} from '../../../models/employee.model';
 
 @Component({
   selector: 'app-clinic-details',
@@ -10,30 +11,31 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 export class ClinicDetailsComponent implements OnInit {
   id: number;
+
   clinic: Clinic;
-  clinics: Clinic[];
+  clinics: Clinic[] = [];
 
   success = '';
   error = '';
 
   // TODO: implement doctor model
-  doctors: any[];
-  AllDoctors: any[];
+  doctors: Employee[];
+  AllDoctors: Employee[]; // all docotors in the system
 
-  constructor(private patientService: PatinetSeviceService,
+  constructor(private clinicService: ClinicServiceService,
               public route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    // this will return patient by id
+    // this will return clinic by id
     const id = this.route.params.subscribe((params: Params) => {
       this.id = +params[`id`];
-      this.clinic = this.patientService.clinics[this.id];
+      this.clinic = this.clinicService.clinics[this.id];
     });
   }
 
   add_doctorClinic(f) {
-    this.patientService.add_doctorClinic(this.clinic)
+    this.clinicService.add_doctorClinic(this.clinic)
       .subscribe(
         // change type from any to clinics
         (res: any[]) => {
@@ -49,5 +51,17 @@ export class ClinicDetailsComponent implements OnInit {
         (err) => this.error = err
       );
 
+  }
+
+  private loadClinics() {
+    this.clinicService.get_clinic().subscribe(
+      (res: Clinic[]) => {
+        this.clinics = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }

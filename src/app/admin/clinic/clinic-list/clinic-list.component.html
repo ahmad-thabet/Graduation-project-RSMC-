@@ -22,6 +22,7 @@
               <tr>
                 <th><span>Clinic ID</span></th>
                 <th><span>Name</span></th>
+                <th><span>Price</span></th>
                 <th>&nbsp;</th>
               </tr>
               </thead>
@@ -29,6 +30,7 @@
               <tr *ngFor="let x of clinics; let i = index">
                 <td>{{x.clinicID}}</td>
                 <td>{{x.clinicname}}</td>
+                <td>{{x.price}}</td>
                 <td>
                   <a [routerLink]="[i]" class="table-link">
                     <span class="fa-stack">

@@ -1,30 +1,73 @@
-<div class="container">
-  <h1>Clinic Details</h1>
-  <h2>{{clinic.name}} § {{clinic.id}}</h2>
-  <hr>
+<h1>Clinic Details</h1>
+<hr>
+<h2>Clinic Name: {{clinic.clinicname}}</h2>
+<hr>
+<div class="row">
+  <form (submit)="add_doctorClinic(f)" #f=ngForm name="theform">
+    <div class="col">
+      <label>Select Doctor from list</label>
+      <select *ngFor="let x of AllDoctors">
+        <option hidden>-Select-</option>
+        <option [value]="[x.empID]">{{x.firstname}} {{x.secondname}} {{x.lastname}} </option>
+      </select>
+    </div>
+    <div class="col">
+      <button class="btn btn-primary" type="submit">Add</button>
+    </div>
+  </form>
+</div>
+<hr>
+<div class="container bootstrap snippet">
   <div class="row">
-    <form (submit)="add_doctorClinic(f)" #f=ngForm name="theform">
-      <div class="col">
-        <label>Select Doctor from list</label>
-        <select *ngFor="let x of AllDoctors">
-          <option [value]="[x.id]">{{x.name}}</option>
-        </select>
+    <div class="col-lg-12">
+      <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+          <div class="table-responsive">
+            <table class="table user-list">
+              <thead>
+              <tr>
+                <th><span>Name</span></th>
+                <th><span>Emergency Number</span></th>
+                <th><span>Email</span></th>
+                <th><span>Phone Number</span></th>
+                <th><span>Mobile Number</span></th>
+                <th><span>Date Of Birth</span></th>
+                <th><span>&nbsp;</span></th>
+                <th>&nbsp;</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let empp of doctors; let i = index">
+                <td>
+                  <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
+                  {{empp.firstname}} {{empp.secondname}} {{empp.lastname}}
+                </td>
+                <td>{{empp.emergencynumber}}</td>
+                <td>{{empp.email}}</td>
+                <td>{{empp.phonenumber}}</td>
+                <td>{{empp.mobilenumber}}</td>
+                <td>{{empp.dateofbirth}}
+                </td>
+                <td>
+                  <a [routerLink]="[i]" class="table-link">
+                    <span class="fa-stack">
+                      <i class="fa fa-square fa-stack-2x"></i>
+                      <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                  <a [routerLink]="[i,'edit']" class="table-link">
+                     <span class="fa-stack">
+                       <i class="fa fa-square fa-stack-2x"></i>
+                       <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                     </span>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="col">
-        <button class="btn btn-primary" type="submit">Add</button>
-      </div>
-    </form>
+    </div>
   </div>
-  <hr>
-  <table>
-    <thead>
-    <tr>
-      <!--TODO: Add all needed details for doctors, each in a col like following-->
-      <th>Name</th>
-    </tr>
-    </thead>
-    <tr *ngFor="let x of doctors">
-      <td>{{x.name}}</td>
-    </tr>
-  </table>
 </div>
