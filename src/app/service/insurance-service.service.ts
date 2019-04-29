@@ -5,6 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {Insurance} from '../models/insurance.model';
 import {Subinsurance} from '../models/subinsurance.model';
+import {Insurancefull} from '../models/insurancefull.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,11 @@ import {Subinsurance} from '../models/subinsurance.model';
 export class InsuranceServiceService {
 
   /*For mac*/
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
   /*For Windows*/
 
-  // url = 'http://localhost/api';
+  url = 'http://localhost/api';
 
   constructor(private  http: HttpClient) {
   }
@@ -27,7 +28,7 @@ export class InsuranceServiceService {
   subinsurances: Subinsurance[];
   success = '';
   error = '';
-
+  insurancefulls: Insurancefull[];
 
   getinsurance(): Observable<Insurance[]> {
     return this.http.get(`${this.url}/insurance/get/get-insurance`, {responseType: 'json'}).pipe(
@@ -53,13 +54,13 @@ export class InsuranceServiceService {
       catchError(this.handleError));
   }
 
-  add_insurance(insurance: Insurance, subInsurance: Subinsurance): Observable<Insurance[]> {
-    return this.http.post(`${this.url}/insurance/add/add-insurance`, {data: insurance}, {responseType: 'text'})
+  add_insurance(insurancefull: Insurancefull): Observable<Insurancefull[]> {
+    return this.http.post(`${this.url}/insurance/add/add-insurance`, {data: insurancefull}, {responseType: 'text'})
       .pipe(map((res) => {
-          this.insurances = res[`data`];
+          this.insurancefulls = res[`data`];
           console.log('ok');
           console.log(res[`data`]);
-          return this.insurances;
+          return this.insurancefulls;
         }),
         catchError(this.handleError));
   }
@@ -73,6 +74,15 @@ export class InsuranceServiceService {
           return this.subinsurances;
         }),
         catchError(this.handleError));
+  }
+
+  getall(): Observable<Insurancefull[]> {
+    return this.http.get(`${this.url}/insurance/get/get-all`, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.insurancefulls = res[`data`];
+        return this.insurancefulls;
+      }),
+      catchError(this.handleError));
   }
 
 }

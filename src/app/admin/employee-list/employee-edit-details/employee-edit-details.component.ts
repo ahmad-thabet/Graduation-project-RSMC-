@@ -45,7 +45,7 @@ export class EmployeeEditDetailsComponent implements OnInit {
   }
 
   edit_employee(f) {
-    this.employeeservice.updateEmployee(this.employee)
+    this.employeeservice.updateemployee(this.employee)
       .subscribe(
         (res: Employee[]) => {
           // Update the list of cars
@@ -56,7 +56,6 @@ export class EmployeeEditDetailsComponent implements OnInit {
           console.log(this.success);
           // Reset the form
           f.reset();
-          this.router.navigate(['../']);
         },
         (err) => this.error = err
       );

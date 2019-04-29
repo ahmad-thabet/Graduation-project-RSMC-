@@ -13,10 +13,10 @@ import {Clinic} from '../models/clinic.model';
 })
 export class PatinetSeviceService {
   /*For mac*/
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  // url = 'http://localhost/api';
+  url = 'http://localhost/api';
 
   cities: City[];
   quantom: Quantom[];
@@ -78,14 +78,16 @@ export class PatinetSeviceService {
   }
 
   // TODO: implement this function
-  UpdatePatient(patient: Patient) {
-    return this.http.get(`${this.url}/patient/update/update-patient`, {responseType: 'json'}).pipe(
-      map((res) => {
-        this.patients = res[`data`];
-        console.log(this.patients);
-        return this.patients;
-      }),
-      catchError(this.handleError));  }
+  update_patient(patient: Patient): Observable<Patient[]> {
+    return this.http.post(`${this.url}/patient/update/update-patient`, {data: patient}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.patients = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.patients;
+        }),
+        catchError(this.handleError));
+  }
 
   // TODO: implement this function
   add_clinic(clinic: string) {

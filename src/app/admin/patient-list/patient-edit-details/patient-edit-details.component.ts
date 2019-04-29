@@ -30,8 +30,6 @@ export class PatientEditDetailsComponent implements OnInit {
   patients: Patient[];
   id: number;
 
-  insuranceCompanyList: [];
-  insuranceTypeList: [];
 
   hasParent: boolean;
   hasInsurance: boolean;
@@ -67,7 +65,7 @@ export class PatientEditDetailsComponent implements OnInit {
 
 
   edit_patient(f) {
-    this.patientService.UpdatePatient(this.patient)
+    this.patientService.update_patient(this.patient)
       .subscribe(
         (res: Patient[]) => {
           // Update the list of cars
@@ -116,6 +114,7 @@ export class PatientEditDetailsComponent implements OnInit {
       }
     );
   }
+
   private loadinsurance() {
     this.insuranceservice.getinsurance().subscribe(
       (res: Insurance[]) => {

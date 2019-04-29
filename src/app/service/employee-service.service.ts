@@ -13,10 +13,10 @@ import {Specialist} from '../models/specialist.model';
 export class EmployeeServiceService {
   employees: Employee[];
   /*For mac*/
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  // url = 'http://localhost/api';
+  url = 'http://localhost/api';
 
   jobs: Job[];
   sp: Specialist[];
@@ -71,7 +71,14 @@ export class EmployeeServiceService {
   }
 
   // TODO: implement this function
-  updateEmployee(employee: Employee) {
-    return undefined;
+  updateemployee(employee: Employee): Observable<Employee[]> {
+    return this.http.post(`${this.url}/employee/update/update-employee`, {data: employee}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.employees = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.employees;
+        }),
+        catchError(this.handleError));
   }
 }

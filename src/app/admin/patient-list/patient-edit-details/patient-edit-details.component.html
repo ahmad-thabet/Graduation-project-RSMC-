@@ -80,18 +80,18 @@
         </div>
         <div class="col">
           <label>insurance company</label>
-          <select class="custom-select" id="insurance_compamy" [(ngModel)]="insurance.insuranceID"
+          <select class="custom-select" id="insurance_compamy" [(ngModel)]="patient.insuranceID"
                   name="insurancecompany">
             <option selected value="trust">Select</option>
-            <option *ngFor="let x of insurances">{{x.insurancecompany}}</option>
+            <option *ngFor="let x of insurances" [value]="x.insuranceID">{{x.insurancecompany}}</option>
           </select>
         </div>
         <div class="col">
           <label>subInsurance Type</label>
-          <select class="custom-select" id="insurance_type" [(ngModel)]="subinsurance.subinsuranceID"
+          <select class="custom-select" id="insurance_type" [(ngModel)]="patient.subinsuranceID"
                   name="insurancetype">
             <option selected value="trust">Select</option>
-            <option *ngFor="let x of subincurances" value="">{{x.membership}}</option>
+            <option *ngFor="let x of subincurances" [value]="x.subinsuranceID">{{x.membership}}</option>
           </select>
         </div>
       </div>
