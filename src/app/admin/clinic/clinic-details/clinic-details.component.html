@@ -1,3 +1,6 @@
+<pre>{{ getCurrentModel() }}</pre>
+
+
 <h1>Clinic Details</h1>
 <hr>
 <h2>Clinic Name: {{clinic.clinicname}}</h2>
@@ -16,27 +19,27 @@
         </div>
         <div class="col">
           <label>discount</label>
-          <input type="checkbox" class="form-control" [(ngModel)]="hasDiscount" value="hasDiscount" id="hasDiscount">
-        </div>
+          <input type="checkbox" class="form-control" [(ngModel)]="hasDiscount" value="hasDiscount" id="hasDiscount"
+                 name="hasDiscount"></div>
       </div>
     </form>
   </div>
 </div>
-<hr>
+<hr *ngIf="hasDiscount">
 <div class="row justify-content-around" *ngIf="hasDiscount">
   <div class="col-md-10">
-    <form (submit)="update_insurance_price(fff)" #fff=ngForm>
+    <form (submit)="update_insurance_price(fff)" #fff="ngForm">
       <div class="row  align-items-center">
         <div class="col">
           <label>Insurance Company</label>
-          <select *ngFor="let x of AllInsurance">
-            <option [value]="[x.insuranceID]">{{x.company}}</option>
+          <select class="custom-select" [(ngModel)]="clinicdoctor.empID" id="insuranceCompany" name="insuranceCompany">
+            <option *ngFor="let x of AllInsurance" [value]="[x.insuranceID]">{{x.company}}</option>
           </select>
         </div>
         <div class="col">
           <label>Membership</label>
-          <select *ngFor="let x of AllMempership">
-            <option [value]="[x.subinsuranceID]">{{x.membership}}</option>
+          <select class="custom-select" id="mempership" name="mempership">
+            <option *ngFor="let x of AllMempership" [value]="[x.subinsuranceID]">{{x.membership}}</option>
           </select>
         </div>
         <div class="col">
@@ -56,7 +59,8 @@
           <label>Select Doctor from list</label>
           <!--TODO: ahmad-->
           <select class="custom-select" [(ngModel)]="clinicdoctor.empID">
-            <option *ngFor="let x of doctors" [value]="x.empID">{{x.firstname}} {{x.empID}} {{x.lastname}} </option>
+            <option *ngFor="let x of doctors"
+                    [value]="[x.empID]">{{x.firstname}} {{x.secondname}} {{x.lastname}} </option>
           </select>
         </div>
         <div class="col">

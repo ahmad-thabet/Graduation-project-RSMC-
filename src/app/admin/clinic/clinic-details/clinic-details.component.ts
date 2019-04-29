@@ -104,4 +104,8 @@ export class ClinicDetailsComponent implements OnInit {
       }
     );
   }
+
+  getCurrentModel() {
+    return JSON.stringify(this.clinicdoctor);
+  }
 }

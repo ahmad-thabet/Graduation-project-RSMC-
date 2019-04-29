@@ -39,7 +39,7 @@ export class InsuranceCreateComponent implements OnInit {
           this.success = 'Created successfully';
           console.log(this.success);
           // Reset the form
-           f.reset();
+          f.reset();
         },
         (err) => this.error = err
       );
@@ -55,5 +55,9 @@ export class InsuranceCreateComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  getCurrentModel() {
+    return JSON.stringify(this.insurancefull);
   }
 }
