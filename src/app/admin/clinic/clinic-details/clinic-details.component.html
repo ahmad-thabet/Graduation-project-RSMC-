@@ -54,8 +54,8 @@
       <div class="row  align-items-center">
         <div class="col">
           <label>Select Doctor from list</label>
-          <select *ngFor="let x of doctors">
-            <option [value]="[x.empID]">{{x.firstname}} {{x.secondname}} {{x.lastname}} </option>
+          <select class="custom-select" [(ngModel)]="clinicdoctor.empID">
+            <option *ngFor="let x of doctors" [value]="[x.empID]">{{x.firstname}} {{x.secondname}} {{x.lastname}} </option>
           </select>
         </div>
         <div class="col">
