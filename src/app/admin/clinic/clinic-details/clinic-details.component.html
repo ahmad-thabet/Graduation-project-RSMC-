@@ -4,7 +4,7 @@
 <hr>
 <div class="row justify-content-around">
   <div class="col-md-10">
-    <form (submit)="add_insurance_price(ff)" #ff="ngForm">
+    <form (submit)="add_insurance_price(ff)" #ff=ngForm>
       <div class="row  align-items-center">
         <div class="col">
           <label>Price</label>
@@ -50,13 +50,12 @@
 <hr>
 <div class="row justify-content-around">
   <div class="col-md-10">
-    <form (submit)="add_doctorClinic(f)" #f="ngForm" name="theform">
+    <form (submit)="add_doctorClinic(f)" #f=ngForm name="theform">
       <div class="row  align-items-center">
         <div class="col">
           <label>Select Doctor from list</label>
-          <!--TODO: ahmad-->
           <select class="custom-select" [(ngModel)]="clinicdoctor.empID">
-            <option *ngFor="let x of doctors" [value]="x.empID">{{x.firstname}} {{x.empID}} {{x.lastname}} </option>
+            <option *ngFor="let x of doctors" [value]="[x.empID]">{{x.firstname}} {{x.secondname}} {{x.lastname}} </option>
           </select>
         </div>
         <div class="col">
