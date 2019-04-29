@@ -52,7 +52,7 @@ export class ClinicDetailsComponent implements OnInit {
           // Update the list of cars
           this.alldoctors = res;
           // Inform the user
-          console.log(this.alldoctors);
+          console.log('id ' + this.clinicdoctor.empID);
           this.success = 'Created successfully';
           console.log(this.success);
           // Reset the form
