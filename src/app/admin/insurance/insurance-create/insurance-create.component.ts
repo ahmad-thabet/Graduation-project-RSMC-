@@ -45,6 +45,10 @@ export class InsuranceCreateComponent implements OnInit {
       );
   }
 
+  getCurrentModel() {
+    return JSON.stringify(this.insurancefull);
+  }
+
   private loadall() {
     this.insuranceService.getall().subscribe(
       (res: Insurancefull[]) => {

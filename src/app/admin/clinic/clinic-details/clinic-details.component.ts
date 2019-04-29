@@ -94,6 +94,10 @@ export class ClinicDetailsComponent implements OnInit {
     );
   }
 
+  getCurrentModel() {
+    return JSON.stringify(this.clinicdoctor);
+  }
+
   private loaddoctors() {
     this.clinicService.getdoctors().subscribe(
       (res: Employee[]) => {
