@@ -4,6 +4,11 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {ClinicServiceService} from '../../../service/clinic-service.service';
 import {Employee} from '../../../models/employee.model';
 import {ClinicDoctor} from '../../../models/clinic-doctor.model';
+import {InsuranceServiceService} from '../../../service/insurance-service.service';
+import {Insurance} from '../../../models/insurance.model';
+import {Subinsurance} from '../../../models/subinsurance.model';
+import {ClinicPrice} from '../../../models/clinicprice.model';
+import {InsurancePrice} from '../../../models/insuranceprice.model';
 
 @Component({
   selector: 'app-clinic-details',
@@ -12,6 +17,8 @@ import {ClinicDoctor} from '../../../models/clinic-doctor.model';
 })
 export class ClinicDetailsComponent implements OnInit {
   id: number;
+  clinicprice = new ClinicPrice(0, 0);
+  insuranceprice = new InsurancePrice(0, 0, 0, 0);
   clinicdoctor = new ClinicDoctor(0, this.id);
   clinic = new Clinic('', 0);
   employee = new Employee('', '', '', '', '', '', '', '', new Date(), '', '', '', '', '',
@@ -21,16 +28,21 @@ export class ClinicDetailsComponent implements OnInit {
   alldoctors: ClinicDoctor[];
   success = '';
   error = '';
-
+  insuranceprices: InsurancePrice[];
+  clinicprices: ClinicPrice[];
   hasDiscount: false;
 
   // TODO: implement doctor model
+  insurances: Insurance[];
+  subinsurances: Subinsurance[];
+
   AllInsurance: any[];
   AllMempership: any[];
 
 
   constructor(private clinicService: ClinicServiceService,
-              public route: ActivatedRoute) {
+              public route: ActivatedRoute,
+              private insuranceservice: InsuranceServiceService) {
   }
 
   ngOnInit() {
@@ -42,6 +54,8 @@ export class ClinicDetailsComponent implements OnInit {
     this.loadalldoctors();
     this.loadClinics();
     this.loaddoctors();
+    this.loadinsurance();
+    this.loadsubinsurance();
   }
 
   add_doctorClinic(f) {
@@ -107,5 +121,27 @@ export class ClinicDetailsComponent implements OnInit {
 
   getCurrentModel() {
     return JSON.stringify(this.clinicdoctor);
+  }
+
+  private loadinsurance() {
+    this.insuranceservice.getinsurance().subscribe(
+      (res: Insurance[]) => {
+        this.insurances = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadsubinsurance() {
+    this.insuranceservice.getsubinsurance().subscribe(
+      (res: Subinsurance[]) => {
+        this.subinsurances = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }

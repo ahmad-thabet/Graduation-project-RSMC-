@@ -6,6 +6,8 @@ import {map, catchError} from 'rxjs/operators';
 import {Clinic} from '../models/clinic.model';
 import {Employee} from '../models/employee.model';
 import {ClinicDoctor} from '../models/clinic-doctor.model';
+import {InsurancePrice} from '../models/insuranceprice.model';
+import {ClinicPrice} from '../models/clinicprice.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,8 @@ export class ClinicServiceService {
 clinocdoctors: ClinicDoctor[] ;
   clinics: Clinic[];
 doctors: Employee[];
+insuranceprices: InsurancePrice[];
+clinicprices: ClinicPrice[];
   private handleError(error: HttpErrorResponse) {
     console.log(error);
     // return an observable with a user friendly message
@@ -77,6 +81,43 @@ doctors: Employee[];
         return this.clinocdoctors;
       }),
       catchError(this.handleError));
+  }
+  get_clinicprice(): Observable<ClinicPrice[]> {
+    return this.http.get(`${this.url}/pricce/get/get-clinicprice`, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.clinicprices = res[`data`];
+        return this.clinicprices;
+      }),
+      catchError(this.handleError));
+  }
+  get_insuranceprice(): Observable<InsurancePrice[]> {
+    return this.http.get(`${this.url}/price/get/get-insuranceprice`, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.insuranceprices = res[`data`];
+        // console.log(this.clinics);
+        return this.insuranceprices;
+      }),
+      catchError(this.handleError));
+  }
+  add_clinicPrice(price: ClinicPrice) {
+    return this.http.post(`${this.url}/price/add/add-insuranceprice`, {data: price}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.clinicprices = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.clinicprices;
+        }),
+        catchError(this.handleError));
+  }
+  add_insurancePrice(price: InsurancePrice) {
+    return this.http.post(`${this.url}/price/add/add-insuranceprice`, {data: price}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.insuranceprices = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.insuranceprices;
+        }),
+        catchError(this.handleError));
   }
 
 }
