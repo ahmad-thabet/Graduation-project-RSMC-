@@ -43,9 +43,11 @@ export class ProfileComponent implements OnInit {
 
   constructor() {
   }
-  makeEditable(){
+
+  makeEditable() {
     this.disable = false;
   }
+
   ngOnInit() {
     if (localStorage.getItem('ImageUrl') != null) {
       this.src = localStorage.getItem('ImageUrl');

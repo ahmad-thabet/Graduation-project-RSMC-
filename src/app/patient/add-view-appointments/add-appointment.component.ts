@@ -1,22 +1,10 @@
 import {ChangeDetectionStrategy, Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {endOfDay, isSameDay, isSameMonth, startOfDay} from 'date-fns';
 import {Subject} from 'rxjs';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
+import {CalendarEvent, CalendarView} from 'angular-calendar';
+import {IEmployee} from '../../models/employee.model';
+import {FormControl} from '@angular/forms';
+import {IClinic} from '../../models/clinic.model';
+import {addDays, addMinutes, isSameDay, isSameMonth,} from 'date-fns';
 
 @Component({
   selector: 'app-add-appointment',
@@ -28,79 +16,66 @@ const colors: any = {
 export class AddAppointmentComponent implements OnInit {
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   @ViewChild('content') myDiv: ElementRef;
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({event}: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({event}: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
-
   view: CalendarView = CalendarView.Month;
-
-  CalendarView = CalendarView;
-
+  choosenDate: any = {};
+  doctor = new FormControl();
+  errorMessage: string;
+  doctors: IEmployee[] = [{firstname: 'aaa'}, {firstname: 'bbb'}];
+  selctedDoctor: IEmployee = {};
+  clinics: IClinic[] = [{name: 'clinic1'}, {name: 'clinic2'}, {name: 'clinic3'}];
+  selctedClicnic: IClinic = {};
+  showError = false;
   viewDate: Date = new Date();
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
+  available: any[] = [{start: '8:00', end: '8:25'},
+    {start: '8:30', end: '8:55'},
+    {start: '9:00', end: '9:25'},
+    {start: '9:30', end: '9:55'},
+    {start: '10:00', end: '10:25'},
+    {start: '10:30', end: '10:55'}
+  ];
+  reserved: any[] = [{start: '8:00', end: '8:25'}];
   refresh: Subject<any> = new Subject();
-  events: CalendarEvent[] = [];
-  //   {
-  //     start: subDays(startOfDay(new Date()), 1),
-  //     end: addDays(new Date(), 1),
-  //     title: 'A 3 day event',
-  //     color: colors.red,
-  //     actions: this.actions,
-  //     allDay: true,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'An event with no end date',
-  //     color: colors.yellow,
-  //     actions: this.actions
-  //   },
-  //   {
-  //     start: subDays(endOfMonth(new Date()), 3),
-  //     end: addDays(endOfMonth(new Date()), 3),
-  //     title: 'A long event that spans 2 months',
-  //     color: colors.blue,
-  //     allDay: true
-  //   },
-  //   {
-  //     start: addHours(startOfDay(new Date()), 2),
-  //     end: new Date(),
-  //     title: 'A draggable and resizable event',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   }
-  // ];
-  activeDayIsOpen = true;
+  patientEvents: CalendarEvent[] = [{
+    start: addDays(new Date(), 10),
+    end: addMinutes(addDays(new Date(), 10), 25),
+    title: 'Patient Event',
+    allDay: false,
+  }];
+  activeDayIsOpen = false;
 
-  constructor(private modal: NgbModal) {
+  constructor() {
+    this.choosenDate.dayDate = new Date().toString().substring(0, 15);
+    console.log(this.choosenDate);
   }
 
+  print() {
+    console.log(this.selctedDoctor);
+  }
+
+  isReserved(start) {
+    for (const ap of this.reserved) {
+      if (ap.start === start) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
+  ngOnInit(): void {
+  }
+
+  // dayClicked(date) { // you have to update reservedArray when day changes
+  //   this.choosenDate = {dayDate: date.date.toString().substring(0, 15)};
+  //   console.log(this.choosenDate);
+  //   this.activeDayIsOpen = !this.activeDayIsOpen;
+  // }
   dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+    this.choosenDate = {dayDate: date.toString().substring(0, 15)};
+    console.log(this.choosenDate);
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
       if (
@@ -114,59 +89,20 @@ export class AddAppointmentComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({
-                      event,
-                      newStart,
-                      newEnd
-                    }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map(iEvent => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
+  setTime(start, end) {
+    this.choosenDate.start = start;
+    this.choosenDate.end = end;
+    console.log(this.choosenDate);
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = {event, action};
-    this.modal.open(this.modalContent, {size: 'lg'});
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        }
-      }
-    ];
-    console.log(this.events);
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
-  }
-
-  ngOnInit(): void {
+  save() {
+    if (this.choosenDate.start === undefined) {
+      this.errorMessage = 'Please Select One Of The Available Slots';
+      this.showError = true;
+    } else {
+      this.showError = false;
+      // do your work here
+    }
   }
 }
+

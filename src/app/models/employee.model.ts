@@ -1,3 +1,23 @@
+export interface IEmployee {
+   firstname?: string;
+   secondname?: string;
+   thirdname?: string;
+   lastname?: string;
+   jobID?: string;
+   sID?: string;
+   dateofbirth?: Date;
+   gender?: string;
+   emergencynumber?: string;
+   phonenumber?: string;
+   mobilenumber?: string;
+   address?: string;
+   email?: string;
+   username?: string;
+   empID?: string;
+   password?: string;
+   cityID?: string;
+   qID?: string;
+}
 export class Employee {
   public firstname: string;
   public secondname: string;

@@ -1,3 +1,8 @@
+export interface IClinic {
+  name?: string;
+  id?: number;
+}
+
 export class Clinic {
   public name: string;
   public id: number;

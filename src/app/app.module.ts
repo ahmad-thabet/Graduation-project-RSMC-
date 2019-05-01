@@ -50,7 +50,7 @@ import {ProfileComponent} from './patient/profile/profile.component';
 import { NgxFileHelpersModule } from 'ngx-file-helpers';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-
+import {MatSelectModule} from '@angular/material/select';
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {
@@ -149,7 +149,8 @@ const appRoutes: Routes = [
     }),
     NgxFileHelpersModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   exports: [AddAppointmentComponent],
   providers: [PatinetSeviceService, AuthService, FormsModule],
