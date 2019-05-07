@@ -63,12 +63,15 @@ import {ClinicServiceService} from './service/clinic-service.service';
 import {ClinicListFullComponent} from './admin/clinic/clinic-list-full/clinic-list-full.component';
 import {AdminPaymentComponent} from './admin/admin-payment/admin-payment.component';
 import {InsuranceServiceService} from './service/insurance-service.service';
-import { PatientPaymentListComponent } from './patient/patient-payment-list/patient-payment-list.component';
+import {PatientPaymentListComponent} from './patient/patient-payment-list/patient-payment-list.component';
+import {ChartsModule} from 'ng2-charts';
+import {ChartsComponent} from './admin/charts/charts.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {
     path: 'admin', component: AdminComponent, children: [
+      {path: '', component: ChartsComponent},
       {path: 'patient-create', component: PatientCreateComponent},
       {path: 'payments', component: AdminPaymentComponent},
       {
@@ -188,7 +191,8 @@ const appRoutes: Routes = [
     ReceptionMenuComponent,
     ClinicListFullComponent,
     AdminPaymentComponent,
-    PatientPaymentListComponent
+    PatientPaymentListComponent,
+    ChartsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -211,6 +215,7 @@ const appRoutes: Routes = [
     MatInputModule,
     DlDateTimeDateModule,
     DlDateTimePickerModule,
+    ChartsModule
   ],
   exports: [AddAppointmentComponent],
   providers: [PatinetSeviceService, AuthService, DoctorServiceService, ClinicServiceService, FormsModule, InsuranceServiceService],

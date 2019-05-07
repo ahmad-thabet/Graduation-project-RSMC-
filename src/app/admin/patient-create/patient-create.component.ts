@@ -27,9 +27,12 @@ export class PatientCreateComponent implements OnInit {
   patients: Patient[];
   insurances: Insurance[];
   subincurances: Subinsurance[];
-  hasInsurance: false;
-  hasParent: false;
   personalIDMatch: any;
+
+  familyListType = '';
+  insuranceListType = '';
+
+  hasID = false;
 
   constructor(private patinetservice: PatinetSeviceService, private insuranceservice: InsuranceServiceService) {
   }
@@ -112,5 +115,10 @@ export class PatientCreateComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  onSelectCity(value: string) {
+    // TODO: implement this
+    // value will contain cityid, using it get the qid's contained in that city
   }
 }

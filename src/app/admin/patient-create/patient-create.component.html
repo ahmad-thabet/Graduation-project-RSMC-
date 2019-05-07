@@ -28,15 +28,16 @@
       </div>
       <div class="row">
         <div class="col">
-          <label>personal ID</label>
+          <label>personal ID </label>
+          <input type="checkbox" name="disableID" #disableID [(ngModel)]="hasID">
           <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.personalID"
-                 name="personalID">
+                 name="personalID" #personalID [disabled]="hasID">
         </div>
         <div class="col">
           <div class="col">
             <label>Confirm ID</label>
             <input type="text" class="form-control" placeholder="Confirm personalID" [(ngModel)]="personalIDMatch"
-                   name="personalIDMatch" #p="ngModel">
+                   name="personalIDMatch" #p="ngModel" [disabled]="hasID">
             <label style="color: red;" *ngIf="p.touched && (patient.personalID != personalIDMatch)">Double
               Check!!</label>
           </div>
@@ -77,11 +78,19 @@
                  name="mobilenumber">
         </div>
       </div>
+
       <hr>
+
       <h2>Insurance</h2>
-      <input type="checkbox" name="hasInsurance" value="hasInsurance" id="hasInsurance" [(ngModel)]="hasInsurance"> Has
-      Insurance?
-      <div class="row" *ngIf="hasInsurance">
+      <select class="custom-select"
+              id="insuranceList" name="insuranceList"
+              #insuranceList
+              (change)="insuranceListType = insuranceList.value">
+        <option value="private">Private</option>
+        <option value="hasInsurance">Public</option>
+      </select>
+
+      <div class="row" *ngIf="insuranceListType == 'hasInsurance'">
         <div class="col">
           <label>Insurance Number</label>
           <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="patient.insurancenumber"
@@ -102,25 +111,49 @@
           </select>
         </div>
       </div>
+
       <hr>
+
       <h2>Parent</h2>
-      <input type="checkbox" name="hasParent" value="hasParent" id="hasParent" [(ngModel)]="hasParent"> Has
-      Parent?
-      <div class="row" *ngIf="hasParent">
+      <select class="custom-select"
+              id="familyList" name="familyList"
+              #familyList
+              (change)="familyListType = familyList.value">
+        <option value="married">Married</option>
+        <option value="single">Single</option>
+        <option value="child">Child</option>
+      </select>
+      <div class="row" *ngIf="familyListType == 'child'">
         <div class="col">
-          <label>Parent ID</label>
-          <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="parentID"
-                 name="parentID">
+          <label>Father ID</label>
+          <input type="text" class="form-control" placeholder="Father ID" name="fatherID">
+          <!--[(ngModel)]="parentID"-->
+          <label>Mother ID</label>
+          <input type="text" class="form-control" placeholder="Mother ID" name="motherID">
+          <!--[(ngModel)]="parentID"-->
         </div>
       </div>
+      <div class="row" *ngIf="familyListType == 'single'">
+        <div class="col">
+          <label>Single</label>
+        </div>
+      </div>
+      <div class="row" *ngIf="familyListType == 'married'">
+        <div class="col">
+          <label>Married</label>
+        </div>
+      </div>
+
       <hr>
+
       <h2>Address</h2>
       <div class="row">
         <div class="col">
           <label>select city</label>
-          <select class="custom-select" id="city" [(ngModel)]="patient.cityID" name="city">
+          <select class="custom-select" id="city" [(ngModel)]="patient.cityID" name="city" #selectedCity
+                  (change)="onSelectCity(selectedCity.value)">
             <option hidden>Select city</option>
-            <option *ngFor="let x of cities" [value]="x.cityID">{{x.cityname}}</option>
+            <option *ngFor="let x of cities" [value]="x.id">{{x.cityname}}</option>
           </select>
         </div>
         <div class="col">
