@@ -17,6 +17,9 @@ export class PatientProfileDetailsComponent implements OnInit {
   quantom: Quantom;
   cities: City;
 
+  fromdate = new Date();
+  todate = new Date();
+
   // TODO: configure these as needed
   family: any[] = [
     {firstname: 'Ahmad', relationship: 'Son', id: '1'},
@@ -45,4 +48,8 @@ export class PatientProfileDetailsComponent implements OnInit {
     });
   }
 
+  onDateChanged() {
+    // do query when date changed
+    // TODO: implement this
+  }
 }

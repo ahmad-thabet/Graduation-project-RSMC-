@@ -17,15 +17,16 @@
           <label></label>
           <button class="btn btn-success btn-block" type="submit">Add</button>
         </div>
-        <div class="col">
+<!--        <div class="col">
           <label>discount</label>
           <input type="checkbox" class="form-control" [(ngModel)]="hasDiscount" value="hasDiscount" id="hasDiscount"
-                 name="hasDiscount"></div>
+                 name="hasDiscount">
+        </div>-->
       </div>
     </form>
   </div>
 </div>
-<hr *ngIf="hasDiscount">
+<!--<hr *ngIf="hasDiscount">
 <div class="row justify-content-around" *ngIf="hasDiscount">
   <div class="col-md-10">
     <form (submit)="update_insurance_price(fff)" #fff="ngForm">
@@ -50,6 +51,7 @@
     </form>
   </div>
 </div>
+-->
 <hr>
 <div class="row justify-content-around">
   <div class="col-md-10">

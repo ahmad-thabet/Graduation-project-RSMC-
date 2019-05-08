@@ -36,8 +36,8 @@ export class ClinicDetailsComponent implements OnInit {
   insurances: Insurance[];
   subinsurances: Subinsurance[];
 
-  AllInsurance: any[];
-  AllMempership: any[];
+/*  AllInsurance: any[];
+  AllMempership: any[];*/
 
 
   constructor(private clinicService: ClinicServiceService,

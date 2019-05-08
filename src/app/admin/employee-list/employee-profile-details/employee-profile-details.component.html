@@ -25,8 +25,9 @@
                  aria-selected="true">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                 aria-selected="false">-</a>
+              <a class="nav-link" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
+                 aria-controls="profile"
+                 aria-selected="false">Activity</a>
             </li>
           </ul>
         </div>
@@ -131,14 +132,22 @@
             </div>
           </div>
           <!--Second Tab-->
-          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="profile-tab">
             <div class="row">
               <div class="col-md-6">
-                <label>-</label>
+                <label for="fromdate">From</label>
+                <input type="date" class="custom-select" name="fromdate" id="fromdate" (change)="onDateChanged()"
+                       [(ngModel)]="fromdate">
               </div>
               <div class="col-md-6">
-                <p>-</p>
+                <label for="todate">To</label>
+                <input type="date" class="custom-select" name="todate" id="todate" (change)="onDateChanged()"
+                       [(ngModel)]="todate">
               </div>
+            </div>
+            <hr>
+            <div class="row" *ngFor="let x of allActivity">
+              <p>{{x}}</p>
             </div>
           </div>
         </div>
