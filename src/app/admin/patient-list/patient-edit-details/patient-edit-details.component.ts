@@ -33,6 +33,12 @@ export class PatientEditDetailsComponent implements OnInit {
 
   hasParent: boolean;
   hasInsurance: boolean;
+  personalIDMatch: any;
+
+  familyListType = '';
+  insuranceListType = '';
+
+  hasID = false;
 
 
   constructor(private patientService: PatinetSeviceService,
@@ -135,5 +141,10 @@ export class PatientEditDetailsComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  onSelectCity(value: string) {
+    // TODO: implement this
+    // value will contain cityid, using it get the qid's contained in that city
   }
 }
