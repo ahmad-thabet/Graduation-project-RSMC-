@@ -17,6 +17,18 @@ export class PatientProfileDetailsComponent implements OnInit {
   quantom: Quantom;
   cities: City;
 
+  // TODO: configure these as needed
+  family: any[] = [
+    {firstname: 'Ahmad', relationship: 'Son', id: '1'},
+    {firstname: 'Samer', relationship: 'Son', id: '2'},
+    {firstname: 'Saeed', relationship: 'Son', id: '3'},
+  ];
+  payments: any[] = [
+    {amount: 15, duedate: new Date()},
+    {amount: 25, duedate: new Date()},
+    {amount: 5, duedate: new Date()},
+  ];
+
   constructor(private patientService: PatinetSeviceService,
               public route: ActivatedRoute) {
   }
