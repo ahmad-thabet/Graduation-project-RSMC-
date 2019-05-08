@@ -1,59 +1,61 @@
 <h1>Create New Appointment</h1>
-<div class="container">
-  <div class="row">
-    <!--
-        <div class="col">
-          <p-calendar [(ngModel)]="value" [inline]="true"></p-calendar>
-        </div>
-    -->
+<pre>{{ getCurrentModel() }}</pre>
 
-    <div class="col">
-      <div class="row">
+<div class="container">
+  <form #f="ngForm" (submit)="add_appointment(f)">
+    <div class="row">
+      <div class="col">
         <div class="input-group input-group-lg">
           <input type="text" class="form-control" placeholder="Search">
           <button type="button" class="btn btn-secondary">Search</button>
         </div>
       </div>
-      <div class="row">
-        <label for="Clinic">Select Clinic</label>
-        <select class="custom-select" id="Clinic">
-          <option selected value="1">Select Clinic</option>
+    </div>
+    <div class="row">
+      <label for="patient">Select Patient</label>
+    </div>
+    <div class="row">
+      <div class="col">
+        <select class="custom-select" id="patient" name="patient" #patient (change)="selectedPatient = patient.value">
+          <option selected> -- Patient --</option>
+          <option *ngFor="let x of allPatients"
+                  [value]="[x.personalID]">{{x.firstname}} {{x.secondname}} {{x.lastname}}</option>
         </select>
       </div>
-      <div class="row">
-        <label for="doctor">Select Doctor</label>
-        <select class="custom-select" id="doctor">
-          <option selected value="1">Select Doctor</option>
-        </select>
-      </div>
-      <br>
-      <div class="row">
-        <hr>
-        <kendo-scheduler [kendoSchedulerBinding]="events"
-                         [selectedDate]="selectedDate"
-                         startTime="07:00"
-                         style="height: 600px;">
-          <kendo-scheduler-day-view>
-          </kendo-scheduler-day-view>
-
-          <kendo-scheduler-week-view>
-          </kendo-scheduler-week-view>
-
-          <kendo-scheduler-month-view>
-          </kendo-scheduler-month-view>
-
-          <kendo-scheduler-timeline-view>
-          </kendo-scheduler-timeline-view>
-
-          <kendo-scheduler-agenda-view>
-          </kendo-scheduler-agenda-view>
-        </kendo-scheduler>
-
-        <hr>
-      </div>
-      <div class="row" style="margin-bottom: 30px;">
-        <button type="button" class="btn btn-block btn-success">Submit</button>
+      <div class="col">
+        <input type="text" class="custom-select" id="patientID" name="patientID" [(ngModel)]="selectedPatient"
+               placeholder="Search Patient by ID">
       </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="col">
+        <label for="clinic">Select Clinic</label>
+        <select class="custom-select" id="clinic" name="clinic" #clinic (change)="selectedClinic = clinic.value">
+          <option selected> -- Clinic --</option>
+          <option *ngFor="let x of allClinics" value="x">{{x}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="doctor">Select Doctor</label>
+        <select class="custom-select" id="doctor" name="doctor" #doctor (change)="selectedDoctor = doctor.value">
+          <option selected> -- Doctor --</option>
+          <option *ngFor="let x of allDoctors" value="x">{{x}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <h1>Select Time</h1>
+    </div>
+    <div class="col" *ngFor="let x of allAppointments"
+         style="border: 1px black solid;border-radius: 1%;">
+      <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
+             [(ngModel)]="selectedAppointment">
+      <label for="radio-one">{{x}}</label>
+      <br>
+    </div>
+    <hr>
+    <div class="row" style="margin-bottom: 30px;">
+      <button type="submit" class="btn btn-block btn-success">Submit</button>
+    </div>
+  </form>
 </div>
