@@ -1,6 +1,7 @@
 <h1>Create New Appointment</h1>
 <pre>{{ getCurrentModel() }}</pre>
 
+
 <div class="container">
   <form #f="ngForm" (submit)="add_appointment(f)">
     <div class="row">
@@ -70,16 +71,17 @@
             </div>-->
     </div>
     <hr>
-    <div class="row">
-      <div class="d-flex flex-row bd-highlight mb-3 flex-wrap">
-        <div class="p-2 bd-highlight" *ngFor="let x of allAppointments"
-             style="border: 1px black solid; background: lightgreen">
+
+      <div class="ui-g">
+        <div class="ui-g-2"
+             *ngFor="let x of allAppointments"
+             style="border: 1px solid #e0eefa; background: #cce4f7; text-align: center;">
           <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
                  [(ngModel)]="selectedAppointment">
           <label for="radio-one">{{x.getDate()}}</label>
         </div>
       </div>
-    </div>
+
     <hr>
     <div class="row" style="margin-bottom: 30px;">
       <button type="submit" class="btn btn-block btn-success">Submit</button>
