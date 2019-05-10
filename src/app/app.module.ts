@@ -69,6 +69,10 @@ import {PatientPaymentListComponent} from './patient/patient-payment-list/patien
 import {ChartsModule} from 'ng2-charts';
 import {ChartsComponent} from './admin/charts/charts.component';
 import {MatNativeDateModule} from '@angular/material';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {SpinnerModule} from 'primeng/spinner';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -221,7 +225,10 @@ const appRoutes: Routes = [
     ChartsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    CalendarCModule
+    CalendarCModule,
+    MultiSelectModule,
+    ToastModule,
+    SpinnerModule
   ],
   exports: [AddAppointmentComponent],
   providers: [
@@ -231,7 +238,8 @@ const appRoutes: Routes = [
     ClinicServiceService,
     FormsModule,
     InsuranceServiceService,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
