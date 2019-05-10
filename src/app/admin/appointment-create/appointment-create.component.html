@@ -17,7 +17,7 @@
       <div class="col">
         <select class="custom-select" id="patient" name="patient" #patient (change)="selectedPatient = patient.value">
           <option selected> -- Patient -- </option>
-          <option *ngFor="let x of allPatients"
+          <option *ngFor="let x of patient"
                   [value]="[x.personalID]">{{x.firstname}} {{x.secondname}} {{x.lastname}}</option>
         </select>
       </div>
@@ -32,14 +32,14 @@
         <select class="custom-select" id="clinic" name="clinic" #clinic
                 (change)="selectedClinic = clinic.value && clinicSelected()">
           <option selected> -- Clinic --</option>
-          <option *ngFor="let x of allClinics" [value]="[x.clinicID]">{{x.clinicname}}</option>
+          <option *ngFor="let x of clinics" [value]="[x.clinicID]">{{x.clinicname}}</option>
         </select>
       </div>
       <div class="col">
         <label for="doctor">Select Doctor</label>
         <select class="custom-select" id="doctor" name="doctor" #doctor (change)="selectedDoctor = doctor.value">
           <option selected> -- Doctor --</option>
-          <option *ngFor="let x of allDoctors" [value]="x.empID">{{x.firstname}} {{x.lastname}}</option>
+          <option *ngFor="let x of doctors" [value]="x.empID">{{x.firstname}} {{x.lastname}}</option>
         </select>
       </div>
     </div>

@@ -3,6 +3,10 @@ import {ClinicDoctor} from '../../models/clinic-doctor.model';
 import {Clinic} from '../../models/clinic.model';
 import {Patient} from '../../models/patient.model';
 import {Employee} from '../../models/employee.model';
+import {ClinicServiceService} from '../../service/clinic-service.service';
+import {AppoinmentServiceService} from '../../service/appoinment-service.service';
+import {Appointment} from '../../models/appointment.model';
+import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 
 @Component({
   selector: 'app-appointment-create',
@@ -17,14 +21,13 @@ export class AppointmentCreateComponent implements OnInit {
   selectedToDate = new Date();
   selectedAppointment: any;
   selectedPatient: any;
-
-  allDoctors: Employee[] = [];
-  allClinics: Clinic[] = [];
-  allPatients: Patient[] = [];
-  allAppointments: any[] = [new Date(), new Date(), new Date(), new Date(), new Date(),
-    new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()];
-
-
+  appointments: Appointment[];
+  appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
+doctors: ClinicDoctor[];
+ clinics: Clinic[];
+  error = '';
+  success = '';
+  patients: Patient[];
   date5: Date;
   minDate = new Date();
   invalidDates: Array<Date> = [];
@@ -34,12 +37,18 @@ export class AppointmentCreateComponent implements OnInit {
     public selectedDate: Date = displayDate;
     public events: SchedulerEvent[] = [];*/
 
-  constructor() {
+  constructor(private clinicService: ClinicServiceService,
+              private appointmentService: AppoinmentServiceService,
+              private  patinetservice: PatinetSeviceService) {
   }
 
   ngOnInit() {
     // load stuff here
     this.filterDates();
+    this.loadalldoctors();
+    this.loadAppointmant();
+    this.loadClinics();
+    this.loadpatient();
   }
 
   filterDates() {
@@ -90,9 +99,7 @@ export class AppointmentCreateComponent implements OnInit {
       + this.selectedAppointment + '-' + this.selectedPatient + '-' + this.selectedFromDate + '-' + this.selectedToDate);
   }
 
-  add_appointment(f) {
-    console.log(f);
-  }
+
 
   clinicSelected() {
     // get doctors of selected clinic here, make it void
@@ -102,5 +109,64 @@ export class AppointmentCreateComponent implements OnInit {
   setTimeSlots() {
     // get valid dates of doctor, put it in this.validDates
     // load time slots in all apointment
+  }
+  private loadClinics() {
+    this.clinicService.get_clinic().subscribe(
+      (res: Clinic[]) => {
+        this.clinics = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadalldoctors() {
+    this.clinicService.get_clinic_doctors().subscribe(
+      (res: ClinicDoctor[]) => {
+        this.doctors = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+  private loadAppointmant() {
+    this.appointmentService.get_appointment().subscribe(
+      (res: Appointment[]) => {
+        this.appointments = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+  add_appointment(f) {
+    this.appointmentService.add_appointment(this.appointment)
+      .subscribe(
+        (res: Appointment[]) => {
+          // Update the list of cars
+          this.appointments = res;
+          // Inform the user
+          console.log(this.appointments);
+          this.success = 'Created successfully';
+          console.log(this.success);
+          // Reset the form
+          f.reset();
+        },
+        (err) => this.error = err
+      );
+  }
+  private loadpatient() {
+    this.patinetservice.get_patient().subscribe(
+      (res: Patient[]) => {
+        this.patients = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }
