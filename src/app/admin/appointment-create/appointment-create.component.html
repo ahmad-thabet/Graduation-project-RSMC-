@@ -62,26 +62,17 @@
           </ng-template>
         </p-calendar>
       </div>
-      <!--      <div class="col">
-              <mat-form-field class="example-full-width">
-                <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>-->
     </div>
     <hr>
-
-      <div class="ui-g">
-        <div class="ui-g-2"
-             *ngFor="let x of allAppointments"
-             style="border: 1px solid #e0eefa; background: #cce4f7; text-align: center;">
-          <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
-                 [(ngModel)]="selectedAppointment">
-          <label for="radio-one">{{x.getDate()}}</label>
-        </div>
+    <div class="ui-g">
+      <div class="ui-g-2"
+           *ngFor="let x of allAppointments"
+           style="border: 1px solid #e0eefa; background: #cce4f7; text-align: center;">
+        <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
+               [(ngModel)]="selectedAppointment">
+        <label for="radio-one">{{x.getDate()}}</label>
       </div>
-
+    </div>
     <hr>
     <div class="row" style="margin-bottom: 30px;">
       <button type="submit" class="btn btn-block btn-success">Submit</button>
