@@ -55,7 +55,8 @@
                     (ngModelChange)="setTimeSlots()"
         >
           <ng-template pTemplate="date" let-date>
-            <span [ngStyle]="{backgroundColor: invalidDates ? '#81C784' : 'inherit'}" style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">{{date.day}}</span>
+            <span [ngStyle]="{backgroundColor: invalidDates ? '#81C784' : 'inherit'}"
+                  style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">{{date.day}}</span>
           </ng-template>
         </p-calendar>
       </div>
@@ -67,15 +68,16 @@
               </mat-form-field>
             </div>-->
     </div>
+    <hr>
     <div class="row">
-      <h1>Select Time</h1>
-    </div>
-    <div class="col" *ngFor="let x of allAppointments"
-         style="border: 1px black solid;border-radius: 1%; margin-bottom: 0.5%;">
-      <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
-             [(ngModel)]="selectedAppointment">
-      <label for="radio-one">{{x}}</label>
-      <br>
+      <div class="d-flex flex-row bd-highlight mb-3 flex-wrap">
+        <div class="p-2 bd-highlight" *ngFor="let x of allAppointments"
+             style="border: 1px black solid; background: lightgreen">
+          <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
+                 [(ngModel)]="selectedAppointment">
+          <label for="radio-one">{{x.getDate()}}</label>
+        </div>
+      </div>
     </div>
     <hr>
     <div class="row" style="margin-bottom: 30px;">
