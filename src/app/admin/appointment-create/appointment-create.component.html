@@ -53,6 +53,7 @@
                     [readonlyInput]="true"
                     name="datepicker"
                     (ngModelChange)="setTimeSlots()"
+                    [showIcon]="true"
         >
           <ng-template pTemplate="date" let-date>
             <span [ngStyle]="{backgroundColor: invalidDates ? '#81C784' : 'inherit'}"

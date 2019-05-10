@@ -1,3 +1,83 @@
+<h1>Create New Appointment</h1>
+<pre>{{ getCurrentModel() }}</pre>
+
+<div class="container">
+  <form #f="ngForm" (submit)="add_appointment(f)">
+    <div class="row">
+      <div class="col">
+        <div class="input-group input-group-lg">
+          <input type="text" class="form-control" placeholder="Search">
+          <button type="button" class="btn btn-secondary">Search</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="clinic">Select Clinic</label>
+        <select class="custom-select" id="clinic" name="clinic" #clinic
+                (change)="selectedClinic = clinic.value && clinicSelected()">
+          <option selected> -- Clinic --</option>
+          <option *ngFor="let x of allClinics" [value]="[x.clinicID]">{{x.clinicname}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="doctor">Select Doctor</label>
+        <select class="custom-select" id="doctor" name="doctor" #doctor (change)="selectedDoctor = doctor.value">
+          <option selected> -- Doctor --</option>
+          <option *ngFor="let x of allDoctors" [value]="x.empID">{{x.firstname}} {{x.lastname}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p>Select Date</p>
+        <p-calendar [(ngModel)]="date5"
+                    [disabledDates]="invalidDates"
+                    [minDate]="minDate"
+                    [readonlyInput]="true"
+                    name="datepicker"
+                    (ngModelChange)="setTimeSlots()"
+                    [showIcon]="true"
+        >
+          <ng-template pTemplate="date" let-date>
+            <span [ngStyle]="{backgroundColor: invalidDates ? '#81C784' : 'inherit'}"
+                  style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">{{date.day}}</span>
+          </ng-template>
+        </p-calendar>
+      </div>
+      <!--      <div class="col">
+              <mat-form-field class="example-full-width">
+                <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>-->
+    </div>
+    <hr>
+    <div class="row">
+      <div class="d-flex flex-row bd-highlight mb-3 flex-wrap">
+        <div class="p-2 bd-highlight" *ngFor="let x of allAppointments"
+             style="border: 1px black solid; background: lightgreen">
+          <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
+                 [(ngModel)]="selectedAppointment">
+          <label for="radio-one">{{x.getDate()}}</label>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row" style="margin-bottom: 30px;">
+      <button type="submit" class="btn btn-block btn-success">Submit</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+<!--
 <div class="container">
   <div class="row text-center">
     <div class="col-md-4">
@@ -202,3 +282,4 @@
     </div>
   </ng-template>
 </div>
+-->
