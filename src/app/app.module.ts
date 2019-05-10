@@ -41,7 +41,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {CalendarModule as CalendarCModule} from 'primeng/calendar';
-
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -73,6 +72,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {SpinnerModule} from 'primeng/spinner';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -228,7 +229,9 @@ const appRoutes: Routes = [
     CalendarCModule,
     MultiSelectModule,
     ToastModule,
-    SpinnerModule
+    SpinnerModule,
+    MessagesModule,
+    MessageModule
   ],
   exports: [AddAppointmentComponent],
   providers: [

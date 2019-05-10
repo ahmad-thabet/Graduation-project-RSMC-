@@ -32,14 +32,22 @@
           <input type="checkbox" name="disableID" #disableID [(ngModel)]="hasID">
           <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.personalID"
                  name="personalID" #personalID [disabled]="hasID" (change)="checkValidID()">
+          <p-message
+            severity="error"
+            *ngIf="p.touched && !validID"
+            text="invalid ID"
+          ></p-message>
         </div>
         <div class="col">
           <div class="col">
             <label>Confirm ID</label>
             <input type="text" class="form-control" placeholder="Confirm personalID" [(ngModel)]="personalIDMatch"
                    name="personalIDMatch" #p="ngModel" [disabled]="hasID">
-            <label style="color: red;" *ngIf="p.touched && (patient.personalID != personalIDMatch)">Double
-              Check!!</label>
+            <p-message
+              severity="error"
+              *ngIf="p.touched && (patient.personalID != personalIDMatch)"
+              text="does not match"
+            ></p-message>
           </div>
         </div>
         <div class="col">
