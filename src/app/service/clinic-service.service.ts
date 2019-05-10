@@ -18,10 +18,11 @@ export class ClinicServiceService {
   }
 
   /*For mac*/
-  // url = 'http://localhost:8080/api';
+   url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  url = 'http://localhost/api';
+  /*url = 'http://localhost/api';*/
+
 clinocdoctors: ClinicDoctor[] ;
   clinics: Clinic[];
 doctors: Employee[];

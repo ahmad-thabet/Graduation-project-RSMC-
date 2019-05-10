@@ -40,6 +40,8 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {CalendarModule as CalendarCModule} from 'primeng/calendar';
+
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -66,6 +68,7 @@ import {InsuranceServiceService} from './service/insurance-service.service';
 import {PatientPaymentListComponent} from './patient/patient-payment-list/patient-payment-list.component';
 import {ChartsModule} from 'ng2-charts';
 import {ChartsComponent} from './admin/charts/charts.component';
+import {MatNativeDateModule} from '@angular/material';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -215,10 +218,21 @@ const appRoutes: Routes = [
     MatInputModule,
     DlDateTimeDateModule,
     DlDateTimePickerModule,
-    ChartsModule
+    ChartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    CalendarCModule
   ],
   exports: [AddAppointmentComponent],
-  providers: [PatinetSeviceService, AuthService, DoctorServiceService, ClinicServiceService, FormsModule, InsuranceServiceService],
+  providers: [
+    PatinetSeviceService,
+    AuthService,
+    DoctorServiceService,
+    ClinicServiceService,
+    FormsModule,
+    InsuranceServiceService,
+    MatDatepickerModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

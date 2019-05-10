@@ -46,13 +46,26 @@
     </div>
     <div class="row">
       <div class="col">
-        <label for="fromdate">From Date: </label>
-        <input type="date" id="fromdate" name="fromdate" #fromdate [(ngModel)]="selectedFromDate" class="custom-select">
+        <p>Select Date</p>
+        <p-calendar [(ngModel)]="date5"
+                    [disabledDates]="invalidDates"
+                    [minDate]="minDate"
+                    [readonlyInput]="true"
+                    name="datepicker"
+                    (ngModelChange)="setTimeSlots()"
+        >
+          <ng-template pTemplate="date" let-date>
+            <span [ngStyle]="{backgroundColor: invalidDates ? '#81C784' : 'inherit'}" style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">{{date.day}}</span>
+          </ng-template>
+        </p-calendar>
       </div>
-      <div class="col">
-        <label for="todate">to Date: </label>
-        <input type="date" id="todate" name="todate" #todate [(ngModel)]="selectedToDate" class="custom-select">
-      </div>
+      <!--      <div class="col">
+              <mat-form-field class="example-full-width">
+                <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>-->
     </div>
     <div class="row">
       <h1>Select Time</h1>
@@ -70,3 +83,6 @@
     </div>
   </form>
 </div>
+
+
+
