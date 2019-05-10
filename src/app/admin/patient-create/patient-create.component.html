@@ -31,7 +31,7 @@
           <label>personal ID </label>
           <input type="checkbox" name="disableID" #disableID [(ngModel)]="hasID">
           <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.personalID"
-                 name="personalID" #personalID [disabled]="hasID">
+                 name="personalID" #personalID [disabled]="hasID" (change)="checkValidID()">
         </div>
         <div class="col">
           <div class="col">

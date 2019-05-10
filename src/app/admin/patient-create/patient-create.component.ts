@@ -6,6 +6,7 @@ import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 import {InsuranceServiceService} from '../../service/insurance-service.service';
 import {Insurance} from '../../models/insurance.model';
 import {Subinsurance} from '../../models/subinsurance.model';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-patient-create',
@@ -33,8 +34,11 @@ export class PatientCreateComponent implements OnInit {
   insuranceListType = '';
 
   hasID = false;
+  validID = false;
 
-  constructor(private patinetservice: PatinetSeviceService, private insuranceservice: InsuranceServiceService) {
+  constructor(private patinetservice: PatinetSeviceService,
+              private insuranceservice: InsuranceServiceService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -121,4 +125,72 @@ export class PatientCreateComponent implements OnInit {
     // TODO: implement this
     // value will contain cityid, using it get the qid's contained in that city
   }
+
+
+  checkValidID() {
+    const id = this.patient.personalID;
+    if (id.length !== 9) {
+      this.validID = false;
+      this.messageService.add({severity: 'error', summary: 'lenght mush be 9', detail: 'the ID in invalid, check again'});
+    } else if (id === null) {
+      this.validID = false;
+      this.messageService.add({severity: 'error', summary: 'can not be null', detail: 'the ID in invalid, check again'});
+    } else {
+      let Ldigit = 0;
+      // @ts-ignore
+      Ldigit = (id % 10);
+      let j1 = 1; // division
+      let j2 = 10; // mod
+      let t1;
+      let t2;
+      const arr = Array();
+      const arr2 = Array();
+      for (let i = 0; i < 8; i++) {
+        j1 = j1 * 10;
+        j2 = j2 * 10;
+        // @ts-ignore
+        t1 = id % j2;
+        t2 = (t1 / j1) | 0;
+        arr[i] = t2;
+      }
+      let j = 7;
+      for (let i = 0; i < 8; i++) {
+        arr2[j] = arr[i];
+        j--;
+      }
+      let odd = 1;
+      for (let i = 0; i < 8; i++) {
+        if (odd === 1) {
+          arr2[i] = arr2[i] * 1;
+          odd = 2;
+        } else {
+          arr2[i] = arr2[i] * 2;
+          odd = 1;
+        }
+        if (arr2[i] > 9) {
+          let temp = arr2[i].toString().split(''); // 12
+          temp = Number(temp[0]) + Number(temp[1]);
+          arr2[i] = temp;
+        }
+      }
+      let sub = 0;
+      for (let i = 0; i < 8; i++) {
+        sub += arr2[i];
+      }
+      let Valid;
+      Valid = sub.toString().split('');
+      Valid = Valid[1];
+      Valid = 10 - Valid;
+      if (Ldigit === Valid) {
+        this.validID = true;
+      } else {
+        this.validID = false;
+        this.messageService.add({severity: 'warn', summary: 'Invalid', detail: 'the ID in invalid, check again'});
+      }
+
+    }
+
+  }
+
+
 }
