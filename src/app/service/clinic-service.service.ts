@@ -18,16 +18,17 @@ export class ClinicServiceService {
   }
 
   /*For mac*/
-   // url = 'http://localhost:8080/api';
+  url = 'http://localhost:8080/api';
 
   /*For Windows*/
-url = 'http://localhost/api';
+  // url = 'http://localhost/api';
 
- clinocdoctors: ClinicDoctor[] ;
+  clinocdoctors: ClinicDoctor[];
   clinics: Clinic[];
-doctors: Employee[];
-insuranceprices: InsurancePrice[];
-clinicprices: ClinicPrice[];
+  doctors: Employee[];
+  insuranceprices: InsurancePrice[];
+  clinicprices: ClinicPrice[];
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
     // return an observable with a user friendly message
@@ -65,6 +66,7 @@ clinicprices: ClinicPrice[];
         }),
         catchError(this.handleError));
   }
+
   getdoctors(): Observable<Employee[]> {
     return this.http.get(`${this.url}/doctor/get/get-doctorsp`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -74,6 +76,7 @@ clinicprices: ClinicPrice[];
       }),
       catchError(this.handleError));
   }
+
   get_clinic_doctors(): Observable<ClinicDoctor[]> {
     return this.http.get(`${this.url}/doctor/get/get-doctor`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -83,6 +86,7 @@ clinicprices: ClinicPrice[];
       }),
       catchError(this.handleError));
   }
+
   get_clinicprice(): Observable<ClinicPrice[]> {
     return this.http.get(`${this.url}/pricce/get/get-clinicprice`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -91,6 +95,7 @@ clinicprices: ClinicPrice[];
       }),
       catchError(this.handleError));
   }
+
   get_insuranceprice(): Observable<InsurancePrice[]> {
     return this.http.get(`${this.url}/price/get/get-insuranceprice`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -100,6 +105,7 @@ clinicprices: ClinicPrice[];
       }),
       catchError(this.handleError));
   }
+
   add_clinicPrice(price: ClinicPrice) {
     return this.http.post(`${this.url}/price/add/add-insuranceprice`, {data: price}, {responseType: 'text'})
       .pipe(map((res) => {
@@ -110,6 +116,7 @@ clinicprices: ClinicPrice[];
         }),
         catchError(this.handleError));
   }
+
   add_insurancePrice(price: InsurancePrice) {
     return this.http.post(`${this.url}/price/add/add-insuranceprice`, {data: price}, {responseType: 'text'})
       .pipe(map((res) => {

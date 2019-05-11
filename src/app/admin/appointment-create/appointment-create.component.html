@@ -16,8 +16,8 @@
       </div>
       <div class="col">
         <select class="custom-select" id="patient" name="patient" #patient (change)="selectedPatient = patient.value">
-          <option selected> -- Patient -- </option>
-          <option *ngFor="let x of patient"
+          <option selected> -- Patient --</option>
+          <option *ngFor="let x of patients"
                   [value]="[x.personalID]">{{x.firstname}} {{x.secondname}} {{x.lastname}}</option>
         </select>
       </div>
@@ -49,6 +49,7 @@
         <p-calendar [(ngModel)]="date5"
                     [disabledDates]="invalidDates"
                     [minDate]="minDate"
+                    [maxDate]="maxDate"
                     [readonlyInput]="true"
                     name="datepicker"
                     (ngModelChange)="setTimeSlots()"

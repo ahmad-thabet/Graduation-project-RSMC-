@@ -21,15 +21,19 @@ export class AppointmentCreateComponent implements OnInit {
   selectedToDate = new Date();
   selectedAppointment: any;
   selectedPatient: any;
+
   appointments: Appointment[];
   appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
-doctors: ClinicDoctor[];
- clinics: Clinic[];
+  doctors: ClinicDoctor[];
+  clinics: Clinic[];
   error = '';
   success = '';
   patients: Patient[];
   date5: Date;
+
   minDate = new Date();
+  maxDate = new Date();
+
   invalidDates: Array<Date> = [];
   validDates: Array<Date> = [];
 
@@ -49,6 +53,8 @@ doctors: ClinicDoctor[];
     this.loadAppointmant();
     this.loadClinics();
     this.loadpatient();
+
+    this.maxDate.setFullYear(this.minDate.getFullYear(), this.minDate.getMonth() + 11, this.minDate.getDay());
   }
 
   filterDates() {
@@ -100,7 +106,6 @@ doctors: ClinicDoctor[];
   }
 
 
-
   clinicSelected() {
     // get doctors of selected clinic here, make it void
     return true;
@@ -110,6 +115,7 @@ doctors: ClinicDoctor[];
     // get valid dates of doctor, put it in this.validDates
     // load time slots in all apointment
   }
+
   private loadClinics() {
     this.clinicService.get_clinic().subscribe(
       (res: Clinic[]) => {
@@ -132,6 +138,7 @@ doctors: ClinicDoctor[];
       }
     );
   }
+
   private loadAppointmant() {
     this.appointmentService.get_appointment().subscribe(
       (res: Appointment[]) => {
@@ -142,6 +149,7 @@ doctors: ClinicDoctor[];
       }
     );
   }
+
   add_appointment(f) {
     this.appointmentService.add_appointment(this.appointment)
       .subscribe(
@@ -158,6 +166,7 @@ doctors: ClinicDoctor[];
         (err) => this.error = err
       );
   }
+
   private loadpatient() {
     this.patinetservice.get_patient().subscribe(
       (res: Patient[]) => {

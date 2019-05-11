@@ -74,6 +74,9 @@ import {MessageService} from 'primeng/api';
 import {SpinnerModule} from 'primeng/spinner';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {AppoinmentServiceService} from './service/appoinment-service.service';
+import {EmployeeServiceService} from './service/employee-service.service';
+import {ScheduleServiceService} from './service/schedule-service.service';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -235,12 +238,15 @@ const appRoutes: Routes = [
   ],
   exports: [AddAppointmentComponent],
   providers: [
-    PatinetSeviceService,
     AuthService,
+    PatinetSeviceService,
     DoctorServiceService,
     ClinicServiceService,
-    FormsModule,
     InsuranceServiceService,
+    AppoinmentServiceService,
+    ScheduleServiceService,
+    EmployeeServiceService,
+    FormsModule,
     MatDatepickerModule,
     MessageService
   ],
