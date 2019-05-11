@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {SchedulerEvent} from '@progress/kendo-angular-scheduler';
 import {displayDate, sampleData} from './events-utc';
 import {MessageService} from 'primeng/api';
+import {Schadule} from '../../models/schedule.model';
+import {ScheduleServiceService} from '../../service/schedule-service.service';
+
 
 @Component({
   selector: 'app-schadule-generator',
@@ -23,16 +26,19 @@ export class SchaduleGeneratorComponent implements OnInit {
     {label: 'Thursday', value: 'thursday'},
     {label: 'Friday', value: 'friday'}
   ];
-
+  error = '';
+  success = '';
   selectedFromTime;
   selectedToTime;
   selectedSlotTime = 5;
-
-
-  constructor(private messageService: MessageService) {
+  schedule = new Schadule(0, 0, 0, '', '', 0, new Date(), new Date(), 0, 0, 0, 0, 0, 0, 0);
+  schedules: Schadule[];
+  constructor(private messageService: MessageService,
+              private scheduleServie: ScheduleServiceService) {
   }
 
   ngOnInit() {
+    this.loadschedule();
   }
 
   onGenerate() {
@@ -47,4 +53,30 @@ export class SchaduleGeneratorComponent implements OnInit {
     this.messageService.add({severity: 'warn', summary: 'Cleared', detail: 'All selection cleared'});
   }
 
+  create_schedule(f) {
+    this.scheduleServie.add_schedule(this.schedule)
+      .subscribe(
+        (res: Schadule[]) => {
+          // Update the list of cars
+          this.schedules = res;
+          // Inform the user
+          console.log(this.schedules);
+          this.success = 'Created successfully';
+          console.log(this.success);
+          // Reset the form
+          f.reset();
+        },
+        (err) => this.error = err
+      );
+  }
+  private loadschedule() {
+    this.scheduleServie.get_schedule().subscribe(
+      (res: Schadule[]) => {
+        this.schedules = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
 }
