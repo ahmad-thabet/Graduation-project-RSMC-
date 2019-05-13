@@ -25,8 +25,12 @@
                  aria-selected="true">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+              <a class="nav-link" id="payment-tab" data-toggle="tab" href="#payment" role="tab" aria-controls="payments"
                  aria-selected="false">Payments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="family-tab" data-toggle="tab" href="#family" role="tab" aria-controls="family"
+                 aria-selected="false">Family</a>
             </li>
           </ul>
         </div>
@@ -131,13 +135,54 @@
             </div>
           </div>
           <!--Second Tab-->
-          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="profile-tab">
+            <h3>Payments</h3>
             <div class="row">
               <div class="col-md-6">
-                <label>Payment</label>
+                <label for="fromdate">From</label>
+                <input type="date" class="custom-select" name="fromdate" id="fromdate" (change)="onDateChanged()"
+                       [(ngModel)]="fromdate">
               </div>
               <div class="col-md-6">
-                <p>Payment</p>
+                <label for="todate">To</label>
+                <input type="date" class="custom-select" name="todate" id="todate" (change)="onDateChanged()"
+                       [(ngModel)]="todate">
+              </div>
+            </div>
+            <hr>
+            <div class="row" *ngFor="let x of payments">
+              <div class="col-md-6">
+                <label>{{x.amount}}</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{x.duedate}}</p>
+              </div>
+            </div>
+          </div>
+          <!--Third Tab-->
+          <div class="tab-pane fade" id="family" role="tabpanel" aria-labelledby="profile-tab">
+            <h3>Family</h3>
+            <div class="row">
+              <div class="col-md-3">
+                <label>First Name</label>
+              </div>
+              <div class="col-md-3">
+                <label>Relationship</label>
+              </div>
+              <div class="col-md-3">
+                <label>ID</label>
+              </div>
+            </div>
+
+            <div class="row" *ngFor="let x of family">
+              <div class="col-md-3">
+                <label>{{x.firstname}}</label>
+              </div>
+              <div class="col-md-3">
+                <label>{{x.relationship}}</label>
+              </div>
+              <div class="col-md-3">
+                <a [routerLink]="['../',x.id]">{{x.id}}</a>
               </div>
             </div>
           </div>

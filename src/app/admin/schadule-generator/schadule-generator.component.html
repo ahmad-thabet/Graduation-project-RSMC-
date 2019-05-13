@@ -1,91 +1,56 @@
-<!--
-<h1>Schedule Generator</h1>
-<div class="container">
-  <form>
-    <div class="row">
-      <div class="col">
-        <ul class="list-group" style="text-align: center">
-          <li class="list-group-item">
-            <input type="checkbox"> Saturday /
-            <input type="checkbox"> Sunday /
-            <input type="checkbox"> Monday /
-            <input type="checkbox"> Tuesday /
-            <input type="checkbox"> Wednesday /
-            <input type="checkbox"> Thursday /
-            <input type="checkbox"> Friday
-          </li>
-          <li class="list-group-item">
-            From :  <input type="time"> -
-            To :  <input type="time">
-          </li>
-          <li class="list-group-item">
-            <label for="slotlength">Slot Length: </label>
-            <input type="number" value="0" min="0" step="5" id="slotlength">
-             -
-            <label for="timebetween">Time between slots: </label>
-            <input type="number" value="0" min="0" step="5" id="timebetween">
-          </li>
-          <li class="list-group-item">
-            &#45;&#45; Calendar Goes here &#45;&#45;
-          </li>
-          <li class="list-group-item">
-            <button class="btn btn-primary">Generate</button>
-            <button class="btn btn-success" type="submit">Submit</button>
-            <button class="btn btn-danger" type="reset">Clear</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </form>
-</div>
--->
 <h1>Schedule Generator</h1>
 <div class="container" style="text-align: center;">
   <form>
-    <div class="row">
-      <div class="col">
-        <label for="saturday">Saturday
-          <input type="checkbox" id="saturday" name="saturday"></label>
+
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <h3>Select Days</h3>
+        <p-multiSelect [options]="days"
+                       [(ngModel)]="selectedDays"
+                       [panelStyle]="{minWidth:'12em'}"
+                       name="daysOfWeek"
+                       [maxSelectedLabels]="7"
+        ></p-multiSelect>
       </div>
-      <div class="col">
-        <label for="Sunday">Sunday
-          <input type="checkbox" id="Sunday" name="Sunday"></label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <h3>From Time</h3>
+        <p-calendar [(ngModel)]="selectedFromTime" [timeOnly]="true" name="fromtime"></p-calendar>
       </div>
-      <div class="col">
-        <label for="monday">Monday
-          <input type="checkbox" id="monday" name="monday"></label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <h3>To Time</h3>
+        <p-calendar [(ngModel)]="selectedToTime" [timeOnly]="true" name="totime"></p-calendar>
+
       </div>
-      <div class="col">
-        <label for="tuesday">Tuesday
-          <input type="checkbox" id="tuesday" name="tuesday"></label>
-      </div>
-      <div class="col">
-        <label for="wednesday">Wednesday
-          <input type="checkbox" id="wednesday" name="wednesday"></label>
-      </div>
-      <div class="col">
-        <label for="thursday">Thursday
-          <input type="checkbox" id="thursday" name="thursday"></label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="fromtime">From <input type="time" id="fromtime"></label>
-      </div>
-      <div class="col">
-        <label for="totime">From <input type="time" id="totime"></label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <h3>Slot Time</h3>
+        <p-spinner [(ngModel)]="selectedSlotTime" [min]="0" [max]="60" [step]="5" name="slottime"></p-spinner>
+
       </div>
     </div>
-    <div class="row">
+
+<!--    <div class="row">
       <div class="col">
-        <label for="slotlength">Slot Length: </label>
-        <input type="number" value="0" min="0" step="5" id="slotlength">
+        <h3>Select Days</h3>
+        <p-multiSelect [options]="days"
+                       [(ngModel)]="selectedDays"
+                       [panelStyle]="{minWidth:'12em'}"
+                       name="daysOfWeek"
+                       [maxSelectedLabels]="7"
+        ></p-multiSelect>
       </div>
       <div class="col">
-        <label for="timebetween">Time between slots: </label>
-        <input type="number" value="0" min="0" step="5" id="timebetween">
+        <h3>From Time</h3>
+        <p-calendar [(ngModel)]="selectedFromTime" [timeOnly]="true" name="fromtime"></p-calendar>
       </div>
-    </div>
+      <div class="col">
+        <h3>To Time</h3>
+        <p-calendar [(ngModel)]="selectedToTime" [timeOnly]="true" name="totime"></p-calendar>
+      </div>
+      <div class="col">
+        <h3>Slot Time</h3>
+        <p-spinner size="50" [(ngModel)]="selectedSlotTime" [min]="0" [max]="60" [step]="5" name="slottime"></p-spinner>
+      </div>
+    </div>-->
     <div class="row">
       <hr>
       <kendo-scheduler [kendoSchedulerBinding]="events"
@@ -107,13 +72,15 @@
 
       <hr>
     </div>
-    <div class="row">
-      <div class="col-2">
-        <button class="btn btn-primary btn-block">Generate</button>
+    <div class="row" style="margin-bottom: 1em;">
+      <div class="col">
+        <button class="btn btn-primary btn-block" (click)="onGenerate()">Generate</button>
       </div>
       <div class="col">
-        <button class="btn btn-success" type="submit">Submit</button>
-        <button class="btn btn-danger" type="reset">Clear</button>
+        <button class="btn btn-success btn-block" type="submit" (click)="onSubmit()">Submit</button>
+      </div>
+      <div class="col">
+        <button class="btn btn-danger btn-block" type="reset" (click)="onClear()">Clear</button>
       </div>
     </div>
   </form>

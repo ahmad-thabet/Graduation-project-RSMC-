@@ -33,7 +33,6 @@ import {ClinicDetailsComponent} from './admin/clinic/clinic-details/clinic-detai
 import {SchedulerModule} from '@progress/kendo-angular-scheduler';
 import {PatientComponent} from './patient/patient.component';
 import {PatientMenuComponent} from './patient/patient-menu/patient-menu.component';
-import {AddAppointmentComponent} from './patient/add-view-appointments/add-appointment.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {NgModule} from '@angular/core';
@@ -41,21 +40,52 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {CalendarModule as CalendarCModule} from 'primeng/calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import 'flatpickr/dist/flatpickr.css';
 import {ProfileComponent} from './patient/profile/profile.component';
-import { NgxFileHelpersModule } from 'ngx-file-helpers';
+import {NgxFileHelpersModule} from 'ngx-file-helpers';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {DlDateTimeDateModule, DlDateTimePickerModule} from 'angular-bootstrap-datetimepicker';
+import {DoctorComponent} from './doctor/doctor.component';
+import {DoctorMenuComponent} from './doctor/doctor-menu/doctor-menu.component';
+import {DoctorScheduleComponent} from './doctor/doctor-schedule/doctor-schedule.component';
+import {DoctorVacationComponent} from './doctor/doctor-vacation/doctor-vacation.component';
+import {DoctorExceptionComponent} from './doctor/doctor-exception/doctor-exception.component';
+import {DoctorServiceService} from './service/doctor-service.service';
+import {ReceptionComponent} from './reception/reception.component';
+import {ReceptionMenuComponent} from './reception/reception-menu/reception-menu.component';
+import {AddAppointmentComponent} from './patient/add-view-appointments/add-appointment.component';
+import {ClinicServiceService} from './service/clinic-service.service';
+import {ClinicListFullComponent} from './admin/clinic/clinic-list-full/clinic-list-full.component';
+import {AdminPaymentComponent} from './admin/admin-payment/admin-payment.component';
+import {InsuranceServiceService} from './service/insurance-service.service';
+import {PatientPaymentListComponent} from './patient/patient-payment-list/patient-payment-list.component';
+import {ChartsModule} from 'ng2-charts';
+import {ChartsComponent} from './admin/charts/charts.component';
+import {MatNativeDateModule} from '@angular/material';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {SpinnerModule} from 'primeng/spinner';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {AppoinmentServiceService} from './service/appoinment-service.service';
+import {EmployeeServiceService} from './service/employee-service.service';
+import {ScheduleServiceService} from './service/schedule-service.service';
+
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {
     path: 'admin', component: AdminComponent, children: [
+      {path: '', component: ChartsComponent},
       {path: 'patient-create', component: PatientCreateComponent},
+      {path: 'payments', component: AdminPaymentComponent},
       {
         path: 'patient-list', component: PatientListComponent, children: [
           {path: '', component: PatientListFullComponent},
@@ -80,7 +110,8 @@ const appRoutes: Routes = [
       {path: 'insurance', component: InsuranceComponent},
       {
         path: 'clinics', component: ClinicComponent, children: [
-          {path: ':id', component: ClinicDetailsComponent}
+          {path: ':id', component: ClinicDetailsComponent},
+          {path: '', component: ClinicListFullComponent}
         ]
       },
     ]
@@ -89,7 +120,40 @@ const appRoutes: Routes = [
     path: 'patient', component: PatientComponent, children: [
       {path: 'add-view-appointments', component: AddAppointmentComponent},
       {path: 'profile', component: ProfileComponent},
+      {path: 'payments', component: PatientPaymentListComponent}
 
+    ]
+  },
+  {
+    path: 'doctor', component: DoctorComponent, children: [
+      {path: 'schedule', component: DoctorScheduleComponent},
+      {path: 'vacation', component: DoctorVacationComponent},
+      {path: 'exception', component: DoctorExceptionComponent}
+    ]
+  },
+  {
+    path: 'reception', component: ReceptionComponent, children: [
+      {path: 'patient-create', component: PatientCreateComponent},
+      {path: 'payments', component: AdminPaymentComponent},
+      {
+        path: 'patient-list', component: PatientListComponent, children: [
+          {path: '', component: PatientListFullComponent},
+          {path: ':id/edit', component: PatientEditDetailsComponent},
+          {path: ':id', component: PatientProfileDetailsComponent}
+        ]
+      },
+      {path: 'app-create', component: AppointmentCreateComponent},
+      {path: 'app-list', component: AppointmentListComponent},
+      {path: 'sch-list', component: SchaduleGeneratorComponent},
+      {path: 'exc-date', component: ExceptionDateComponent},
+      {path: 'vac-date', component: VacationDateComponent},
+      {path: 'insurance', component: InsuranceUpdateComponent},
+      {
+        path: 'clinics', component: ClinicComponent, children: [
+          {path: ':id', component: ClinicDetailsComponent},
+          {path: '', component: ClinicListComponent}
+        ]
+      }
     ]
   }
 ];
@@ -130,6 +194,17 @@ const appRoutes: Routes = [
     PatientMenuComponent,
     AddAppointmentComponent,
     ProfileComponent,
+    DoctorComponent,
+    DoctorMenuComponent,
+    DoctorScheduleComponent,
+    DoctorVacationComponent,
+    DoctorExceptionComponent,
+    ReceptionComponent,
+    ReceptionMenuComponent,
+    ClinicListFullComponent,
+    AdminPaymentComponent,
+    PatientPaymentListComponent,
+    ChartsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -150,10 +225,34 @@ const appRoutes: Routes = [
     NgxFileHelpersModule,
     MatFormFieldModule,
     MatInputModule,
+    DlDateTimeDateModule,
+    DlDateTimePickerModule,
+    ChartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    CalendarCModule,
+    MultiSelectModule,
+    ToastModule,
+    SpinnerModule,
+    MessagesModule,
+    MessageModule
+    MatInputModule,
     MatSelectModule
   ],
   exports: [AddAppointmentComponent],
-  providers: [PatinetSeviceService, AuthService, FormsModule],
+  providers: [
+    AuthService,
+    PatinetSeviceService,
+    DoctorServiceService,
+    ClinicServiceService,
+    InsuranceServiceService,
+    AppoinmentServiceService,
+    ScheduleServiceService,
+    EmployeeServiceService,
+    FormsModule,
+    MatDatepickerModule,
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

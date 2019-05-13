@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Quantom} from '../../../models/quantom.model';
 import {City} from '../../../models/city.model';
 import {Employee} from '../../../models/employee.model';
@@ -16,7 +16,16 @@ export class EmployeeProfileDetailsComponent implements OnInit {
   quantom: Quantom;
   cities: City;
 
-  constructor(private employeeService: EmployeeServiceService, private route: ActivatedRoute) { }
+  fromdate = new Date();
+  todate = new Date();
+
+  allActivity: any[] = [
+    'Reservation for id 10',
+    'Payment for id 033',
+  ];
+
+  constructor(private employeeService: EmployeeServiceService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     // this will return patient by id
@@ -26,4 +35,8 @@ export class EmployeeProfileDetailsComponent implements OnInit {
     });
   }
 
+  onDateChanged() {
+    // do query when date changed
+    // TODO: implement this
+  }
 }
