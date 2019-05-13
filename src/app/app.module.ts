@@ -235,7 +235,7 @@ const appRoutes: Routes = [
     ToastModule,
     SpinnerModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
     MatInputModule,
     MatSelectModule
   ],
