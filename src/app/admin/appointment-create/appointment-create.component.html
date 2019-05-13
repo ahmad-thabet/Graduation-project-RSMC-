@@ -41,7 +41,7 @@
                 id="doctor"
                 name="doctor"
                 #doctor
-                (change)="selectedDoctor = doctor.value">
+                (change)="doctorSelected(doctor.value)">
           <option selected> -- Doctor --</option>
           <option *ngFor="let x of doctorsIDs" [value]="x.empID">{{x.firstname}}</option>
         </select>
@@ -69,11 +69,11 @@
     <hr>
     <div class="ui-g">
       <div class="ui-g-2"
-           *ngFor="let x of allAppointments"
+           *ngFor="let x of AllApoin"
            style="border: 1px solid #e0eefa; background: #cce4f7; text-align: center;">
         <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
                [(ngModel)]="selectedAppointment">
-        <label for="radio-one">{{x.getDate()}}</label>
+        <label for="radio-one">{{x}}</label>
       </div>
     </div>
     <hr>

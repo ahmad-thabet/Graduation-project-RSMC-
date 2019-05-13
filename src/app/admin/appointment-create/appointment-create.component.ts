@@ -10,7 +10,7 @@ import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {EmployeeServiceService} from '../../service/employee-service.service';
 import {ScheduleServiceService} from '../../service/schedule-service.service';
-import {Schadule} from "../../models/schedule.model";
+import {Schadule} from '../../models/schedule.model';
 
 @Component({
   selector: 'app-appointment-create',
@@ -19,7 +19,7 @@ import {Schadule} from "../../models/schedule.model";
 })
 
 export class AppointmentCreateComponent implements OnInit {
-  selectedClinic: number;
+  selectedClinic: any;
   selectedDoctor: any;
   selectedFromDate = new Date();
   selectedToDate = new Date();
@@ -28,6 +28,8 @@ export class AppointmentCreateComponent implements OnInit {
 
   appointments: Appointment[];
   appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
+
+  AllApoin: any[] = [];
 
   doctors: ClinicDoctor[];
   doctorss: ClinicDoctor[];
@@ -40,11 +42,17 @@ export class AppointmentCreateComponent implements OnInit {
 
   minDate = new Date();
   maxDate = new Date();
+
   doctorsID: Employee[] = [];
   doctorsIDs: Employee[] = [];
-  doctorsSChedule: Schadule[];
+
+  doctorsSchedule: Schadule[] = [];
+  doctorsSchedules: Schadule[] = [];
+
   invalidDates: Array<Date> = [];
-  validDates: Array<Date> = [];
+  /*
+    validDates: Array<Date> = [];
+  */
 
   /*  value: any;
     public selectedDate: Date = displayDate;
@@ -65,33 +73,37 @@ export class AppointmentCreateComponent implements OnInit {
     this.loadAppointmant();
     this.loadClinics();
     this.loadpatient();
-    this.filterDates();
     this.maxDate.setFullYear(this.minDate.getFullYear(), this.minDate.getMonth() + 11, this.minDate.getDay());
   }
 
   filterDates() {
 
     let invalidDates = [];
-    let validDates = [];
+    const validDates = [];
 
-    //////// fot testing
-    // generate random valid dates.
-    // validDates = this.validDates;
-    validDates = [
-      new Date(),
-      new Date(),
-      new Date(),
-      new Date()
-    ];
-    validDates[0].setDate(validDates[0].getDate() + 10);
-    validDates[1].setDate(validDates[1].getDate() + 15);
-    validDates[2].setDate(validDates[2].getDate() + 16);
-    validDates[3].setDate(validDates[3].getDate() + 17);
-    /////////
+    let startDate;
+    let endDate;
+
+    for (const i of this.doctorsSchedules) {
+      const days = [i.sun, i.mon, i.tue, i.wen, i.thu, i.fri];
+      startDate = new Date(i.startdate);
+      endDate = new Date(i.enddate);
+
+      let temp = new Date(startDate.getTime());
+      while (temp.getTime() <= endDate.getTime()) {
+        if (days[temp.getDay()].toString() === '1') {
+          validDates.push(temp);
+        }
+        temp = new Date(temp.getTime());
+        temp.setDate(temp.getDate() + 1);
+      }
+      console.log(validDates);
+    }
 
     // set random start and end dates.
     const start = new Date();
     const end = new Date();
+
     end.setFullYear(start.getFullYear(), start.getMonth() + 11, start.getDay());
 
     // move over [start ---> end] and fill all dates as invalid.
@@ -102,13 +114,13 @@ export class AppointmentCreateComponent implements OnInit {
       tempDate.setDate(tempDate.getDate() + 1);
     }
 
-    // remove the valid dates from the invalid ones..
-    invalidDates = invalidDates.filter(
-      (invalidDate) =>
-        !validDates.find(validDate => Math.abs(validDate.getTime() - invalidDate.getTime()) < 5)
-    );
+    /*    // remove the valid dates from the invalid ones..
+        invalidDates = invalidDates.filter(
+          (invalidDate) =>
+            !validDates.find(validDate => Math.abs(validDate.getTime() - invalidDate.getTime()) < 5)
+        );*/
+    invalidDates = invalidDates.filter((invalidDate) => !validDates.find(validDate => validDate.getDate() === invalidDate.getDate()));
 
-    // invalidDates.forEach(date => console.log(date.toString()));
     this.invalidDates = invalidDates;
   }
 
@@ -118,10 +130,9 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
 
-  clinicSelected(id: number) {
-    /*
-        console.log(this.doctors);
-    */
+  clinicSelected(id: any) {
+    this.selectedClinic = id;
+
     this.doctorsIDs.splice(0, this.doctorsIDs.length);
     this.doctorss = this.doctors.filter(x => x.clinicID === id);
     for (const x of this.doctorss) {
@@ -136,6 +147,50 @@ export class AppointmentCreateComponent implements OnInit {
   setTimeSlots() {
     // get valid dates of doctor, put it in this.validDates
     // load time slots in all apointment
+    // date selected == date 5
+
+    const startTimeHours = +(this.doctorsSchedules[0].starttime.split(':')[0]);
+    const startTimeMinutes = +(this.doctorsSchedules[0].starttime.split(':')[1]);
+    console.log(startTimeHours + ':' + startTimeMinutes);
+
+    const endTimeHours = +(this.doctorsSchedules[0].endtime.split(':')[0]);
+    const endTimeMinutes = +(this.doctorsSchedules[0].endtime.split(':')[1]);
+    console.log(endTimeHours + ':' + endTimeMinutes);
+
+    const numSlots = ((endTimeHours - startTimeHours) * 60) / this.doctorsSchedules[0].slot;
+    const slotLength = +(this.doctorsSchedules[0].slot);
+    console.log(slotLength);
+
+    let tempStartTimeHours = startTimeHours;
+    let tempStartTimeMinutes = startTimeMinutes;
+    let tempEndTimeHours;
+    let tempEndTimeMinutes;
+
+    for (let i = 0; i < numSlots; i++) {
+      tempEndTimeMinutes = tempStartTimeMinutes + slotLength;
+      console.log(tempEndTimeMinutes);
+      tempEndTimeHours = tempStartTimeHours;
+      console.log(tempEndTimeHours);
+
+
+      if (tempEndTimeMinutes >= 60) {
+        tempEndTimeMinutes = tempEndTimeMinutes - 60;
+        tempEndTimeHours = tempEndTimeHours + 1;
+      }
+
+      this.AllApoin.push(tempStartTimeHours + ':' + tempStartTimeMinutes +
+        ' - ' + tempEndTimeHours + ':' + tempEndTimeMinutes);
+
+      tempStartTimeMinutes = tempEndTimeMinutes + slotLength;
+      tempStartTimeHours = tempEndTimeHours;
+      if (tempStartTimeMinutes >= 60) {
+        tempStartTimeMinutes = tempStartTimeMinutes - 60;
+        tempStartTimeHours++;
+      }
+
+    }
+
+
   }
 
   private loadClinics() {
@@ -205,7 +260,7 @@ export class AppointmentCreateComponent implements OnInit {
   private loadSchedule() {
     this.scheduleService.get_schedule().subscribe(
       (res: Schadule[]) => {
-        this.doctorsSChedule = res;
+        this.doctorsSchedule = res;
         console.log(res);
       },
       (err) => {
@@ -235,15 +290,6 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
   private loaddoctors() {
-    /*    this.clinicService.getID(this.selectedDoctor).subscribe(
-          (res: Employee[]) => {
-            this.doctorsID = res;
-            console.log(res);
-          },
-          (err) => {
-            this.error = err;
-          }
-        );*/
     this.employeeService.get_employee().subscribe(
       (res: Employee[]) => {
         this.doctorsID = res;
@@ -253,5 +299,26 @@ export class AppointmentCreateComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  doctorSelected(value: any) {
+    this.selectedDoctor = value;
+
+    // clear temp array
+    this.doctorsSchedules.splice(0, this.doctorsSchedules.length);
+
+    this.doctorsSchedules = this.doctorsSchedule.filter(x =>
+      (x.clinicID === this.selectedClinic) && (x.empID === this.selectedDoctor));
+
+    /*    for (const i of this.doctorsSchedule) {
+          if (i.clinicID === this.selectedClinic && i.empID === this.selectedDoctor) {
+            this.doctorsSchedules.push(i);
+          }
+        }*/
+
+    console.log(this.doctorsSchedules);
+
+    this.filterDates();
+
   }
 }

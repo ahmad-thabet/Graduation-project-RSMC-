@@ -3,12 +3,12 @@ import {Data} from '@angular/router';
 export class Schadule {
   public scID: number;
   public clinicID: number;
-  public employeeID: number;
+  public empID: number;
   public starttime: string;
   public endtime: string;
   public slot: number;
-  public startdate: Data;
-  public enddate: Data;
+  public startdate: Date;
+  public enddate: Date;
   public sat: number;
   public sun: number;
   public mon: number;
@@ -18,12 +18,12 @@ export class Schadule {
   public fri: number;
 
   constructor(scID: number, clinicID: number,
-              employeeID: number,
+              empID: number,
               starttime: string,
               endtime: string,
               slot: number,
-              startdate: Data,
-              enddate: Data,
+              startdate: Date,
+              enddate: Date,
               sat: number,
               sun: number,
               mon: number,
@@ -33,7 +33,7 @@ export class Schadule {
               fri: number) {
     this.scID = scID;
     this.clinicID = clinicID;
-    this.employeeID = employeeID;
+    this.empID = empID;
     this.starttime = starttime;
     this.endtime = endtime;
     this.slot = slot;
