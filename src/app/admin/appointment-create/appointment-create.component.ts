@@ -9,6 +9,8 @@ import {Appointment} from '../../models/appointment.model';
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {EmployeeServiceService} from '../../service/employee-service.service';
+import {ScheduleServiceService} from '../../service/schedule-service.service';
+import {Schadule} from "../../models/schedule.model";
 
 @Component({
   selector: 'app-appointment-create',
@@ -40,7 +42,7 @@ export class AppointmentCreateComponent implements OnInit {
   maxDate = new Date();
   doctorsID: Employee[] = [];
   doctorsIDs: Employee[] = [];
-
+  doctorsSChedule: Schadule[];
   invalidDates: Array<Date> = [];
   validDates: Array<Date> = [];
 
@@ -51,12 +53,14 @@ export class AppointmentCreateComponent implements OnInit {
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
               private  patinetservice: PatinetSeviceService,
-              private employeeService: EmployeeServiceService) {
+              private employeeService: EmployeeServiceService,
+              private scheduleService: ScheduleServiceService) {
   }
 
   ngOnInit() {
     // load stuff here
     this.loaddoctors();
+    this.loadSchedule();
     this.loadalldoctors();
     this.loadAppointmant();
     this.loadClinics();
@@ -190,6 +194,18 @@ export class AppointmentCreateComponent implements OnInit {
     this.patinetservice.get_patient().subscribe(
       (res: Patient[]) => {
         this.patients = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadSchedule() {
+    this.scheduleService.get_schedule().subscribe(
+      (res: Schadule[]) => {
+        this.doctorsSChedule = res;
         console.log(res);
       },
       (err) => {
