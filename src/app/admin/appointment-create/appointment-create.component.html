@@ -39,7 +39,7 @@
         <label for="doctor">Select Doctor</label>
         <select class="custom-select" id="doctor" name="doctor" #doctor (change)="selectedDoctor = doctor.value">
           <option selected> -- Doctor --</option>
-          <option *ngFor="let x of doctors" [value]="x.empID">{{x.firstname}} {{x.lastname}}</option>
+          <option *ngFor="let x of doctorsID" [value]="x.empID">{{x.firstname}} {{x.lastname}}</option>
         </select>
       </div>
     </div>

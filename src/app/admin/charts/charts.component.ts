@@ -12,7 +12,7 @@ export class ChartsComponent implements OnInit {
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
-  };
+  }
   public barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   public barChartType = 'bar';
   public barChartLegend = true;
@@ -38,6 +38,12 @@ export class ChartsComponent implements OnInit {
   public pieChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
   public pieChartData = [120, 150, 180, 90];
   public pieChartType = 'pie';
+
+  // data for line
+  public lineChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+    'August', 'September', 'October', 'November', 'December'];
+  public lineChartData = [120, 130, 180, 70];
+  public lineChartType = 'line';
 
   fromdate: Date = new Date();
   todate: Date = new Date();

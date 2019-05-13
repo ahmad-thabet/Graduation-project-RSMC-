@@ -10,10 +10,10 @@ import {Appointment} from '../models/appointment.model';
 })
 export class AppoinmentServiceService {
   /*For mac*/
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  // url = 'http://localhost/api';
+  url = 'http://localhost/api';
 
   appintments: Appointment[];
 
@@ -37,7 +37,7 @@ export class AppoinmentServiceService {
   }
 
   add_appointment(appointment: Appointment): Observable<Appointment[]> {
-    return this.http.post(`${this.url}/admin/add/create-schedule`, {data: appointment}, {responseType: 'text'})
+    return this.http.post(`${this.url}/appointment/get/add-appointment`, {data: appointment}, {responseType: 'text'})
       .pipe(map((res) => {
           this.appintments = res[`data`];
           console.log('ok');

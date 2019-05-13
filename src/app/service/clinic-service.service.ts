@@ -18,16 +18,17 @@ export class ClinicServiceService {
   }
 
   /*For mac*/
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  // url = 'http://localhost/api';
+  url = 'http://localhost/api';
 
   clinocdoctors: ClinicDoctor[];
   clinics: Clinic[];
   doctors: Employee[];
   insuranceprices: InsurancePrice[];
   clinicprices: ClinicPrice[];
+  doctorID: Employee[];
 
   private handleError(error: HttpErrorResponse) {
     console.log(error);
@@ -128,4 +129,24 @@ export class ClinicServiceService {
         catchError(this.handleError));
   }
 
+  get_byID(employee: number) {
+    return this.http.post(`${this.url}/doctor/get/test`, {data: employee}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.doctorID = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.doctorID;
+        }),
+        catchError(this.handleError));
+  }
+
+  getID(id: number): Observable<Employee[]> {
+    return this.http.get(`${this.url}/doctor/get/test/?clinicID =` + id, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.doctorID = res[`data`];
+        // console.log(this.clinics);
+        return this.doctorID;
+      }),
+      catchError(this.handleError));
+  }
 }

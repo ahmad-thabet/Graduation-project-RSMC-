@@ -15,7 +15,7 @@ import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 })
 
 export class AppointmentCreateComponent implements OnInit {
-  selectedClinic: any;
+  selectedClinic: number;
   selectedDoctor: any;
   selectedFromDate = new Date();
   selectedToDate = new Date();
@@ -33,7 +33,7 @@ export class AppointmentCreateComponent implements OnInit {
 
   minDate = new Date();
   maxDate = new Date();
-
+  doctorsID: Employee[];
   invalidDates: Array<Date> = [];
   validDates: Array<Date> = [];
 
@@ -107,8 +107,8 @@ export class AppointmentCreateComponent implements OnInit {
 
 
   clinicSelected() {
-    // get doctors of selected clinic here, make it void
-    return true;
+    //this.get_doctors();
+    this.loaddoctors();
   }
 
   setTimeSlots() {
@@ -171,6 +171,35 @@ export class AppointmentCreateComponent implements OnInit {
     this.patinetservice.get_patient().subscribe(
       (res: Patient[]) => {
         this.patients = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  get_doctors() {
+    this.clinicService.get_byID(this.selectedClinic)
+      .subscribe(
+        (res: Employee[]) => {
+          // Update the list of cars
+          console.log(this.selectedClinic);
+          this.doctorsID = res;
+          // Inform the user
+          console.log(this.doctorsID);
+          this.success = 'Created successfully';
+          console.log(this.success);
+          // Reset the form
+        },
+        (err) => this.error = err
+      );
+  }
+
+  private loaddoctors() {
+    this.clinicService.getID(this.selectedClinic).subscribe(
+      (res: Employee[]) => {
+        this.doctorsID = res;
         console.log(res);
       },
       (err) => {
