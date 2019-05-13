@@ -33,6 +33,7 @@ export class SchaduleGeneratorComponent implements OnInit {
   selectedSlotTime = 5;
   schedule = new Schadule(0, 0, 0, '', '', 0, new Date(), new Date(), 0, 0, 0, 0, 0, 0, 0);
   schedules: Schadule[];
+
   constructor(private messageService: MessageService,
               private scheduleServie: ScheduleServiceService) {
   }
@@ -69,6 +70,7 @@ export class SchaduleGeneratorComponent implements OnInit {
         (err) => this.error = err
       );
   }
+
   private loadschedule() {
     this.scheduleServie.get_schedule().subscribe(
       (res: Schadule[]) => {

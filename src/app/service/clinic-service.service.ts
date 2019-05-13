@@ -13,22 +13,23 @@ import {ClinicPrice} from '../models/clinicprice.model';
   providedIn: 'root'
 })
 export class ClinicServiceService {
+  /*For mac*/
+  url = 'http://localhost:8080/api';
+
+  /*For Windows*/
+
+  // url = 'http://localhost/api';
 
   constructor(private  http: HttpClient) {
   }
 
-  /*For mac*/
-  // url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-  url = 'http://localhost/api';
 
   clinocdoctors: ClinicDoctor[];
   clinics: Clinic[];
   doctors: Employee[];
   insuranceprices: InsurancePrice[];
   clinicprices: ClinicPrice[];
-  doctorID: Employee[];
+  doctorID: Employee[] = [];
 
   private handleError(error: HttpErrorResponse) {
     console.log(error);
@@ -82,7 +83,7 @@ export class ClinicServiceService {
     return this.http.get(`${this.url}/doctor/get/get-doctor`, {responseType: 'json'}).pipe(
       map((res) => {
         this.clinocdoctors = res[`data`];
-        // console.log(this.clinics);
+        //console.log(this.clinics);
         return this.clinocdoctors;
       }),
       catchError(this.handleError));
@@ -134,16 +135,17 @@ export class ClinicServiceService {
       .pipe(map((res) => {
           this.doctorID = res[`data`];
           console.log('ok');
-          console.log(res[`data`]);
+          console.log('this is data ' + res[`data`]);
           return this.doctorID;
         }),
         catchError(this.handleError));
   }
 
   getID(id: number): Observable<Employee[]> {
-    return this.http.get(`${this.url}/doctor/get/test/?clinicID =` + id, {responseType: 'json'}).pipe(
+    return this.http.post(`${this.url}/doctor/get/test`, {data: id}, {responseType: 'text'}).pipe(
       map((res) => {
         this.doctorID = res[`data`];
+        console.log('this is data ' + res[`data`]);
         // console.log(this.clinics);
         return this.doctorID;
       }),

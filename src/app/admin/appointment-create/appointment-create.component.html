@@ -30,16 +30,20 @@
       <div class="col">
         <label for="clinic">Select Clinic</label>
         <select class="custom-select" id="clinic" name="clinic" #clinic
-                (change)="selectedClinic = clinic.value && clinicSelected()">
+                (change)="clinicSelected(clinic.value)">
           <option selected> -- Clinic --</option>
           <option *ngFor="let x of clinics" [value]="[x.clinicID]">{{x.clinicname}}</option>
         </select>
       </div>
       <div class="col">
         <label for="doctor">Select Doctor</label>
-        <select class="custom-select" id="doctor" name="doctor" #doctor (change)="selectedDoctor = doctor.value">
+        <select class="custom-select"
+                id="doctor"
+                name="doctor"
+                #doctor
+                (change)="selectedDoctor = doctor.value">
           <option selected> -- Doctor --</option>
-          <option *ngFor="let x of doctorsID" [value]="x.empID">{{x.firstname}} {{x.lastname}}</option>
+          <option *ngFor="let x of doctorsIDs" [value]="x.empID">{{x.firstname}}</option>
         </select>
       </div>
     </div>

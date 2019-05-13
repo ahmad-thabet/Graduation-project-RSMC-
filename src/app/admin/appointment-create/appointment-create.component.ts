@@ -7,6 +7,8 @@ import {ClinicServiceService} from '../../service/clinic-service.service';
 import {AppoinmentServiceService} from '../../service/appoinment-service.service';
 import {Appointment} from '../../models/appointment.model';
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
+import {forEach} from '@angular/router/src/utils/collection';
+import {EmployeeServiceService} from '../../service/employee-service.service';
 
 @Component({
   selector: 'app-appointment-create',
@@ -24,7 +26,10 @@ export class AppointmentCreateComponent implements OnInit {
 
   appointments: Appointment[];
   appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
+
   doctors: ClinicDoctor[];
+  doctorss: ClinicDoctor[];
+
   clinics: Clinic[];
   error = '';
   success = '';
@@ -33,7 +38,9 @@ export class AppointmentCreateComponent implements OnInit {
 
   minDate = new Date();
   maxDate = new Date();
-  doctorsID: Employee[];
+  doctorsID: Employee[] = [];
+  doctorsIDs: Employee[] = [];
+
   invalidDates: Array<Date> = [];
   validDates: Array<Date> = [];
 
@@ -43,17 +50,18 @@ export class AppointmentCreateComponent implements OnInit {
 
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
-              private  patinetservice: PatinetSeviceService) {
+              private  patinetservice: PatinetSeviceService,
+              private employeeService: EmployeeServiceService) {
   }
 
   ngOnInit() {
     // load stuff here
-    this.filterDates();
+    this.loaddoctors();
     this.loadalldoctors();
     this.loadAppointmant();
     this.loadClinics();
     this.loadpatient();
-
+    this.filterDates();
     this.maxDate.setFullYear(this.minDate.getFullYear(), this.minDate.getMonth() + 11, this.minDate.getDay());
   }
 
@@ -106,9 +114,19 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
 
-  clinicSelected() {
-    //this.get_doctors();
-    this.loaddoctors();
+  clinicSelected(id: number) {
+    /*
+        console.log(this.doctors);
+    */
+    this.doctorsIDs.splice(0, this.doctorsIDs.length);
+    this.doctorss = this.doctors.filter(x => x.clinicID === id);
+    for (const x of this.doctorss) {
+      const idd = x.empID;
+      const emp = this.doctorsID.findIndex(i => i.empID === (idd + ''));
+      if (emp !== -1) {
+        this.doctorsIDs.push(this.doctorsID[emp]);
+      }
+    }
   }
 
   setTimeSlots() {
@@ -132,6 +150,7 @@ export class AppointmentCreateComponent implements OnInit {
     this.clinicService.get_clinic_doctors().subscribe(
       (res: ClinicDoctor[]) => {
         this.doctors = res;
+        console.log('all docs ' + this.doctors.toString());
       },
       (err) => {
         this.error = err;
@@ -180,24 +199,36 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
   get_doctors() {
-    this.clinicService.get_byID(this.selectedClinic)
-      .subscribe(
-        (res: Employee[]) => {
-          // Update the list of cars
-          console.log(this.selectedClinic);
-          this.doctorsID = res;
-          // Inform the user
-          console.log(this.doctorsID);
-          this.success = 'Created successfully';
-          console.log(this.success);
-          // Reset the form
-        },
-        (err) => this.error = err
-      );
+
+    /*    console.log('wwww ' + this.doctors.filter(x => x.clinicID === this.selectedClinic));*/
+    /*    this.clinicService.getID(this.selectedClinic)
+          .subscribe(
+            (res: Employee[]) => {
+              // Update the list of cars
+              console.log('selected clinic ' + this.selectedClinic);
+              this.doctorsID = res;
+
+              // Inform the user
+              console.log('clinic doctors ' + res);
+              this.success = 'Created successfully';
+              console.log(this.success);
+              // Reset the form
+            },
+            (err) => this.error = err
+          );*/
   }
 
   private loaddoctors() {
-    this.clinicService.getID(this.selectedClinic).subscribe(
+    /*    this.clinicService.getID(this.selectedDoctor).subscribe(
+          (res: Employee[]) => {
+            this.doctorsID = res;
+            console.log(res);
+          },
+          (err) => {
+            this.error = err;
+          }
+        );*/
+    this.employeeService.get_employee().subscribe(
       (res: Employee[]) => {
         this.doctorsID = res;
         console.log(res);
