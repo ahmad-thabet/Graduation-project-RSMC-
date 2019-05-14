@@ -106,15 +106,26 @@
         </div>
         <div class="col">
           <label>insurance company</label>
-          <select class="custom-select" id="insurance_compamy" [(ngModel)]="insurance.insuranceID"
-                  name="insurancecompany">
+          <select class="custom-select"
+                  id="insurance_compamy"
+                  [(ngModel)]="insurance.insuranceID"
+                  name="insurancecompany"
+                  #insuranceCompany
+                  (change)="onSelectInsuranceCompany(insuranceCompany.value)"
+          >
+            <option selected>--Select Insurance Company--</option>
             <option *ngFor="let x of insurances">{{x.insurancecompany}}</option>
           </select>
         </div>
         <div class="col">
           <label>subInsurance Type</label>
-          <select class="custom-select" id="insurance_type" [(ngModel)]="subinsurance.subinsuranceID"
-                  name="insurancetype">
+          <select class="custom-select"
+                  id="insurance_type"
+                  [(ngModel)]="subinsurance.subinsuranceID"
+                  name="insurancetype"
+                  #subInsuranceType
+          >
+            <option selected>--Select Insurance Type--</option>
             <option *ngFor="let x of subincurances" value="">{{x.membership}}</option>
           </select>
         </div>

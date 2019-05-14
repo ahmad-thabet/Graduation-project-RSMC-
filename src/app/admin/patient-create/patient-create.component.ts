@@ -43,7 +43,9 @@ export class PatientCreateComponent implements OnInit {
 
   ngOnInit() {
     this.loadCities();
-    this.loadquantom();
+    /*
+        this.loadquantom();
+    */
     this.loadpatient();
     this.loadinsurance();
     this.loadsubinsurance();
@@ -124,6 +126,8 @@ export class PatientCreateComponent implements OnInit {
   onSelectCity(value: string) {
     // TODO: implement this
     // value will contain cityid, using it get the qid's contained in that city
+    this.loadquantom();
+    this.quantom.filter(x => x.cityID === +value);
   }
 
 
@@ -193,4 +197,8 @@ export class PatientCreateComponent implements OnInit {
   }
 
 
+  onSelectInsuranceCompany(value: string) {
+    this.loadsubinsurance();
+    this.subincurances.filter(x => x.insuranceID === +value);
+  }
 }

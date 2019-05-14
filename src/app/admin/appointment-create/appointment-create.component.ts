@@ -149,45 +149,48 @@ export class AppointmentCreateComponent implements OnInit {
     // load time slots in all apointment
     // date selected == date 5
 
-    const startTimeHours = +(this.doctorsSchedules[0].starttime.split(':')[0]);
-    const startTimeMinutes = +(this.doctorsSchedules[0].starttime.split(':')[1]);
-    console.log(startTimeHours + ':' + startTimeMinutes);
-
-    const endTimeHours = +(this.doctorsSchedules[0].endtime.split(':')[0]);
-    const endTimeMinutes = +(this.doctorsSchedules[0].endtime.split(':')[1]);
-    console.log(endTimeHours + ':' + endTimeMinutes);
-
-    const slotLength = +(this.doctorsSchedules[0].slot);
-    const numSlots = ((endTimeHours - startTimeHours) * 60) / slotLength;
-    console.log(slotLength);
-
-    let tempStartTimeHours = startTimeHours;
-    let tempStartTimeMinutes = startTimeMinutes;
-    let tempEndTimeHours;
-    let tempEndTimeMinutes;
-
-    for (let i = 0; i < numSlots; i++) {
-      tempEndTimeMinutes = tempStartTimeMinutes + slotLength;
-      tempEndTimeHours = tempStartTimeHours;
+    for (const k of this.doctorsSchedules) {
 
 
-      if (tempEndTimeMinutes >= 60) {
-        tempEndTimeMinutes = tempEndTimeMinutes - 60;
-        tempEndTimeHours = tempEndTimeHours + 1;
+      const startTimeHours = +(k.starttime.split(':')[0]);
+      const startTimeMinutes = +(k.starttime.split(':')[1]);
+      console.log(startTimeHours + ':' + startTimeMinutes);
+
+      const endTimeHours = +(k.endtime.split(':')[0]);
+      const endTimeMinutes = +(k.endtime.split(':')[1]);
+      console.log(endTimeHours + ':' + endTimeMinutes);
+
+      const slotLength = +(k.slot);
+      const numSlots = ((endTimeHours - startTimeHours) * 60) / slotLength;
+      console.log(slotLength);
+
+      let tempStartTimeHours = startTimeHours;
+      let tempStartTimeMinutes = startTimeMinutes;
+      let tempEndTimeHours;
+      let tempEndTimeMinutes;
+
+      for (let i = 0; i < numSlots; i++) {
+        tempEndTimeMinutes = tempStartTimeMinutes + slotLength;
+        tempEndTimeHours = tempStartTimeHours;
+
+
+        if (tempEndTimeMinutes >= 60) {
+          tempEndTimeMinutes = tempEndTimeMinutes - 60;
+          tempEndTimeHours = tempEndTimeHours + 1;
+        }
+
+        this.AllApoin.push(tempStartTimeHours + ':' + tempStartTimeMinutes +
+          ' - ' + tempEndTimeHours + ':' + tempEndTimeMinutes);
+
+        tempStartTimeMinutes = tempEndTimeMinutes;
+        tempStartTimeHours = tempEndTimeHours;
+        if (tempStartTimeMinutes >= 60) {
+          tempStartTimeMinutes = tempStartTimeMinutes - 60;
+          tempStartTimeHours++;
+        }
+
       }
-
-      this.AllApoin.push(tempStartTimeHours + ':' + tempStartTimeMinutes +
-        ' - ' + tempEndTimeHours + ':' + tempEndTimeMinutes);
-
-      tempStartTimeMinutes = tempEndTimeMinutes;
-      tempStartTimeHours = tempEndTimeHours;
-      if (tempStartTimeMinutes >= 60) {
-        tempStartTimeMinutes = tempStartTimeMinutes - 60;
-        tempStartTimeHours++;
-      }
-
     }
-
 
   }
 
