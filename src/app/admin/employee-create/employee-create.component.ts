@@ -30,7 +30,6 @@ export class EmployeeCreateComponent implements OnInit {
   ngOnInit() {
     this.loadcities();
     this.loadjob();
-    this.loadquantom();
     this.loadsp();
     this.loademployee();
   }
@@ -106,5 +105,10 @@ export class EmployeeCreateComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  onSelectCity(value: string) {
+    this.loadquantom();
+    this.quantom.filter(x => x.cityID === +value);
   }
 }
