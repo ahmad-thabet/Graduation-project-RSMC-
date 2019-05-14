@@ -119,17 +119,19 @@
               id="familyList" name="familyList"
               #familyList
               (change)="familyListType = familyList.value">
-        <option value="married">Married</option>
-        <option value="single">Single</option>
-        <option value="child">Child</option>
+        <option value="married" [(ngModel)]="patient.relation">Married</option>
+        <option value="single" [(ngModel)]="patient.relation">Single</option>
+        <option value="child" [(ngModel)]="patient.relation">Child</option>
       </select>
       <div class="row" *ngIf="familyListType == 'child'">
         <div class="col">
           <label>Father ID</label>
-          <input type="text" class="form-control" placeholder="Father ID" name="fatherID">
-          <!--[(ngModel)]="parentID"-->
+          <input type="text" class="form-control" placeholder="Father ID" name="fatherID" [(ngModel)]="patient.fatherID"
+          >
+          [(ngModel)]="parentID"
           <label>Mother ID</label>
-          <input type="text" class="form-control" placeholder="Mother ID" name="motherID">
+          <input type="text" class="form-control" placeholder="Mother ID" name="motherID"
+                 [(ngModel)]="patient.motherID">
           <!--[(ngModel)]="parentID"-->
         </div>
       </div>

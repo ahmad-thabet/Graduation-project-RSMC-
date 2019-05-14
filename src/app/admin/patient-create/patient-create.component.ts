@@ -17,7 +17,7 @@ export class PatientCreateComponent implements OnInit {
   // TODO: implement insurance stuff as null by default
   patient = new Patient('', '', '', '', '', '',
     new Date(), '', '', '', '', 0,
-    '', '', '', '', '');
+    '', '', '', '', '', '', '', '');
 
   insurance = new Insurance(0, ' ');
   subinsurance = new Subinsurance(0, 0, 0, '');
@@ -129,10 +129,18 @@ export class PatientCreateComponent implements OnInit {
     const id = this.patient.personalID;
     if (id.length !== 9) {
       this.validID = false;
-      this.messageService.add({severity: 'error', summary: 'lenght mush be 9', detail: 'the ID in invalid, check again'});
+      this.messageService.add({
+        severity: 'error',
+        summary: 'lenght mush be 9',
+        detail: 'the ID in invalid, check again'
+      });
     } else if (id === null) {
       this.validID = false;
-      this.messageService.add({severity: 'error', summary: 'can not be null', detail: 'the ID in invalid, check again'});
+      this.messageService.add({
+        severity: 'error',
+        summary: 'can not be null',
+        detail: 'the ID in invalid, check again'
+      });
     } else {
       let Ldigit = 0;
       // @ts-ignore
