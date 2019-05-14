@@ -1,11 +1,45 @@
 import {Component, OnInit} from '@angular/core';
 import {ReadFile} from '../../models/ReadFile';
 import {FormControl, FormGroup} from '@angular/forms';
+import {PatinetSeviceService} from '../../service/patinet-sevice.service';
+import {Patient} from '../../models/patient.model';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent implements OnInit {
+  personalID = 401069166;
+  patient: Patient;
+
+  constructor(private patientService: PatinetSeviceService) {
+  }
+
+  ngOnInit() {
+    this.patientService.get_patient().subscribe(
+      (res: Patient[]) => {
+        this.patient = res.find(x => +x.personalID === this.personalID);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
+}
+
+
+/*
+import {Component, OnInit} from '@angular/core';
+import {ReadFile} from '../../models/ReadFile';
+import {FormControl, FormGroup} from '@angular/forms';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
   src: string;
@@ -66,3 +100,4 @@ export class ProfileComponent implements OnInit {
   }
 
 }
+*/

@@ -50,13 +50,6 @@ export class AppointmentCreateComponent implements OnInit {
   doctorsSchedules: Schadule[] = [];
 
   invalidDates: Array<Date> = [];
-  /*
-    validDates: Array<Date> = [];
-  */
-
-  /*  value: any;
-    public selectedDate: Date = displayDate;
-    public events: SchedulerEvent[] = [];*/
 
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,

@@ -1,6 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from '../../models/employee.model';
 import {Clinic} from '../../models/clinic.model';
+import {Appointment} from '../../models/appointment.model';
+import {ClinicDoctor} from '../../models/clinic-doctor.model';
+import {Patient} from '../../models/patient.model';
+import {Schadule} from '../../models/schedule.model';
+import {ClinicServiceService} from '../../service/clinic-service.service';
+import {AppoinmentServiceService} from '../../service/appoinment-service.service';
+import {PatinetSeviceService} from '../../service/patinet-sevice.service';
+import {EmployeeServiceService} from '../../service/employee-service.service';
+import {ScheduleServiceService} from '../../service/schedule-service.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -9,56 +18,87 @@ import {Clinic} from '../../models/clinic.model';
 })
 export class AddAppointmentComponent implements OnInit {
 
+  personalID = 401069166;
+  patient: Patient;
+
   selectedClinic: any;
   selectedDoctor: any;
   selectedFromDate = new Date();
   selectedToDate = new Date();
   selectedAppointment: any;
-  selectedPatient: any;
+  selectedPatient = this.personalID;
 
-  allDoctors: Employee[] = [];
-  allClinics: Clinic[] = [];
-  allAppointments: any[] = [new Date(), new Date(), new Date(), new Date(), new Date(),
-    new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()];
+  appointments: Appointment[];
+  appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
 
+  AllApoin: any[] = [];
 
+  doctors: ClinicDoctor[];
+  doctorss: ClinicDoctor[];
+
+  clinics: Clinic[];
+  error = '';
+  success = '';
+  patients: Patient[];
   date5: Date;
+
   minDate = new Date();
+  maxDate = new Date();
+
+  doctorsID: Employee[] = [];
+  doctorsIDs: Employee[] = [];
+
+  doctorsSchedule: Schadule[] = [];
+  doctorsSchedules: Schadule[] = [];
+
   invalidDates: Array<Date> = [];
-  validDates: Array<Date> = [];
 
-
-  constructor() {
+  constructor(private clinicService: ClinicServiceService,
+              private appointmentService: AppoinmentServiceService,
+              private  patinetservice: PatinetSeviceService,
+              private employeeService: EmployeeServiceService,
+              private scheduleService: ScheduleServiceService) {
   }
 
   ngOnInit() {
     // load stuff here
-    this.filterDates();
+    this.loaddoctors();
+    this.loadSchedule();
+    this.loadalldoctors();
+    this.loadAppointmant();
+    this.loadClinics();
+    this.loadpatient();
+    this.maxDate.setFullYear(this.minDate.getFullYear(), this.minDate.getMonth() + 11, this.minDate.getDay());
   }
 
   filterDates() {
 
     let invalidDates = [];
-    let validDates = [];
+    const validDates = [];
 
-    //////// fot testing
-    // generate random valid dates.
-    // validDates = this.validDates;
-    validDates = [
-      new Date(),
-      new Date(),
-      new Date(),
-      new Date()
-    ];
-    validDates[0].setDate(validDates[0].getDate() + 10);
-    validDates[1].setDate(validDates[1].getDate() + 15);
-    validDates[2].setDate(validDates[2].getDate() + 16);
-    validDates[3].setDate(validDates[3].getDate() + 17);
-    /////////
+    let startDate;
+    let endDate;
+
+    for (const i of this.doctorsSchedules) {
+      const days = [i.sun, i.mon, i.tue, i.wen, i.thu, i.fri];
+      startDate = new Date(i.startdate);
+      endDate = new Date(i.enddate);
+
+      let temp = new Date(startDate.getTime());
+      while (temp.getTime() <= endDate.getTime()) {
+        if (days[temp.getDay()].toString() === '1') {
+          validDates.push(temp);
+        }
+        temp = new Date(temp.getTime());
+        temp.setDate(temp.getDate() + 1);
+      }
+      console.log(validDates);
+    }
 
     // set random start and end dates.
     const start = new Date();
     const end = new Date();
+
     end.setFullYear(start.getFullYear(), start.getMonth() + 11, start.getDay());
 
     // move over [start ---> end] and fill all dates as invalid.
@@ -69,13 +109,8 @@ export class AddAppointmentComponent implements OnInit {
       tempDate.setDate(tempDate.getDate() + 1);
     }
 
-    // remove the valid dates from the invalid ones..
-    invalidDates = invalidDates.filter(
-      (invalidDate) =>
-        !validDates.find(validDate => Math.abs(validDate.getTime() - invalidDate.getTime()) < 5)
-    );
+    invalidDates = invalidDates.filter((invalidDate) => !validDates.find(validDate => validDate.getDate() === invalidDate.getDate()));
 
-    // invalidDates.forEach(date => console.log(date.toString()));
     this.invalidDates = invalidDates;
   }
 
@@ -84,194 +119,177 @@ export class AddAppointmentComponent implements OnInit {
       + this.selectedAppointment + '-' + this.selectedPatient + '-' + this.selectedFromDate + '-' + this.selectedToDate);
   }
 
-  add_appointment(f) {
-    console.log(f);
-  }
 
-  clinicSelected() {
-    // get doctors of selected clinic here, make it void
-    return true;
+  clinicSelected(id: any) {
+    this.selectedClinic = id;
+
+    this.doctorsIDs.splice(0, this.doctorsIDs.length);
+    this.doctorss = this.doctors.filter(x => x.clinicID === id);
+    for (const x of this.doctorss) {
+      const idd = x.empID;
+      const emp = this.doctorsID.findIndex(i => i.empID === (idd + ''));
+      if (emp !== -1) {
+        this.doctorsIDs.push(this.doctorsID[emp]);
+      }
+    }
   }
 
   setTimeSlots() {
     // get valid dates of doctor, put it in this.validDates
     // load time slots in all apointment
-  }
-}
+    // date selected == date 5
+
+    for (const k of this.doctorsSchedules) {
 
 
-/*
-import {ChangeDetectionStrategy, Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {endOfDay, isSameDay, isSameMonth, startOfDay} from 'date-fns';
-import {Subject} from 'rxjs';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
+      const startTimeHours = +(k.starttime.split(':')[0]);
+      const startTimeMinutes = +(k.starttime.split(':')[1]);
+      console.log(startTimeHours + ':' + startTimeMinutes);
 
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
+      const endTimeHours = +(k.endtime.split(':')[0]);
+      const endTimeMinutes = +(k.endtime.split(':')[1]);
+      console.log(endTimeHours + ':' + endTimeMinutes);
 
-@Component({
-  selector: 'app-add-appointment',
-  templateUrl: './add-appointment.component.html',
-  styleUrls: ['./add-appointment.component.css'],
+      const slotLength = +(k.slot);
+      const numSlots = ((endTimeHours - startTimeHours) * 60) / slotLength;
+      console.log(slotLength);
 
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class AddAppointmentComponent implements OnInit {
-  @ViewChild('modalContent') modalContent: TemplateRef<any>;
-  @ViewChild('content') myDiv: ElementRef;
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({event}: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({event}: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
+      let tempStartTimeHours = startTimeHours;
+      let tempStartTimeMinutes = startTimeMinutes;
+      let tempEndTimeHours;
+      let tempEndTimeMinutes;
 
-  view: CalendarView = CalendarView.Month;
+      for (let i = 0; i < numSlots; i++) {
+        tempEndTimeMinutes = tempStartTimeMinutes + slotLength;
+        tempEndTimeHours = tempStartTimeHours;
 
-  CalendarView = CalendarView;
 
-  viewDate: Date = new Date();
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-  refresh: Subject<any> = new Subject();
-  events: CalendarEvent[] = [];
-  //   {
-  //     start: subDays(startOfDay(new Date()), 1),
-  //     end: addDays(new Date(), 1),
-  //     title: 'A 3 day event',
-  //     color: colors.red,
-  //     actions: this.actions,
-  //     allDay: true,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'An event with no end date',
-  //     color: colors.yellow,
-  //     actions: this.actions
-  //   },
-  //   {
-  //     start: subDays(endOfMonth(new Date()), 3),
-  //     end: addDays(endOfMonth(new Date()), 3),
-  //     title: 'A long event that spans 2 months',
-  //     color: colors.blue,
-  //     allDay: true
-  //   },
-  //   {
-  //     start: addHours(startOfDay(new Date()), 2),
-  //     end: new Date(),
-  //     title: 'A draggable and resizable event',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   }
-  // ];
-  activeDayIsOpen = true;
-
-  constructor(private modal: NgbModal) {
-  }
-
-  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      this.viewDate = date;
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-    }
-  }
-
-  eventTimesChanged({
-                      event,
-                      newStart,
-                      newEnd
-                    }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map(iEvent => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = {event, action};
-    this.modal.open(this.modalContent, {size: 'lg'});
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
+        if (tempEndTimeMinutes >= 60) {
+          tempEndTimeMinutes = tempEndTimeMinutes - 60;
+          tempEndTimeHours = tempEndTimeHours + 1;
         }
+
+        this.AllApoin.push(tempStartTimeHours + ':' + tempStartTimeMinutes +
+          ' - ' + tempEndTimeHours + ':' + tempEndTimeMinutes);
+
+        tempStartTimeMinutes = tempEndTimeMinutes;
+        tempStartTimeHours = tempEndTimeHours;
+        if (tempStartTimeMinutes >= 60) {
+          tempStartTimeMinutes = tempStartTimeMinutes - 60;
+          tempStartTimeHours++;
+        }
+
       }
-    ];
-    console.log(this.events);
+    }
+
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
+  private loadClinics() {
+    this.clinicService.get_clinic().subscribe(
+      (res: Clinic[]) => {
+        this.clinics = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 
-  setView(view: CalendarView) {
-    this.view = view;
+  private loadalldoctors() {
+    this.clinicService.get_clinic_doctors().subscribe(
+      (res: ClinicDoctor[]) => {
+        this.doctors = res;
+        console.log('all docs ' + this.doctors.toString());
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
+  private loadAppointmant() {
+    this.appointmentService.get_appointment().subscribe(
+      (res: Appointment[]) => {
+        this.appointments = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 
-  ngOnInit(): void {
+  add_appointment(f) {
+    this.appointmentService.add_appointment(this.appointment)
+      .subscribe(
+        (res: Appointment[]) => {
+          // Update the list of cars
+          this.appointments = res;
+          // Inform the user
+          console.log(this.appointments);
+          this.success = 'Created successfully';
+          console.log(this.success);
+          // Reset the form
+          f.reset();
+        },
+        (err) => this.error = err
+      );
+  }
+
+  private loadpatient() {
+    this.patinetservice.get_patient().subscribe(
+      (res: Patient[]) => {
+        this.patients = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadSchedule() {
+    this.scheduleService.get_schedule().subscribe(
+      (res: Schadule[]) => {
+        this.doctorsSchedule = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loaddoctors() {
+    this.employeeService.get_employee().subscribe(
+      (res: Employee[]) => {
+        this.doctorsID = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  doctorSelected(value: any) {
+    this.selectedDoctor = value;
+
+    // clear temp array
+    this.doctorsSchedules.splice(0, this.doctorsSchedules.length);
+
+    this.doctorsSchedules = this.doctorsSchedule.filter(x =>
+      (x.clinicID === this.selectedClinic) && (x.empID === this.selectedDoctor));
+
+    /*    for (const i of this.doctorsSchedule) {
+          if (i.clinicID === this.selectedClinic && i.empID === this.selectedDoctor) {
+            this.doctorsSchedules.push(i);
+          }
+        }*/
+
+    console.log(this.doctorsSchedules);
+
+    this.filterDates();
+
   }
 }
-*/

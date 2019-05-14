@@ -1,6 +1,5 @@
 <h1>Create New Appointment</h1>
 <pre>{{ getCurrentModel() }}</pre>
-
 <div class="container">
   <form #f="ngForm" (submit)="add_appointment(f)">
     <div class="row">
@@ -15,16 +14,20 @@
       <div class="col">
         <label for="clinic">Select Clinic</label>
         <select class="custom-select" id="clinic" name="clinic" #clinic
-                (change)="selectedClinic = clinic.value && clinicSelected()">
+                (change)="clinicSelected(clinic.value)">
           <option selected> -- Clinic --</option>
-          <option *ngFor="let x of allClinics" [value]="[x.clinicID]">{{x.clinicname}}</option>
+          <option *ngFor="let x of clinics" [value]="[x.clinicID]">{{x.clinicname}}</option>
         </select>
       </div>
       <div class="col">
         <label for="doctor">Select Doctor</label>
-        <select class="custom-select" id="doctor" name="doctor" #doctor (change)="selectedDoctor = doctor.value">
+        <select class="custom-select"
+                id="doctor"
+                name="doctor"
+                #doctor
+                (change)="doctorSelected(doctor.value)">
           <option selected> -- Doctor --</option>
-          <option *ngFor="let x of allDoctors" [value]="x.empID">{{x.firstname}} {{x.lastname}}</option>
+          <option *ngFor="let x of doctorsIDs" [value]="x.empID">{{x.firstname}}</option>
         </select>
       </div>
     </div>
@@ -34,6 +37,7 @@
         <p-calendar [(ngModel)]="date5"
                     [disabledDates]="invalidDates"
                     [minDate]="minDate"
+                    [maxDate]="maxDate"
                     [readonlyInput]="true"
                     name="datepicker"
                     (ngModelChange)="setTimeSlots()"
@@ -49,11 +53,11 @@
     <hr>
     <div class="ui-g">
       <div class="ui-g-2"
-           *ngFor="let x of allAppointments"
+           *ngFor="let x of AllApoin"
            style="border: 1px solid #e0eefa; background: #cce4f7; text-align: center;">
         <input type="radio" name="demo" value="one" id="radio-one" class="form-radio" [value]="[x]"
                [(ngModel)]="selectedAppointment">
-        <label for="radio-one">{{x.getDate()}}</label>
+        <label for="radio-one">{{x}}</label>
       </div>
     </div>
     <hr>
@@ -64,209 +68,4 @@
 </div>
 
 
-<!--
-<div class="container">
-  <div class="row text-center">
-    <div class="col-md-4">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
-          mwlCalendarPreviousView
-          [view]="view"
-          [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()"
-        >
-          Previous
-        </div>
-        <div
-          class="btn btn-outline-secondary"
-          mwlCalendarToday
-          [(viewDate)]="viewDate"
-        >
-          Today
-        </div>
-        <div
-          class="btn btn-primary"
-          mwlCalendarNextView
-          [view]="view"
-          [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()"
-        >
-          Next
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-    </div>
-    <div class="col-md-4">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Month)"
-          [class.active]="view === CalendarView.Month"
-        >
-          Month
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Week)"
-          [class.active]="view === CalendarView.Week"
-        >
-          Week
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Day)"
-          [class.active]="view === CalendarView.Day"
-        >
-          Day
-        </div>
-      </div>
-    </div>
-  </div>
-  <br/>
-  <div [ngSwitch]="view">
-    <mwl-calendar-month-view
-      *ngSwitchCase="CalendarView.Month"
-      [viewDate]="viewDate"
-      [events]="events"
-      [refresh]="refresh"
-      [activeDayIsOpen]="activeDayIsOpen"
-      (dayClicked)="dayClicked($event.day)"
-      (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
-    >
-    </mwl-calendar-month-view>
-    <mwl-calendar-week-view
-      *ngSwitchCase="CalendarView.Week"
-      [viewDate]="viewDate"
-      [events]="events"
-      [refresh]="refresh"
-      (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
-    >
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
-      *ngSwitchCase="CalendarView.Day"
-      [viewDate]="viewDate"
-      [events]="events"
-      [refresh]="refresh"
-      (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
-    >
-    </mwl-calendar-day-view>
-  </div>
 
-  <br/><br/><br/>
-
-  <h3>
-    Edit Appointments
-    <button class="btn btn-primary pull-right" (click)="addEvent()">
-      Add new
-    </button>
-    <div class="clearfix"></div>
-  </h3>
-
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th>Title</th>
-        <th>Primary color</th>
-        <th>Secondary color</th>
-        <th>Starts at</th>
-        <th>Ends at</th>
-        <th>Remove</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr *ngFor="let event of events">
-        <td>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="event.title"
-            (keyup)="refresh.next()"
-          />
-        </td>
-        <td>
-          <input
-            type="color"
-            [(ngModel)]="event.color.primary"
-            (change)="refresh.next()"
-          />
-        </td>
-        <td>
-          <input
-            type="color"
-            [(ngModel)]="event.color.secondary"
-            (change)="refresh.next()"
-          />
-        </td>
-        <td>
-          <input
-            class="form-control"
-            type="text"
-            mwlFlatpickr
-            [(ngModel)]="event.start"
-            (ngModelChange)="refresh.next()"
-            [altInput]="true"
-            [convertModelValue]="true"
-            [enableTime]="true"
-            dateFormat="Y-m-dTH:i"
-            altFormat="F j, Y H:i"
-            placeholder="Not set"
-          />
-        </td>
-        <td>
-          <input
-            class="form-control"
-            type="text"
-            mwlFlatpickr
-            [(ngModel)]="event.end"
-            (ngModelChange)="refresh.next()"
-            [altInput]="true"
-            [convertModelValue]="true"
-            [enableTime]="true"
-            dateFormat="Y-m-dTH:i"
-            altFormat="F j, Y H:i"
-            placeholder="Not set"
-          />
-        </td>
-        <td>
-          <button class="btn btn-danger" (click)="deleteEvent(event)">
-            Delete
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <ng-template #modalContent let-close="close">
-    <div class="modal-header">
-      <h5 class="modal-title">Event action occurred</h5>
-      <button type="button" class="close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
-      </div>
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="close()">
-        OK
-      </button>
-    </div>
-  </ng-template>
-</div>
--->
