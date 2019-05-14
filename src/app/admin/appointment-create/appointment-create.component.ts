@@ -157,8 +157,8 @@ export class AppointmentCreateComponent implements OnInit {
     const endTimeMinutes = +(this.doctorsSchedules[0].endtime.split(':')[1]);
     console.log(endTimeHours + ':' + endTimeMinutes);
 
-    const numSlots = ((endTimeHours - startTimeHours) * 60) / this.doctorsSchedules[0].slot;
     const slotLength = +(this.doctorsSchedules[0].slot);
+    const numSlots = ((endTimeHours - startTimeHours) * 60) / slotLength;
     console.log(slotLength);
 
     let tempStartTimeHours = startTimeHours;
@@ -168,9 +168,7 @@ export class AppointmentCreateComponent implements OnInit {
 
     for (let i = 0; i < numSlots; i++) {
       tempEndTimeMinutes = tempStartTimeMinutes + slotLength;
-      console.log(tempEndTimeMinutes);
       tempEndTimeHours = tempStartTimeHours;
-      console.log(tempEndTimeHours);
 
 
       if (tempEndTimeMinutes >= 60) {
@@ -181,7 +179,7 @@ export class AppointmentCreateComponent implements OnInit {
       this.AllApoin.push(tempStartTimeHours + ':' + tempStartTimeMinutes +
         ' - ' + tempEndTimeHours + ':' + tempEndTimeMinutes);
 
-      tempStartTimeMinutes = tempEndTimeMinutes + slotLength;
+      tempStartTimeMinutes = tempEndTimeMinutes;
       tempStartTimeHours = tempEndTimeHours;
       if (tempStartTimeMinutes >= 60) {
         tempStartTimeMinutes = tempStartTimeMinutes - 60;
