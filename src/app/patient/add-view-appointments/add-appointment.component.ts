@@ -18,7 +18,7 @@ import {ScheduleServiceService} from '../../service/schedule-service.service';
 })
 export class AddAppointmentComponent implements OnInit {
 
-  personalID = 401069166;
+  personalID = 1;
   patient: Patient;
 
   selectedClinic: any;
