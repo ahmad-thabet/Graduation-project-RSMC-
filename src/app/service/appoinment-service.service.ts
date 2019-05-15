@@ -10,13 +10,13 @@ import {Appointment} from '../models/appointment.model';
 })
 export class AppoinmentServiceService {
   /*For mac*/
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  /*  url = 'http://localhost/api';*/
+   url = 'http://localhost/api';
 
   appintments: Appointment[];
-
+  slots: Appointment[];
   constructor(private http: HttpClient) {
   }
 
@@ -45,5 +45,14 @@ export class AppoinmentServiceService {
           return this.appintments;
         }),
         catchError(this.handleError));
+  }
+  getslots(empID: number, clinicID: number): Observable<Appointment[]> {
+    return this.http.get(`${this.url}/appointment/get/get-slots`, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.slots = res[`data`];
+        // console.log(this.clinics);
+        return this.slots;
+      }),
+      catchError(this.handleError));
   }
 }
