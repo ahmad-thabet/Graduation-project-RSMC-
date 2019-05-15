@@ -14,7 +14,6 @@ import {MessageService} from 'primeng/api';
   styleUrls: ['./patient-create.component.css']
 })
 export class PatientCreateComponent implements OnInit {
-  // TODO: implement insurance stuff as null by default
   patient = new Patient('', '', '', '', '', '',
     new Date(), '', '', '', '', 0,
     '', '', '', '', '', '', '', '');
