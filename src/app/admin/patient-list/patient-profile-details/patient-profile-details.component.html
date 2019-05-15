@@ -138,17 +138,26 @@
           <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="profile-tab">
             <h3>Payments</h3>
             <div class="row">
+              <p-calendar [(ngModel)]="fromdate">11</p-calendar>
               <div class="col-md-6">
-                <label for="fromdate">From</label>
-                <input type="date" class="custom-select" name="fromdate" id="fromdate" (change)="onDateChanged()"
-                       [(ngModel)]="fromdate">
+                <label>From</label>
+                <!--                <input type="date" class="custom-select" name="fromdate" id="fromdate" (change)="onDateChanged()"
+                                       [(ngModel)]="fromdate">-->
+                <p-calendar [(ngModel)]="fromdate"
+                            [disabledDates]="invalidDates"
+                            [minDate]="minDate"
+                            [readonlyInput]="true"
+                            name="datepicker"
+                            [showIcon]="true">
+                </p-calendar>
               </div>
               <div class="col-md-6">
-                <label for="todate">To</label>
-                <input type="date" class="custom-select" name="todate" id="todate" (change)="onDateChanged()"
-                       [(ngModel)]="todate">
+                <label>To</label>
+                <!--                <input type="date" class="custom-select" name="todate" id="todate" (change)="onDateChanged()"
+                                       [(ngModel)]="todate">-->
               </div>
             </div>
+
             <hr>
             <div class="row" *ngFor="let x of payments">
               <div class="col-md-6">
@@ -173,7 +182,6 @@
                 <label>ID</label>
               </div>
             </div>
-
             <div class="row" *ngFor="let x of family">
               <div class="col-md-3">
                 <label>{{x.firstname}}</label>

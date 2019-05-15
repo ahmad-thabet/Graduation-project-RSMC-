@@ -19,6 +19,9 @@ export class PatientProfileDetailsComponent implements OnInit {
 
   fromdate = new Date();
   todate = new Date();
+  minDate = new Date();
+  invalidDates: Array<Date> = [];
+
 
   // TODO: configure these as needed
   family: any[] = [
@@ -41,15 +44,10 @@ export class PatientProfileDetailsComponent implements OnInit {
     const id = this.route.params.subscribe((params: Params) => {
       this.id = +params[`id`];
       this.patient = this.patientService.patients[this.id];
-      /*      this.patient = new Patient('Ahmad', 'Jamal', 'Ahmad', 'Thabet',
-        'ahmad.j.thabet@gmail.com', 'pp', new Date(),
-        '0598223589', '0598223589', '8908', '90909090', 'trust',
-        'male', 'Ramallah', 'Ramallah', 'Ramallah', '96682828282');*/
     });
   }
 
   onDateChanged() {
-    // do query when date changed
-    // TODO: implement this
+
   }
 }
