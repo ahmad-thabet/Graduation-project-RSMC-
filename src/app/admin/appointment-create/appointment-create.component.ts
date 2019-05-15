@@ -308,6 +308,7 @@ export class AppointmentCreateComponent implements OnInit {
     console.log(this.doctorsSchedules);
 
     this.filterDates();
+    this.loadslot();
 
   }
 
@@ -315,7 +316,7 @@ export class AppointmentCreateComponent implements OnInit {
     this.appointmentService.getslots(this.selectedDoctor, this.selectedClinic).subscribe(
       (res: Appointment[]) => {
         this.slots = res;
-        console.log(res);
+        console.log(this.slots);
       },
       (err) => {
         this.error = err;

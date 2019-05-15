@@ -13,10 +13,11 @@ export class AppoinmentServiceService {
   // url = 'http://localhost:8080/api';
 
   /*For Windows*/
-   url = 'http://localhost/api';
+  url = 'http://localhost/api';
 
   appintments: Appointment[];
   slots: Appointment[];
+
   constructor(private http: HttpClient) {
   }
 
@@ -37,7 +38,7 @@ export class AppoinmentServiceService {
   }
 
   add_appointment(appointment: Appointment): Observable<Appointment[]> {
-    return this.http.post(`${this.url}/appointment/get/add-appointment`, {data: appointment}, {responseType: 'text'})
+    return this.http.post(`${this.url}/appointment/add/add-appointment`, {data: appointment}, {responseType: 'text'})
       .pipe(map((res) => {
           this.appintments = res[`data`];
           console.log('ok');
@@ -46,8 +47,10 @@ export class AppoinmentServiceService {
         }),
         catchError(this.handleError));
   }
+
   getslots(empID: number, clinicID: number): Observable<Appointment[]> {
-    return this.http.get(`${this.url}/appointment/get/get-slots`, {responseType: 'json'}).pipe(
+    return this.http.get(`${this.url}/appointment/get/get-slots.php?clinicID=` + clinicID + `&empID=` + empID,
+      {responseType: 'json'}).pipe(
       map((res) => {
         this.slots = res[`data`];
         // console.log(this.clinics);
