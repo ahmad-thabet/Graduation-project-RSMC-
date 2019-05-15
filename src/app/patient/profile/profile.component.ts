@@ -10,7 +10,10 @@ import {Patient} from '../../models/patient.model';
 export class ProfileComponent implements OnInit {
   patientID = '1';
 
-  patient: any;
+  patient = new Patient('', '', '', '', '', '',
+    new Date(), '', '', '', '', 0,
+    '', '', '', '', '', '', '', '');
+
   patients: Patient[] = [];
 
   constructor(private patientService: PatinetSeviceService) {
@@ -18,11 +21,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadAllPatients();
-
   }
 
   private loadAllPatients() {
-    this.patientService.get_patient().subscribe(
+    return this.patientService.get_patient().subscribe(
       (res: Patient[]) => {
         this.patients = res;
         this.loadPatient();
@@ -37,7 +39,7 @@ export class ProfileComponent implements OnInit {
   private loadPatient() {
     for (const i of this.patients) {
       console.log(this.patientID);
-      if (+i.personalID === +this.patientID) {
+      if (i.personalID === this.patientID.toString()) {
         console.log(i);
         this.patient = i;
       }
