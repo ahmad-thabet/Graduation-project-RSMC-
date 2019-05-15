@@ -49,6 +49,7 @@ export class AppointmentCreateComponent implements OnInit {
   doctorsSchedules: Schadule[] = [];
 
   invalidDates: Array<Date> = [];
+  slots: Appointment[];
 
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
@@ -75,7 +76,6 @@ export class AppointmentCreateComponent implements OnInit {
 
     let startDate;
     let endDate;
-
     for (const i of this.doctorsSchedules) {
       const days = [i.sun, i.mon, i.tue, i.wen, i.thu, i.fri];
       startDate = new Date(i.startdate);
@@ -309,5 +309,17 @@ export class AppointmentCreateComponent implements OnInit {
 
     this.filterDates();
 
+  }
+
+  private loadslot() {
+    this.appointmentService.getslots(this.selectedDoctor, this.selectedClinic).subscribe(
+      (res: Appointment[]) => {
+        this.slots = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }
