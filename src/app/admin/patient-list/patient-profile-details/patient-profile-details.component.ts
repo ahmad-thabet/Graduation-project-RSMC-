@@ -21,7 +21,9 @@ export class PatientProfileDetailsComponent implements OnInit {
   todate = new Date();
   minDate = new Date();
   invalidDates: Array<Date> = [];
-
+  childs: Patient[];
+  error = '';
+  personalID: string;
 
   // TODO: configure these as needed
   family: any[] = [
@@ -45,9 +47,23 @@ export class PatientProfileDetailsComponent implements OnInit {
       this.id = +params[`id`];
       this.patient = this.patientService.patients[this.id];
     });
+    this.personalID = this.patientService.patients[this.id].personalID;
+    this.loadchild();
   }
 
   onDateChanged() {
 
+  }
+
+  private loadchild() {
+    this.patientService.get_child(this.personalID).subscribe(
+      (res: Patient[]) => {
+        this.childs = res;
+        console.log(this.childs);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }

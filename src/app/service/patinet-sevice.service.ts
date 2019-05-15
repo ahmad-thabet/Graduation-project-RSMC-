@@ -22,7 +22,7 @@ export class PatinetSeviceService {
   quantom: Quantom[];
   patients: Patient[];
   clinics: Clinic[];
-
+child: Patient[];
   constructor(private  http: HttpClient) {
   }
 
@@ -89,18 +89,14 @@ export class PatinetSeviceService {
         catchError(this.handleError));
   }
 
-  // TODO: implement this function
-  add_clinic(clinic: string) {
-    return undefined;
+  get_child(fatharID: string): Observable<Patient[]> {
+    return this.http.get(`${this.url}/patient/get/get-child.php?fatherID=` + fatharID, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.child = res[`data`];
+        console.log(this.child);
+        return this.child;
+      }),
+      catchError(this.handleError));
   }
 
-  // TODO: implement this function
-  get_clinics() {
-    return undefined;
-  }
-
-  // TODO: implement this function
-  add_doctorClinic(clinic: Clinic) {
-    return undefined;
-  }
 }
