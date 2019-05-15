@@ -22,7 +22,7 @@ export class PatientCreateComponent implements OnInit {
   insurance = new Insurance(0, ' ');
   subinsurance = new Subinsurance(0, 0, 0, '');
   quantom: Quantom[];
-  quantoms: Quantom[];
+  quantoms: Quantom[] = [];
 
   cities: City[];
   error = '';
@@ -31,7 +31,7 @@ export class PatientCreateComponent implements OnInit {
   insurances: Insurance[];
 
   subincurances: Subinsurance[];
-  subincurancess: Subinsurance[];
+  subincurancess: Subinsurance[] = [];
 
   personalIDMatch: any;
   familyListType = '';
@@ -143,7 +143,12 @@ export class PatientCreateComponent implements OnInit {
   }
 
   onSelectCity(value: string) {
-    this.quantoms = this.quantom.filter(x => x.cityID === +value);
+    this.quantoms = [];
+    for (const i of this.quantom) {
+      if (i.cityID.toString() === value) {
+        this.quantoms.push(i);
+      }
+    }
   }
 
 
@@ -222,6 +227,11 @@ export class PatientCreateComponent implements OnInit {
 
 
   onSelectInsuranceCompany(value: string) {
-    this.subincurancess = this.subincurances.filter(x => x.insuranceID === +value);
+    this.subincurancess = [];
+    for (const i of this.subincurances) {
+      if (i.insuranceID.toString() === value) {
+        this.subincurancess.push(i);
+      }
+    }
   }
 }
