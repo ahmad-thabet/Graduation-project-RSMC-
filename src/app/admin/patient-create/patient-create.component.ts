@@ -22,14 +22,18 @@ export class PatientCreateComponent implements OnInit {
   insurance = new Insurance(0, ' ');
   subinsurance = new Subinsurance(0, 0, 0, '');
   quantom: Quantom[];
+  quantoms: Quantom[];
+
   cities: City[];
   error = '';
   success = '';
   patients: Patient[];
   insurances: Insurance[];
-  subincurances: Subinsurance[];
-  personalIDMatch: any;
 
+  subincurances: Subinsurance[];
+  subincurancess: Subinsurance[];
+
+  personalIDMatch: any;
   familyListType = '';
   insuranceListType = '';
 
@@ -43,8 +47,10 @@ export class PatientCreateComponent implements OnInit {
 
   ngOnInit() {
     this.loadCities();
+    this.loadquantom();
     this.loadpatient();
     this.loadinsurance();
+    this.loadsubinsurance();
   }
 
   add_patient(f) {
@@ -57,10 +63,27 @@ export class PatientCreateComponent implements OnInit {
           console.log(this.patients);
           this.success = 'Created successfully';
           console.log(this.success);
+
+          this.messageService.add(
+            {
+              severity: 'success',
+              summary: 'Created Successfully',
+              detail: 'User is now registered in the system'
+            });
+
           // Reset the form
           f.reset();
         },
-        (err) => this.error = err
+        (err) => {
+          this.error = err;
+
+          this.messageService.add(
+            {
+              severity: 'error',
+              summary: 'Not successfull!!',
+              detail: 'There was an error'
+            });
+        }
       );
   }
 
@@ -120,8 +143,7 @@ export class PatientCreateComponent implements OnInit {
   }
 
   onSelectCity(value: string) {
-    this.loadquantom();
-    this.quantom.filter(x => x.cityID === +value);
+    this.quantoms = this.quantom.filter(x => x.cityID === +value);
   }
 
 
@@ -200,7 +222,6 @@ export class PatientCreateComponent implements OnInit {
 
 
   onSelectInsuranceCompany(value: string) {
-    this.loadsubinsurance();
-    this.subincurances.filter(x => x.insuranceID === +value);
+    this.subincurancess = this.subincurances.filter(x => x.insuranceID === +value);
   }
 }

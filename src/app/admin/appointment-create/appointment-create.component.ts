@@ -1,4 +1,4 @@
-import {Component, NgModule, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClinicDoctor} from '../../models/clinic-doctor.model';
 import {Clinic} from '../../models/clinic.model';
 import {Patient} from '../../models/patient.model';
@@ -7,7 +7,6 @@ import {ClinicServiceService} from '../../service/clinic-service.service';
 import {AppoinmentServiceService} from '../../service/appoinment-service.service';
 import {Appointment} from '../../models/appointment.model';
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
-import {forEach} from '@angular/router/src/utils/collection';
 import {EmployeeServiceService} from '../../service/employee-service.service';
 import {ScheduleServiceService} from '../../service/schedule-service.service';
 import {Schadule} from '../../models/schedule.model';
@@ -118,14 +117,12 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
   getCurrentModel() {
-    return JSON.stringify(this.date5 + '--' + this.selectedClinic + '-' + this.selectedDoctor + '-'
-      + this.selectedAppointment + '-' + this.selectedPatient + '-' + this.selectedFromDate + '-' + this.selectedToDate);
+    return JSON.stringify(this.selectedClinic + '-' + this.selectedDoctor + '-' + this.date5);
   }
 
 
   clinicSelected(id: any) {
     this.selectedClinic = id;
-
     this.doctorsIDs.splice(0, this.doctorsIDs.length);
     this.doctorss = this.doctors.filter(x => x.clinicID === id);
     for (const x of this.doctorss) {
@@ -143,8 +140,6 @@ export class AppointmentCreateComponent implements OnInit {
     // date selected == date 5
 
     for (const k of this.doctorsSchedules) {
-
-
       const startTimeHours = +(k.starttime.split(':')[0]);
       const startTimeMinutes = +(k.starttime.split(':')[1]);
       console.log(startTimeHours + ':' + startTimeMinutes);

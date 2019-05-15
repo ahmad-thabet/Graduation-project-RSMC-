@@ -126,7 +126,7 @@
                   #subInsuranceType
           >
             <option selected>--Select Insurance Type--</option>
-            <option *ngFor="let x of subincurances" value="">{{x.membership}}</option>
+            <option *ngFor="let x of subincurancess" value="">{{x.membership}}</option>
           </select>
         </div>
       </div>
@@ -139,15 +139,17 @@
               #familyList
               (change)="familyListType = familyList.value">
         <option value="married" [(ngModel)]="patient.relation ">Married</option>
-        <option value="single"[(ngModel)]="patient.relation ">Single</option>
-        <option value="child"[(ngModel)]="patient.relation ">Child</option>
+        <option value="single" [(ngModel)]="patient.relation ">Single</option>
+        <option value="child" [(ngModel)]="patient.relation ">Child</option>
       </select>
       <div class="row" *ngIf="familyListType == 'child'">
         <div class="col">
           <label>Father ID</label>
-          <input type="text" class="form-control" placeholder="Father ID" name="fatherID" [(ngModel)]="patient.fatherID">
+          <input type="text" class="form-control" placeholder="Father ID" name="fatherID"
+                 [(ngModel)]="patient.fatherID">
           <label>Mother ID</label>
-          <input type="text" class="form-control" placeholder="Mother ID" name="motherID" [(ngModel)]="patient.motherID">
+          <input type="text" class="form-control" placeholder="Mother ID" name="motherID"
+                 [(ngModel)]="patient.motherID">
           <!--[(ngModel)]="parentID"-->
         </div>
       </div>
@@ -178,7 +180,7 @@
           <label>select quantum</label>
           <select class="custom-select" id="quantum" [(ngModel)]="patient.qID" name="quantom">
             <option hidden>Select quantum</option>
-            <option *ngFor="let x of quantom" [value]="x.qID">{{x.qname}}</option>
+            <option *ngFor="let x of quantoms" [value]="x.qID">{{x.qname}}</option>
           </select>
         </div>
         <div class="col-6">

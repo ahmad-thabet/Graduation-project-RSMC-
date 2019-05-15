@@ -14,11 +14,11 @@ import {ClinicPrice} from '../models/clinicprice.model';
 })
 export class ClinicServiceService {
   /*For mac*/
-  // url = 'http://localhost:8080/api';
+  url = 'http://localhost:8080/api';
 
   /*For Windows*/
 
-  url = 'http://localhost/api';
+  /*  url = 'http://localhost/api';*/
 
   constructor(private  http: HttpClient) {
   }
@@ -83,7 +83,7 @@ export class ClinicServiceService {
     return this.http.get(`${this.url}/doctor/get/get-doctor`, {responseType: 'json'}).pipe(
       map((res) => {
         this.clinocdoctors = res[`data`];
-        //console.log(this.clinics);
+        // console.log(this.clinics);
         return this.clinocdoctors;
       }),
       catchError(this.handleError));

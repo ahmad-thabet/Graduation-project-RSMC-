@@ -89,7 +89,7 @@
           <label>select quantum</label>
           <select class="custom-select" id="quantum" [(ngModel)]="employee.qID" name="quantom">
             <option hidden>Select quantum</option>
-            <option *ngFor="let x of quantom" [value]="x.qID">{{x.qname}}</option>
+            <option *ngFor="let x of quantoms" [value]="x.qID">{{x.qname}}</option>
           </select>
         </div>
         <div class="col-6">

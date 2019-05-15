@@ -10,10 +10,10 @@ import {Schadule} from '../models/schedule.model';
 })
 export class ScheduleServiceService {
   /*For mac*/
-  // url = 'http://localhost:8080/api';
+  url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  url = 'http://localhost/api';
+/*  url = 'http://localhost/api';*/
 
   schedules: Schadule[];
 
