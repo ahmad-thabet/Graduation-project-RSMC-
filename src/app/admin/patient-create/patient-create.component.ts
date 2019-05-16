@@ -16,9 +16,9 @@ import {MessageService} from 'primeng/api';
 export class PatientCreateComponent implements OnInit {
   patient = new Patient('', '', '', '', '', '',
     new Date(), '', '', '', '', 0,
-    '', '', '', '', '', '', '', '');
+    '', '', '', '', 0, '', '', '');
 
-  insurance = new Insurance(0, ' ');
+  insurance = new Insurance(0, '');
   subinsurance = new Subinsurance(0, 0, 0, '');
   quantom: Quantom[];
   quantoms: Quantom[] = [];
@@ -152,8 +152,8 @@ export class PatientCreateComponent implements OnInit {
 
 
   checkValidID() {
-    const id = this.patient.personalID;
-    if (id.length !== 9) {
+    const id = this.patient.patientID.toString();
+    if (id.toString().length !== 9) {
       this.validID = false;
       this.messageService.add({
         severity: 'error',

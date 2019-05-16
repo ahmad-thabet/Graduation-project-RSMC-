@@ -17,7 +17,7 @@ export class PatientEditDetailsComponent implements OnInit {
 
   patient = new Patient('', '', '', '', '', '',
     new Date(), '', '', '', '', 0,
-    '', '', '', '', '', '', '', '');
+    '', '', '', '', 0, '', '', '');
   insurance = new Insurance(0, ' ');
   subinsurance = new Subinsurance(0, 0, 0, '');
   insurances: Insurance[];

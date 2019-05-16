@@ -16,7 +16,7 @@ export class PatientProfileDetailsComponent implements OnInit {
 
   patient = new Patient('', '', '', '', '', '',
     new Date(), '', '', '', '', 0,
-    '', '', '', '', '', '', '', '');
+    '', '', '', '', 0, '', '', '');
   id: number;
   quantom: Quantom;
   cities: City;
@@ -47,6 +47,7 @@ export class PatientProfileDetailsComponent implements OnInit {
     const id = this.route.params.subscribe((params: Params) => {
       this.id = +params[`id`];
       this.patient = this.patientService.patients[this.id];
+      console.log(this.patient.patientID);
     });
     this.loadchild();
   }

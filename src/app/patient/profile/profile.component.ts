@@ -1,6 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 import {Patient} from '../../models/patient.model';
+import {Quantom} from '../../models/quantom.model';
+import {City} from '../../models/city.model';
+import {Patientpayment} from '../../models/patientpayment.model';
+import {Paymentdetails} from '../../models/paymentdetails.model';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -8,42 +13,83 @@ import {Patient} from '../../models/patient.model';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  patientID = '1';
 
-  patient = new Patient('', '', '', '', '', '',
-    new Date(), '', '', '', '', 0,
-    '', '', '', '', '', '', '', '');
+  patient: Patient;
 
   patients: Patient[] = [];
+  id: number;
 
-  constructor(private patientService: PatinetSeviceService) {
+  quantom: Quantom;
+  cities: City;
+
+  fromdate = new Date();
+  todate = new Date();
+  minDate = new Date();
+
+  invalidDates: Array<Date> = [];
+  childs: Patient[];
+  error = '';
+
+  patientID = 1;
+
+  patientPayment: Patientpayment = new Patientpayment('', 0, '', '');
+  patientDetails: Paymentdetails[] = [
+    new Paymentdetails('1', '2', '100', '12-12-2012', 'Cheque', '1'),
+    new Paymentdetails('1', '2', '100', '12-12-2012', 'Cheque', '1'),
+    new Paymentdetails('1', '2', '100', '12-12-2012', 'Cheque', '1'),
+  ];
+
+  constructor(private patientService: PatinetSeviceService,
+              public route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.loadAllPatients();
+    this.loadpatients();
+    this.loadchild();
+
   }
 
-  private loadAllPatients() {
-    return this.patientService.get_patient().subscribe(
+  onDateChanged() {
+    console.log(this.fromdate, this.todate);
+  }
+
+  private loadchild() {
+    this.patientService.get_child(this.patientID.toString()).subscribe(
       (res: Patient[]) => {
-        this.patients = res;
-        this.loadPatient();
+        this.childs = res;
+        console.log(this.childs);
       },
       (err) => {
-        console.log(err);
+        this.error = err;
       }
     );
   }
 
+  private loadpatients() {
+    this.patientService.get_patient().subscribe(
+      (res: Patient[]) => {
+        this.patients = res;
+        console.log(this.patients);
+      },
+      (err) => {
+        this.error = err;
+      }, () => {
+        this.patient = this.patients.find(x => +x.patientID === this.patientID);
 
-  private loadPatient() {
-    for (const i of this.patients) {
-      console.log(this.patientID);
-      if (i.personalID === this.patientID.toString()) {
-        console.log(i);
-        this.patient = i;
       }
-    }
+    );
+  }
+
+  private getPatientPayment() {
+
+  }
+
+  private getPatientPaymentDetails() {
+
+  }
+
+  getCurrentModel() {
+    return JSON.stringify(this.patient);
   }
 }
 
