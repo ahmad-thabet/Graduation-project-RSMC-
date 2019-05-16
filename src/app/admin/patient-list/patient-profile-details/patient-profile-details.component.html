@@ -136,62 +136,97 @@
           </div>
           <!--Second Tab-->
           <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="profile-tab">
-            <h3>Payments</h3>
             <div class="row">
-              <p-calendar [(ngModel)]="fromdate">11</p-calendar>
+              <h3>Payments</h3>
+            </div>
+            <hr>
+            <div class="row">
+              <table class="paleBlueRows" style="height: 2%; width: 100%;">
+                <thead>
+                <tr>
+                  <th>Last Payment Date</th>
+                  <th>Last Pay Date</th>
+                  <th>Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>{{patientPayment.lastpaymentdate}}</td>
+                  <td>{{patientPayment.lastpaydate}}</td>
+                  <td>{{patientPayment.balance}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
               <div class="col-md-6">
                 <label>From</label>
-                <!--                <input type="date" class="custom-select" name="fromdate" id="fromdate" (change)="onDateChanged()"
-                                       [(ngModel)]="fromdate">-->
                 <p-calendar [(ngModel)]="fromdate"
                             [disabledDates]="invalidDates"
                             [minDate]="minDate"
                             [readonlyInput]="true"
-                            name="datepicker"
+                            name="datepickerone"
+                            (ngModelChange)="onDateChanged()"
                             [showIcon]="true">
                 </p-calendar>
               </div>
               <div class="col-md-6">
                 <label>To</label>
-                <!--                <input type="date" class="custom-select" name="todate" id="todate" (change)="onDateChanged()"
-                                       [(ngModel)]="todate">-->
+                <p-calendar [(ngModel)]="todate"
+                            [disabledDates]="invalidDates"
+                            [minDate]="minDate"
+                            [readonlyInput]="true"
+                            name="datepickertwo"
+                            (ngModelChange)="onDateChanged()"
+                            [showIcon]="true">
+                </p-calendar>
               </div>
             </div>
-
             <hr>
-            <div class="row" *ngFor="let x of payments">
-              <div class="col-md-6">
-                <label>{{x.amount}}</label>
-              </div>
-              <div class="col-md-6">
-                <p>{{x.duedate}}</p>
-              </div>
+            <div class="row">
+              <table class="paleBlueRows" style="width: 100%">
+                <thead>
+                <tr>
+                  <th>Payment ID</th>
+                  <th>Employee ID</th>
+                  <th>Amount</th>
+                  <th>Send Date</th>
+                  <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let x of patientDetails">
+                  <td>{{x.paymnetID}}</td>
+                  <td>{{x.empID}}</td>
+                  <td>{{x.amount}}</td>
+                  <td>{{x.senddate}}</td>
+                  <td>{{x.paymenttype}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <!--Third Tab-->
           <div class="tab-pane fade" id="family" role="tabpanel" aria-labelledby="profile-tab">
             <h3>Family</h3>
             <div class="row">
-              <div class="col-md-3">
-                <label>First Name</label>
-              </div>
-              <div class="col-md-3">
-                <label>Relationship</label>
-              </div>
-              <div class="col-md-3">
-                <label>ID</label>
-              </div>
-            </div>
-            <div class="row" *ngFor="let x of family">
-              <div class="col-md-3">
-                <label>{{x.firstname}}</label>
-              </div>
-              <div class="col-md-3">
-                <label>{{x.relationship}}</label>
-              </div>
-              <div class="col-md-3">
-                <a [routerLink]="['../',x.id]">{{x.id}}</a>
-              </div>
+              <table class="paleBlueRows" style="width: 100%">
+                <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Relationship</th>
+                  <th>ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let x of childs">
+                  <td>{{x.firstname}}</td>
+                  <td>{{x.relation}}</td>
+                  <td>{{x.personalID}}</td>
+                  <!--<a [routerLink]="['../',x.id]">{{x.id}}</a>-->
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

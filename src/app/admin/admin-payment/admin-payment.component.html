@@ -1,4 +1,4 @@
-<h1>Payments List</h1>
+<h1 style="text-align: center;">Payments List</h1>
 <div class="container bootstrap snippet">
   <div class="row">
     <div class="col-lg-12">
@@ -8,23 +8,22 @@
             <table class="table user-list">
               <thead>
               <tr>
-                <th><span>Name</span></th>
+                <th><span>#</span></th>
+                <th><span>Personal ID</span></th>
+                <th><span>Employee ID</span></th>
                 <th><span>Amount</span></th>
-                <th><span>Date</span></th>
+                <th><span>Send Date</span></th>
                 <th><span>Payment Type</span></th>
-                <th><span>Receiver Employee</span></th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let x of details; let i = index">
+                <td>{{x.paymnetID}}</td>
                 <td>{{x.personalID}}</td>
-                <td>
-                  {{x.firstname}} {{x.secondname}} {{x.lastname}}
-                </td>
+                <td>{{x.empID}}</td>
                 <td>{{x.amount}}</td>
                 <td>{{x.senddate}}</td>
                 <td>{{x.paymenttype}}</td>
-                <td>{{x.empID}} {{x.empLastName}}</td>
               </tr>
               </tbody>
             </table>

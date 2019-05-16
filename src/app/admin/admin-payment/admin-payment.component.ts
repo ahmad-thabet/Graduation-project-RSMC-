@@ -10,11 +10,11 @@ import {PaymentServiceService} from '../../service/payment-service.service';
 export class AdminPaymentComponent implements OnInit {
 
 
+  details: Paymentdetails[] = [];
+  error = '';
+
   constructor(private paymentService: PaymentServiceService) {
   }
-
-  details: Paymentdetails[];
-  error = '';
 
   ngOnInit() {
     this.loaddetails();

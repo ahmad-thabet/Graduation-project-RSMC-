@@ -17,21 +17,26 @@ export class SchaduleGeneratorComponent implements OnInit {
   public events: SchedulerEvent[] = sampleData;
 
   selectedDays: any[];
+
   days = [
-    {label: 'Saturday', value: 'saturday'},
-    {label: 'Sunday', value: 'sunday'},
-    {label: 'Monday', value: 'Monday'},
-    {label: 'Tuesday', value: 'tuesday'},
-    {label: 'Wednesday', value: 'wednesday'},
-    {label: 'Thursday', value: 'thursday'},
-    {label: 'Friday', value: 'friday'}
+    {label: 'Saturday', value: 'sat=1'},
+    {label: 'Sunday', value: 'sun=1'},
+    {label: 'Monday', value: 'mon=1'},
+    {label: 'Tuesday', value: 'tue=1'},
+    {label: 'Wednesday', value: 'wen=1'},
+    {label: 'Thursday', value: 'thu=1'},
+    {label: 'Friday', value: 'fri=1'}
   ];
+
   error = '';
   success = '';
+
   selectedFromTime;
   selectedToTime;
   selectedSlotTime = 5;
-  schedule = new Schadule(0, 0, 0, '', '', 0, new Date(), new Date(), 0, 0, 0, 0, 0, 0, 0);
+
+  schedule = new Schadule(0, 0, 0, '', '', 0,
+    new Date(), new Date(), 0, 0, 0, 0, 0, 0, 0);
   schedules: Schadule[];
 
   constructor(private messageService: MessageService,

@@ -4,6 +4,8 @@ import {Quantom} from '../../../models/quantom.model';
 import {City} from '../../../models/city.model';
 import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import {Patientpayment} from '../../../models/patientpayment.model';
+import {Paymentdetails} from '../../../models/paymentdetails.model';
 
 @Component({
   selector: 'app-patient-profile-details',
@@ -12,7 +14,9 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 export class PatientProfileDetailsComponent implements OnInit {
 
-  patient: Patient;
+  patient = new Patient('', '', '', '', '', '',
+    new Date(), '', '', '', '', 0,
+    '', '', '', '', '', '', '', '');
   id: number;
   quantom: Quantom;
   cities: City;
@@ -20,21 +24,18 @@ export class PatientProfileDetailsComponent implements OnInit {
   fromdate = new Date();
   todate = new Date();
   minDate = new Date();
+
   invalidDates: Array<Date> = [];
   childs: Patient[];
   error = '';
+
   personalID = '';
 
-  // TODO: configure these as needed
-  family: any[] = [
-    {firstname: 'Ahmad', relationship: 'Son', id: '1'},
-    {firstname: 'Samer', relationship: 'Son', id: '2'},
-    {firstname: 'Saeed', relationship: 'Son', id: '3'},
-  ];
-  payments: any[] = [
-    {amount: 15, duedate: new Date()},
-    {amount: 25, duedate: new Date()},
-    {amount: 5, duedate: new Date()},
+  patientPayment: Patientpayment = new Patientpayment('', 0, '', '');
+  patientDetails: Paymentdetails[] = [
+    new Paymentdetails('1', '2', '100', '12-12-2012', 'Cheque', '1'),
+    new Paymentdetails('1', '2', '100', '12-12-2012', 'Cheque', '1'),
+    new Paymentdetails('1', '2', '100', '12-12-2012', 'Cheque', '1'),
   ];
 
   constructor(private patientService: PatinetSeviceService,
@@ -47,13 +48,11 @@ export class PatientProfileDetailsComponent implements OnInit {
       this.id = +params[`id`];
       this.patient = this.patientService.patients[this.id];
     });
-    this.personalID = this.patientService.patients[this.id].personalID.toString();
-    console.log('personal ID is : ' + this.personalID);
     this.loadchild();
   }
 
   onDateChanged() {
-
+    console.log(this.fromdate, this.todate);
   }
 
   private loadchild() {
@@ -66,5 +65,13 @@ export class PatientProfileDetailsComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  private getPatientPayment() {
+
+  }
+
+  private getPatientPaymentDetails() {
+
   }
 }

@@ -77,7 +77,7 @@ export class AppointmentCreateComponent implements OnInit {
     let startDate;
     let endDate;
     for (const i of this.doctorsSchedules) {
-      const days = [i.sun, i.mon, i.tue, i.wen, i.thu, i.fri];
+      const days = [i.sun, i.mon, i.tue, i.wen, i.thu, i.fri, i.sat];
       startDate = new Date(i.startdate);
       endDate = new Date(i.enddate);
 
@@ -106,12 +106,8 @@ export class AppointmentCreateComponent implements OnInit {
       tempDate.setDate(tempDate.getDate() + 1);
     }
 
-    /*    // remove the valid dates from the invalid ones..
-        invalidDates = invalidDates.filter(
-          (invalidDate) =>
-            !validDates.find(validDate => Math.abs(validDate.getTime() - invalidDate.getTime()) < 5)
-        );*/
-    invalidDates = invalidDates.filter((invalidDate) => !validDates.find(validDate => validDate.getDate() === invalidDate.getDate()));
+    invalidDates = invalidDates.filter((invalidDate) => !validDates.find(
+      validDate => validDate.getDate() === invalidDate.getDate()));
 
     this.invalidDates = invalidDates;
   }

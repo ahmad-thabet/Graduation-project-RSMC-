@@ -11,14 +11,20 @@ import {Paymentdetails} from '../models/paymentdetails.model';
   providedIn: 'root'
 })
 
-
 export class PaymentServiceService {
+  /*For mac*/
+  url = 'http://localhost:8080/api';
+
+  /*For Windows*/
+  // url = 'http://localhost/api';
+
+
+  payment: Patientpayment[];
+  details: Paymentdetails[];
 
   constructor(private  http: HttpClient) {
   }
-payment: Patientpayment[];
-  url = 'http://localhost/api';
-details: Paymentdetails[];
+
   getpayment(): Observable<Patientpayment[]> {
     return this.http.get(`${this.url}/payment/get/get_payment`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -27,6 +33,7 @@ details: Paymentdetails[];
       }),
       catchError(this.handleError));
   }
+
   getpaymentdetails(): Observable<Paymentdetails[]> {
     return this.http.get(`${this.url}/payment/get/get-paymentdetails`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -36,6 +43,7 @@ details: Paymentdetails[];
       }),
       catchError(this.handleError));
   }
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
     // return an observable with a user friendly message
@@ -52,6 +60,7 @@ details: Paymentdetails[];
         }),
         catchError(this.handleError));
   }
+
   add_paymentdetails(detail: Paymentdetails): Observable<Paymentdetails[]> {
     return this.http.post(`${this.url}/patient/add/add-patient`, {data: detail}, {responseType: 'text'})
       .pipe(map((res) => {
