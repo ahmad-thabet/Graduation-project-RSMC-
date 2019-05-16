@@ -10,6 +10,7 @@ import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 import {EmployeeServiceService} from '../../service/employee-service.service';
 import {ScheduleServiceService} from '../../service/schedule-service.service';
 import {Schadule} from '../../models/schedule.model';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-appointment-create',
@@ -53,9 +54,10 @@ export class AppointmentCreateComponent implements OnInit {
 
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
-              private  patinetservice: PatinetSeviceService,
+              private patinetservice: PatinetSeviceService,
               private employeeService: EmployeeServiceService,
-              private scheduleService: ScheduleServiceService) {
+              private scheduleService: ScheduleServiceService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -219,14 +221,26 @@ export class AppointmentCreateComponent implements OnInit {
         (res: Appointment[]) => {
           // Update the list of cars
           this.appointments = res;
-          // Inform the user
-          console.log(this.appointments);
-          this.success = 'Created successfully';
-          console.log(this.success);
+          /*          // Inform the user
+                    console.log(this.appointments);
+                    this.success = 'Created successfully';
+                    console.log(this.success);*/
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Created Successfully',
+            detail: ''
+          });
           // Reset the form
           f.reset();
         },
-        (err) => this.error = err
+        (err) => {
+          this.error = err;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error! Try Again',
+            detail: '' + err
+          });
+        }
       );
   }
 
@@ -246,32 +260,12 @@ export class AppointmentCreateComponent implements OnInit {
     this.scheduleService.get_schedule().subscribe(
       (res: Schadule[]) => {
         this.doctorsSchedule = res;
-        console.log(res);
+        console.log('ww ' + res);
       },
       (err) => {
         this.error = err;
       }
     );
-  }
-
-  get_doctors() {
-
-    /*    console.log('wwww ' + this.doctors.filter(x => x.clinicID === this.selectedClinic));*/
-    /*    this.clinicService.getID(this.selectedClinic)
-          .subscribe(
-            (res: Employee[]) => {
-              // Update the list of cars
-              console.log('selected clinic ' + this.selectedClinic);
-              this.doctorsID = res;
-
-              // Inform the user
-              console.log('clinic doctors ' + res);
-              this.success = 'Created successfully';
-              console.log(this.success);
-              // Reset the form
-            },
-            (err) => this.error = err
-          );*/
   }
 
   private loaddoctors() {
@@ -288,12 +282,12 @@ export class AppointmentCreateComponent implements OnInit {
 
   doctorSelected(value: any) {
     this.selectedDoctor = value;
-
+    console.log(this.doctorsSchedules);
     // clear temp array
     this.doctorsSchedules.splice(0, this.doctorsSchedules.length);
 
     this.doctorsSchedules = this.doctorsSchedule.filter(x =>
-      (x.clinicID === this.selectedClinic) && (x.empID === this.selectedDoctor));
+      (x.clinicID.toString() === this.selectedClinic) && (x.empID.toString() === this.selectedDoctor));
 
     /*    for (const i of this.doctorsSchedule) {
           if (i.clinicID === this.selectedClinic && i.empID === this.selectedDoctor) {

@@ -1,4 +1,4 @@
-<h1>Schedule Generator</h1>
+<h1 style="text-align: center;">Schedule Generator</h1>
 <div class="container" style="text-align: center;">
   <form>
 
@@ -27,7 +27,7 @@
 
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="false">
       <hr>
       <kendo-scheduler [kendoSchedulerBinding]="events"
                        [selectedDate]="selectedDate"

@@ -1,11 +1,11 @@
 export class City {
   public cityname: string;
-  public id: number;
+  public cityID: number;
 
   constructor(cityname: string,
-              id: number) {
+              cityID: number) {
     this.cityname = cityname;
-    this.id = id;
+    this.cityID = cityID;
   }
 
 }

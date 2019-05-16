@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
-  patientID = 1;
+  patientID = 401110796;
 
   constructor() {
   }

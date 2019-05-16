@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Patient} from '../../../models/patient.model';
 import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
+import {Insurance} from '../../../models/insurance.model';
+import {InsuranceServiceService} from '../../../service/insurance-service.service';
 
 @Component({
   selector: 'app-patient-list-full',
@@ -12,7 +14,9 @@ export class PatientListFullComponent implements OnInit {
   error = '';
   success = '';
 
-  constructor(private patientservice: PatinetSeviceService) {
+
+  constructor(private patientservice: PatinetSeviceService,
+              private insuranceService: InsuranceServiceService) {
   }
 
   ngOnInit() {

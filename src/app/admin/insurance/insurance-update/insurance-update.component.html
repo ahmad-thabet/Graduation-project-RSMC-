@@ -1,5 +1,4 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-<hr>
 <div class="container">
   <div class="container bootstrap snippet">
     <div class="row">
@@ -21,7 +20,7 @@
                 <tr *ngFor="let x of insurancefulls;">
                   <td>{{x.insurancecompany}}</td>
                   <td>{{x.membership}}</td>
-                  <td>{{x.discount}}</td>
+                  <td>{{x.discount | percent}}</td>
                   <td>
                     <a class="table-link">
                     <span class="fa-stack">

@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   childs: Patient[];
   error = '';
 
-  patientID = 1;
+  patientID = 401110796;
 
   patientPayment: Patientpayment = new Patientpayment('', 0, '', '');
   patientDetails: Paymentdetails[] = [
@@ -75,7 +75,6 @@ export class ProfileComponent implements OnInit {
         this.error = err;
       }, () => {
         this.patient = this.patients.find(x => +x.patientID === this.patientID);
-
       }
     );
   }

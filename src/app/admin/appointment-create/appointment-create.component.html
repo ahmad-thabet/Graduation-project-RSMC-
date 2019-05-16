@@ -1,5 +1,4 @@
-<h1>Create New Appointment</h1>
-<pre>{{ getCurrentModel() }}</pre>
+<h1 style="text-align: center">Create New Appointment</h1>
 <div class="container">
   <form #f="ngForm" (submit)="add_appointment(f)">
     <div class="row">
@@ -18,7 +17,7 @@
         <select class="custom-select" id="patient" name="patient" #patient (change)="selectedPatient = patient.value">
           <option selected> -- Patient --</option>
           <option *ngFor="let x of patients"
-                  [value]="[x.personalID]">{{x.firstname}} {{x.secondname}} {{x.lastname}}</option>
+                  [value]="[x.patientID]">{{x.firstname}} {{x.secondname}} {{x.lastname}}</option>
         </select>
       </div>
       <div class="col">
@@ -82,3 +81,6 @@
     </div>
   </form>
 </div>
+
+
+<pre>{{ getCurrentModel() }}</pre>

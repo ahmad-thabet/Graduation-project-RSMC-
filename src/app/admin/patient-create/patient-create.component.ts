@@ -21,7 +21,7 @@ export class PatientCreateComponent implements OnInit {
   insurance = new Insurance(0, '');
   subinsurance = new Subinsurance(0, 0, 0, '');
   quantom: Quantom[];
-  quantoms: Quantom[] = [];
+  quantoms: Quantom[];
 
   cities: City[];
   error = '';
@@ -143,11 +143,13 @@ export class PatientCreateComponent implements OnInit {
 
   onSelectCity(value: string) {
     this.quantoms = [];
-    for (const i of this.quantom) {
-      if (i.cityID.toString() === value) {
-        this.quantoms.push(i);
-      }
-    }
+    /*    for (const i of this.quantom) {
+          if (i.cityID.toString() === value) {
+            this.quantoms.push(i);
+          }
+        }*/
+    this.quantoms = this.quantom.filter(x => x.cityID.toString() === value);
+    console.log(value);
   }
 
 

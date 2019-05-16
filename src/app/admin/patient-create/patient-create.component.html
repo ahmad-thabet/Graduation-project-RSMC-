@@ -177,14 +177,14 @@
                   #selectedCity
                   (change)="onSelectCity(selectedCity.value)">
             <option hidden>Select city</option>
-            <option *ngFor="let x of cities" [value]="x.id">{{x.cityname}}</option>
+            <option *ngFor="let x of cities" [value]="[x.cityID]">{{x.cityname}}</option>
           </select>
         </div>
         <div class="col">
           <label>select quantum</label>
           <select class="custom-select" id="quantum" [(ngModel)]="patient.qID" name="quantom">
             <option hidden>Select quantum</option>
-            <option *ngFor="let x of quantoms" [value]="x.qID">{{x.qname}}</option>
+            <option *ngFor="let x of quantoms" [value]="[x.qID]">{{x.qname}}</option>
           </select>
         </div>
         <div class="col-6">

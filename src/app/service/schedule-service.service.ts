@@ -10,10 +10,10 @@ import {Schadule} from '../models/schedule.model';
 })
 export class ScheduleServiceService {
   /*For mac*/
-  // url = 'http://localhost:8080/api';
+  url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  url = 'http://localhost/api';
+  // url = 'http://localhost/api';
 
   schedules: Schadule[];
 
@@ -30,7 +30,7 @@ export class ScheduleServiceService {
     return this.http.get(`${this.url}/admin/get/get-schedule`, {responseType: 'json'}).pipe(
       map((res) => {
         this.schedules = res[`data`];
-        // console.log(this.clinics);
+//        console.log('ww' + this.schedules);
         return this.schedules;
       }),
       catchError(this.handleError));

@@ -15,10 +15,8 @@
           <h5>
             {{patient.firstname}} {{patient.lastname}}
           </h5>
-          <h6>
-            {{patient.dateofbirth}}
-          </h6>
-          <p class="proile-rating"><span>{{patient.patientID}}</span></p>
+          <h6>Date of Birth: {{patient.dateofbirth}}</h6>
+          <p class="proile-rating">ID#: <span>{{patient.patientID}}</span></p>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
@@ -98,7 +96,7 @@
                 <label>Insuace Company</label>
               </div>
               <div class="col-md-6">
-                <p>{{patient}}</p>
+                <p>{{patient.insurancenumber}}</p>
               </div>
             </div>
             <div class="row">
@@ -143,13 +141,16 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td>{{patientPayment.lastpaymentdate}}</td>
-                  <td>{{patientPayment.lastpaydate}}</td>
+                  <!--                  <td>{{patientPayment.lastpaymentdate}}</td>
+                                    <td>{{patientPayment.lastpaydate}}</td>-->
+                  <td>12-12-2018</td>
+                  <td>12-12-2018</td>
                   <td>{{patientPayment.balance}}</td>
                 </tr>
                 </tbody>
               </table>
             </div>
+            <hr>
             <div class="row">
               <div class="col-md-6">
                 <label>From</label>
