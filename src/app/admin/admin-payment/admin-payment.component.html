@@ -16,15 +16,15 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let x of list; let i = index">
+              <tr *ngFor="let x of details; let i = index">
                 <td>{{x.personalID}}</td>
                 <td>
                   {{x.firstname}} {{x.secondname}} {{x.lastname}}
                 </td>
                 <td>{{x.amount}}</td>
-                <td>{{x.date}}</td>
-                <td>{{x.paymentType}}</td>
-                <td>{{x.empFirstName}} {{x.empLastName}}</td>
+                <td>{{x.senddate}}</td>
+                <td>{{x.paymenttype}}</td>
+                <td>{{x.empID}} {{x.empLastName}}</td>
               </tr>
               </tbody>
             </table>

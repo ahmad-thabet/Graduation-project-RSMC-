@@ -23,7 +23,7 @@ export class PatientProfileDetailsComponent implements OnInit {
   invalidDates: Array<Date> = [];
   childs: Patient[];
   error = '';
-  personalID: string;
+  personalID = '';
 
   // TODO: configure these as needed
   family: any[] = [
@@ -47,7 +47,8 @@ export class PatientProfileDetailsComponent implements OnInit {
       this.id = +params[`id`];
       this.patient = this.patientService.patients[this.id];
     });
-    this.personalID = this.patientService.patients[this.id].personalID;
+    this.personalID = this.patientService.patients[this.id].personalID.toString();
+    console.log('personal ID is : ' + this.personalID);
     this.loadchild();
   }
 

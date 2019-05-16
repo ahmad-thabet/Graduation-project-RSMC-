@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Paymentdetails} from '../../models/paymentdetails.model';
+import {PaymentServiceService} from '../../service/payment-service.service';
 
 @Component({
   selector: 'app-admin-payment',
@@ -6,11 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-payment.component.css']
 })
 export class AdminPaymentComponent implements OnInit {
-  list: any[] = [];
 
-  constructor() { }
 
-  ngOnInit() {
+  constructor(private paymentService: PaymentServiceService) {
   }
 
+  details: Paymentdetails[];
+  error = '';
+
+  ngOnInit() {
+    this.loaddetails();
+  }
+
+  private loaddetails() {
+    this.paymentService.getpaymentdetails().subscribe(
+      (res: Paymentdetails[]) => {
+        this.details = res;
+        console.log(this.details);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
 }
