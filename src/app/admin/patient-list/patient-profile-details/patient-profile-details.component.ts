@@ -26,7 +26,7 @@ export class PatientProfileDetailsComponent implements OnInit {
   minDate = new Date();
 
   invalidDates: Array<Date> = [];
-  childs: Patient[];
+  childs: Patient[] = [];
   error = '';
 
   personalID = '';

@@ -11,6 +11,7 @@ import {EmployeeServiceService} from '../../service/employee-service.service';
 import {ScheduleServiceService} from '../../service/schedule-service.service';
 import {Schadule} from '../../models/schedule.model';
 import {MessageService} from 'primeng/api';
+import {DateTime} from 'rrule/dist/esm/src/datetime';
 
 @Component({
   selector: 'app-appointment-create',
@@ -18,18 +19,23 @@ import {MessageService} from 'primeng/api';
   styleUrls: ['./appointment-create.component.css']
 })
 
+
 export class AppointmentCreateComponent implements OnInit {
   selectedClinic: any;
   selectedDoctor: any;
-  selectedFromDate = new Date();
-  selectedToDate = new Date();
+
   selectedAppointment: any;
   selectedPatient: any;
 
   appointments: Appointment[];
   appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
 
-  AllApoin: any[] = [];
+  /*
+    AllApoin: any[] = [];
+  */
+
+
+  AllApoin: Appoin[] = [];
 
   doctors: ClinicDoctor[];
   doctorss: ClinicDoctor[];
@@ -115,7 +121,7 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
   getCurrentModel() {
-    return JSON.stringify(this.selectedClinic + '-' + this.selectedDoctor + '-' + this.date5);
+    return JSON.stringify(this.appointment);
   }
 
 
@@ -165,8 +171,16 @@ export class AppointmentCreateComponent implements OnInit {
           tempEndTimeHours = tempEndTimeHours + 1;
         }
 
-        this.AllApoin.push(tempStartTimeHours + ':' + tempStartTimeMinutes +
-          ' - ' + tempEndTimeHours + ':' + tempEndTimeMinutes);
+        const ti = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate(),
+          tempStartTimeHours, tempStartTimeMinutes, 0);
+
+        this.AllApoin.push(
+          {
+            start: tempStartTimeHours + ':' + tempStartTimeMinutes,
+            end: tempEndTimeHours + ':' + tempEndTimeMinutes,
+            time: ti
+          }
+        );
 
         tempStartTimeMinutes = tempEndTimeMinutes;
         tempStartTimeHours = tempEndTimeHours;
@@ -313,4 +327,10 @@ export class AppointmentCreateComponent implements OnInit {
       }
     );
   }
+}
+
+interface Appoin {
+  start: string;
+  end: string;
+  time: Date;
 }
