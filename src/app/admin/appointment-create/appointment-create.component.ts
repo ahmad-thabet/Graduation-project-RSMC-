@@ -139,10 +139,6 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
   setTimeSlots() {
-    // get valid dates of doctor, put it in this.validDates
-    // load time slots in all apointment
-    // date selected == date 5
-
     for (const k of this.doctorsSchedules) {
       const startTimeHours = +(k.starttime.split(':')[0]);
       const startTimeMinutes = +(k.starttime.split(':')[1]);
@@ -235,10 +231,6 @@ export class AppointmentCreateComponent implements OnInit {
         (res: Appointment[]) => {
           // Update the list of cars
           this.appointments = res;
-          /*          // Inform the user
-                    console.log(this.appointments);
-                    this.success = 'Created successfully';
-                    console.log(this.success);*/
           this.messageService.add({
             severity: 'success',
             summary: 'Created Successfully',
@@ -246,6 +238,7 @@ export class AppointmentCreateComponent implements OnInit {
           });
           // Reset the form
           f.reset();
+          this.AllApoin = [];
         },
         (err) => {
           this.error = err;
