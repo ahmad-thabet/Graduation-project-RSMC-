@@ -66,7 +66,7 @@
                   (change)="doctorSelected(doctor.value)"
                   [(ngModel)]="appointment.empID">
             <option selected> -- Doctor --</option>
-            <option *ngFor="let x of doctorsIDs" [value]="x.empID">{{x.firstname}}</option>
+            <option *ngFor="let x of doctorsIDs" [value]="[x.empID]">{{x.firstname}}</option>
           </select>
         </div>
         <div class="row">

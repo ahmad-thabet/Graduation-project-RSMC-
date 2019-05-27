@@ -20,8 +20,9 @@ export class EmployeeProfileDetailsComponent implements OnInit {
   todate = new Date();
 
   allActivity: any[] = [
-    'Reservation for id 10',
-    'Payment for id 033',
+    {activity: 'Reservation for id 10', date: new Date()},
+    {activity: 'Payment for id 12', date: new Date()},
+    {activity: 'Reservation for id 17', date: new Date()},
   ];
 
   constructor(private employeeService: EmployeeServiceService, private route: ActivatedRoute) {

@@ -4,6 +4,11 @@ import {displayDate, sampleData} from './events-utc';
 import {MessageService} from 'primeng/api';
 import {Schadule} from '../../models/schedule.model';
 import {ScheduleServiceService} from '../../service/schedule-service.service';
+import {Employee} from '../../models/employee.model';
+import {EmployeeServiceService} from '../../service/employee-service.service';
+import {Clinic} from '../../models/clinic.model';
+import {ClinicServiceService} from '../../service/clinic-service.service';
+import {ClinicDoctor} from '../../models/clinic-doctor.model';
 
 
 @Component({
@@ -13,11 +18,17 @@ import {ScheduleServiceService} from '../../service/schedule-service.service';
 })
 export class SchaduleGeneratorComponent implements OnInit {
 
-  public selectedDate: Date = displayDate;
-  public events: SchedulerEvent[] = sampleData;
+  selectedDoctor: any;
+  selectedClinic: any;
+
+  doctorsID: Employee[] = [];
+  doctorsIDs: Employee[] = [];
+  clinics: Clinic[];
+
+  doctors: ClinicDoctor[];
+  doctorss: ClinicDoctor[];
 
   selectedDays: any[];
-
   days = [
     {label: 'Saturday', value: 'sat=1'},
     {label: 'Sunday', value: 'sun=1'},
@@ -40,11 +51,16 @@ export class SchaduleGeneratorComponent implements OnInit {
   schedules: Schadule[];
 
   constructor(private messageService: MessageService,
-              private scheduleServie: ScheduleServiceService) {
+              private scheduleServie: ScheduleServiceService,
+              private employeeService: EmployeeServiceService,
+              private clinicService: ClinicServiceService) {
   }
 
   ngOnInit() {
+    this.loaddoctors();
     this.loadschedule();
+    this.loadalldoctors();
+    this.loadClinics();
   }
 
   onGenerate() {
@@ -80,6 +96,55 @@ export class SchaduleGeneratorComponent implements OnInit {
     this.scheduleServie.get_schedule().subscribe(
       (res: Schadule[]) => {
         this.schedules = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  clinicSelected(id: number) {
+    this.selectedClinic = id;
+    this.doctorsIDs.splice(0, this.doctorsIDs.length);
+    this.doctorss = this.doctors.filter(x => x.clinicID === id);
+    for (const x of this.doctorss) {
+      const idd = x.empID;
+      const emp = this.doctorsID.findIndex(i => i.empID === (idd + ''));
+      if (emp !== -1) {
+        this.doctorsIDs.push(this.doctorsID[emp]);
+      }
+    }
+  }
+
+  private loaddoctors() {
+    this.employeeService.get_employee().subscribe(
+      (res: Employee[]) => {
+        this.doctorsID = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadalldoctors() {
+    this.clinicService.get_clinic_doctors().subscribe(
+      (res: ClinicDoctor[]) => {
+        this.doctors = res;
+        console.log('all docs ' + this.doctors.toString());
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadClinics() {
+    this.clinicService.get_clinic().subscribe(
+      (res: Clinic[]) => {
+        this.clinics = res;
+        console.log(res);
       },
       (err) => {
         this.error = err;

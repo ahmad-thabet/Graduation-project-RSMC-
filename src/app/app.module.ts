@@ -102,7 +102,6 @@ const appRoutes: Routes = [
       },
       {path: 'app-create', component: AppointmentCreateComponent},
       {path: 'app-list', component: AppointmentListComponent},
-      {path: 'sch-list', component: SchaduleGeneratorComponent},
       {path: 'sch-gen', component: SchaduleGeneratorComponent},
       {path: 'exc-date', component: ExceptionDateComponent},
       {path: 'vac-date', component: VacationDateComponent},

@@ -1,7 +1,34 @@
 <h1 style="text-align: center;">Schedule Generator</h1>
 <div class="container" style="text-align: center;">
   <form>
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-6 ui-lg-6">
+        <label for="clinic">Select Clinic</label>
+        <select class="custom-select"
+                id="clinic"
+                name="clinic"
+                #clinicValue
+                (change)="clinicSelected(clinicValue.value)"
+                [(ngModel)]="selectedClinic"
+        >
+          <option selected> -- Clinic --</option>
+          <option *ngFor="let x of clinics" [value]="[x.clinicID]">{{x.clinicname}}</option>
+        </select>
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6">
+        <label for="doctor">Select Doctor</label>
+        <select class="custom-select"
+                id="doctor"
+                name="doctor"
+                #doctorValue
+                [(ngModel)]="selectedDoctor"
+        >
+          <option selected> -- Doctor --</option>
+          <option *ngFor="let x of doctorsIDs" [value]="[x.empID]">{{x.firstname}}</option>
+        </select>
+      </div>
 
+    </div>
     <div class="ui-g">
       <div class="ui-g-12 ui-md-6 ui-lg-3">
         <h3>Select Days</h3>
