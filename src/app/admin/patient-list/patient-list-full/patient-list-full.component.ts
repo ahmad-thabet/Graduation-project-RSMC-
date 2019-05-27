@@ -34,7 +34,7 @@ export class PatientListFullComponent implements OnInit {
     );
   }
 
-  onSubmit(value: string, option: string) {
+  onSearch(value: string, option: string) {
     if (option === 'id') {
       this.patients = this.allPatients.filter(x => x.patientID.toString() === value);
     }
@@ -43,7 +43,7 @@ export class PatientListFullComponent implements OnInit {
         x.thirdname === value || x.lastname === value);
     }
     if (option === 'phonenumber') {
-      this.patients = this.allPatients.filter(x => x.phonenumber === value);
+      this.patients = this.allPatients.filter(x => x.phonenumber === value || x.mobilenumber);
     }
 
   }
