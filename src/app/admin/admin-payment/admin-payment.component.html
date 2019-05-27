@@ -1,5 +1,50 @@
 <h1 style="text-align: center;">Payments List</h1>
+<pre>{{getCurrentModel()}}</pre>
 <div class="container bootstrap snippet">
+  <div class="row">
+    <div class="col">
+      <label for="fromdate">From: </label>
+      <input type="date"
+             id="fromdate"
+             name="fromdate"
+             [(ngModel)]="fromdate"
+             class="form-control"
+             (change)="dateChanged()">
+    </div>
+    <div class="col">
+      <label for="todate">From: </label>
+      <input type="date"
+             id="todate"
+             name="todate"
+             [(ngModel)]="todate"
+             class="form-control"
+             (change)="dateChanged()">
+    </div>
+    <div class="col">
+      <label>Select Patient</label>
+      <select class="custom-select"
+              id="patient"
+              name="patient"
+              #patientValue
+              [(ngModel)]="patient"
+              (change)="onSelectPatient(patientValue.value)">
+        <option selected> -- Patient --</option>
+        <option *ngFor="let x of patients"
+                [value]="[x.patientID]">{{x.firstname}} {{x.secondname}} {{x.lastname}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label>ID:</label>
+      <input type="text"
+             class="form-control"
+             id="patientID"
+             name="patientID"
+             [(ngModel)]="patient"
+             (change)="onSelectPatient(patientValue.value)"
+             placeholder="Search Patient by ID">
+    </div>
+  </div>
+  <hr>
   <div class="row">
     <div class="col-lg-12">
       <div class="main-box no-header clearfix">
