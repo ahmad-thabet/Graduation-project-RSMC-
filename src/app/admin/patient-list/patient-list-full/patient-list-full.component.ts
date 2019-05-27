@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Patient} from '../../../models/patient.model';
 import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
-import {Insurance} from '../../../models/insurance.model';
 import {InsuranceServiceService} from '../../../service/insurance-service.service';
 
 @Component({
@@ -11,9 +10,9 @@ import {InsuranceServiceService} from '../../../service/insurance-service.servic
 })
 export class PatientListFullComponent implements OnInit {
   patients: Patient[];
+  allPatients: Patient[];
   error = '';
   success = '';
-
 
   constructor(private patientservice: PatinetSeviceService,
               private insuranceService: InsuranceServiceService) {
@@ -26,7 +25,8 @@ export class PatientListFullComponent implements OnInit {
   private loadpatient() {
     this.patientservice.get_patient().subscribe(
       (res: Patient[]) => {
-        this.patients = res;
+        this.allPatients = res;
+        this.patients = this.allPatients;
       },
       (err) => {
         this.error = err;
@@ -34,4 +34,21 @@ export class PatientListFullComponent implements OnInit {
     );
   }
 
+  onSubmit(value: string, option: string) {
+    if (option === 'id') {
+      this.patients = this.allPatients.filter(x => x.patientID.toString() === value);
+    }
+    if (option === 'name') {
+      this.patients = this.allPatients.filter(x => x.firstname === value || x.secondname === value ||
+        x.thirdname === value || x.lastname === value);
+    }
+    if (option === 'phonenumber') {
+      this.patients = this.allPatients.filter(x => x.phonenumber === value);
+    }
+
+  }
+
+  clearSearch() {
+    this.patients = this.allPatients;
+  }
 }

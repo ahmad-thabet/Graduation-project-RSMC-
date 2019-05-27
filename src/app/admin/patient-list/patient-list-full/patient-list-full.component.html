@@ -3,20 +3,27 @@
 <div class="container">
   <div class="row">
     <div class="col-6">
-      <input type="text" placeholder="Search" class="form-control">
+      <input type="text"
+             placeholder="Search"
+             class="form-control"
+             #searchValue
+      >
     </div>
     <div class="col">
-      <select class="custom-select">
+      <select class="custom-select" #searchOption>
         <option hidden>- Search By -</option>
         <option value="name">Name</option>
         <option value="id">ID</option>
         <option value="phonenumber">Phone Number</option>
-        <option value="dateofbirth">Date Of Birth</option>
-        <option value="insurance company">Insurance Company</option>
       </select>
     </div>
     <div class="col">
-      <button type="button" class="btn btn-success btn-block">Search</button>
+      <button type="button"
+              class="btn btn-success"
+              (click)="onSubmit(searchValue.value, searchOption.value)"
+      >Search
+      </button>
+      <button type="button" class="btn btn-danger" (click)="clearSearch()">Clear</button>
     </div>
   </div>
 </div>
