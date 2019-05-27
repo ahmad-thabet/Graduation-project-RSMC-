@@ -141,7 +141,12 @@ export class AppointmentCreateComponent implements OnInit {
     } else {
       this.appointment.adate += '-' + (+this.date5.getUTCMonth() + 1);
     }
-    this.appointment.adate += '-' + this.date5.getUTCDate();
+
+    if (+this.date5.getUTCDate() < 10) {
+      this.appointment.adate += '-0' + this.date5.getUTCDate();
+    } else {
+      this.appointment.adate += '-' + this.date5.getUTCDate();
+    }
   }
 
   setTimeSlots() {

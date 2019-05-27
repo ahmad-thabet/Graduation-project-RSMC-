@@ -24,6 +24,7 @@ export class AdminPaymentComponent implements OnInit {
     new Paymentdetails('850038746', '1', '110', '06-06-2019', 'Cash', '6'),
     new Paymentdetails('850038746', '1', '200', '07-07-2019', 'Cash', '7'),
   ];
+  allDetails = this.details;
   error = '';
   patients: Patient[] = [];
 
@@ -49,11 +50,12 @@ export class AdminPaymentComponent implements OnInit {
   }
 
   dateChanged() {
-
+    // this.details = this.allDetails.filter(x =>
+    //   x.senddate === this.setDateFormat(this.fromdate) || x.senddate.toString() === this.setDateFormat(this.todate));
   }
 
-  onSelectPatient(id: number) {
-
+  onSelectPatient(id: string) {
+    this.details = this.allDetails.filter(x => x.personalID === id);
   }
 
   private loadpatient() {
@@ -70,6 +72,24 @@ export class AdminPaymentComponent implements OnInit {
 
   getCurrentModel() {
     return JSON.stringify(this.patient);
+  }
+
+  setDateFormat(date5: Date) {
+    let tmpdate = '';
+    tmpdate += date5.getFullYear();
+    console.log(date5.getFullYear());
+    if (+date5.getUTCMonth() < 10) {
+      tmpdate += '-0' + (+date5.getMonth() + 1);
+    } else {
+      tmpdate += '-' + (+date5.getMonth() + 1);
+    }
+
+    if (+date5.getUTCDate() < 10) {
+      tmpdate += '-0' + date5.getDate();
+    } else {
+      tmpdate += '-' + date5.getDate();
+    }
+    return tmpdate;
   }
 
 }

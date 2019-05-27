@@ -9,7 +9,7 @@
              name="fromdate"
              [(ngModel)]="fromdate"
              class="form-control"
-             (change)="dateChanged()">
+             (ngModelChange)="dateChanged()">
     </div>
     <div class="col">
       <label for="todate">From: </label>
@@ -18,7 +18,7 @@
              name="todate"
              [(ngModel)]="todate"
              class="form-control"
-             (change)="dateChanged()">
+             (ngModelChange)="dateChanged()">
     </div>
     <div class="col">
       <label>Select Patient</label>
