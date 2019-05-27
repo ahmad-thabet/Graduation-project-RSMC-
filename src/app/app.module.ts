@@ -6,9 +6,6 @@ import {AuthService} from './login/auth.service';
 import {PatientListComponent} from './admin/patient-list/patient-list.component';
 import {PatientProfileDetailsComponent} from './admin/patient-list/patient-profile-details/patient-profile-details.component';
 import {PatientCreateComponent} from './admin/patient-create/patient-create.component';
-import {AdminAppointmentsComponent} from './admin/admin-appointments/admin-appointments.component';
-import {AppointmentsListComponent} from './admin/admin-appointments/appointments-list/appointments-list.component';
-import {AppointmentsCreateComponent} from './admin/admin-appointments/appointments-create/appointments-create.component';
 import {PatinetSeviceService} from './service/patinet-sevice.service';
 import {HttpClientModule} from '@angular/common/http';
 import {EmployeeCreateComponent} from './admin/employee-create/employee-create.component';
@@ -166,9 +163,6 @@ const appRoutes: Routes = [
     PatientListComponent,
     PatientProfileDetailsComponent,
     PatientCreateComponent,
-    AdminAppointmentsComponent,
-    AppointmentsListComponent,
-    AppointmentsCreateComponent,
     EmployeeCreateComponent,
     EmployeeListComponent,
     AppointmentListComponent,

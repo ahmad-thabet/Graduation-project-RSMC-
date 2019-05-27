@@ -29,7 +29,7 @@ export class AddAppointmentComponent implements OnInit {
   selectedPatient = this.personalID;
 
   appointments: Appointment[];
-  appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
+  appointment = new Appointment(0, 0, 0, 0, 0, '', '');
 
   AllApoin: any[] = [];
 

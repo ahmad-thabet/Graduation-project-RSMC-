@@ -11,7 +11,6 @@ import {EmployeeServiceService} from '../../service/employee-service.service';
 import {ScheduleServiceService} from '../../service/schedule-service.service';
 import {Schadule} from '../../models/schedule.model';
 import {MessageService} from 'primeng/api';
-import {DateTime} from 'rrule/dist/esm/src/datetime';
 
 @Component({
   selector: 'app-appointment-create',
@@ -28,11 +27,7 @@ export class AppointmentCreateComponent implements OnInit {
   selectedPatient: any;
 
   appointments: Appointment[];
-  appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
-
-  /*
-    AllApoin: any[] = [];
-  */
+  appointment = new Appointment(0, 0, 0, 0, 0, '', '');
 
 
   AllApoin: Appoin[] = [];
@@ -138,7 +133,20 @@ export class AppointmentCreateComponent implements OnInit {
     }
   }
 
+  setDateFormat() {
+    this.appointment.adate = '';
+    this.appointment.adate += this.date5.getUTCFullYear();
+    if (+this.date5.getUTCMonth() < 10) {
+      this.appointment.adate += '-0' + (+this.date5.getUTCMonth() + 1);
+    } else {
+      this.appointment.adate += '-' + (+this.date5.getUTCMonth() + 1);
+    }
+    this.appointment.adate += '-' + this.date5.getUTCDate();
+  }
+
   setTimeSlots() {
+    this.setDateFormat();
+
     for (const k of this.doctorsSchedules) {
       const startTimeHours = +(k.starttime.split(':')[0]);
       const startTimeMinutes = +(k.starttime.split(':')[1]);
@@ -167,14 +175,37 @@ export class AppointmentCreateComponent implements OnInit {
           tempEndTimeHours = tempEndTimeHours + 1;
         }
 
-        const ti = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate(),
-          tempStartTimeHours, tempStartTimeMinutes, 0);
+        let t1 = '';
+        if (tempStartTimeHours < 10) {
+          t1 += '0' + tempStartTimeHours;
+        } else {
+          t1 += tempStartTimeHours;
+        }
+        t1 += ':';
+        if (tempStartTimeMinutes < 10) {
+          t1 += '0' + tempStartTimeMinutes;
+        } else {
+          t1 += tempStartTimeMinutes;
+        }
+
+        let t2 = '';
+        if (tempEndTimeHours < 10) {
+          t2 += '0' + tempEndTimeHours;
+        } else {
+          t2 += tempEndTimeHours;
+        }
+        t2 += ':';
+        if (tempEndTimeMinutes < 10) {
+          t2 += '0' + tempEndTimeMinutes;
+        } else {
+          t2 += tempEndTimeMinutes;
+        }
+
 
         this.AllApoin.push(
           {
-            start: tempStartTimeHours + ':' + tempStartTimeMinutes,
-            end: tempEndTimeHours + ':' + tempEndTimeMinutes,
-            time: ti
+            start: t1,
+            end: t2
           }
         );
 
@@ -325,5 +356,4 @@ export class AppointmentCreateComponent implements OnInit {
 interface Appoin {
   start: string;
   end: string;
-  time: Date;
 }

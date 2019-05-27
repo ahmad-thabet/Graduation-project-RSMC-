@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col">
         <p>Select Date</p>
-        <p-calendar [(ngModel)]="appointment.adate"
+        <p-calendar [(ngModel)]="date5"
                     [disabledDates]="invalidDates"
                     [minDate]="minDate"
                     [maxDate]="maxDate"
@@ -77,7 +77,7 @@
                   #appoint
                   [(ngModel)]="appointment.slottime">
             <option selected> -- Select Time --</option>
-            <option *ngFor="let x of AllApoin" [value]="[x.time]">{{x.start}} - {{x.end}}</option>
+            <option *ngFor="let x of AllApoin" [value]="[x.start]">{{x.start}} - {{x.end}}</option>
           </select>
         </div>
       </div>

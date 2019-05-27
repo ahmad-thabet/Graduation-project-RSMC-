@@ -30,7 +30,7 @@ export class AppointmentListComponent implements OnInit {
   selectedDoctor: any;
 
   appointments: Appointment[] = [];
-  appointment = new Appointment(0, 0, 0, 0, 0, new Date(), new Date());
+  appointment = new Appointment(0, 0, 0, 0, 0, '', '');
 
   doctors: ClinicDoctor[];
   doctorss: ClinicDoctor[];

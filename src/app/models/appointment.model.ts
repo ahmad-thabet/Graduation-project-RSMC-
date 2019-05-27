@@ -4,11 +4,11 @@ export class Appointment {
   public empID: number;
   public patientID: number;
   public checkin: number;
-  public adate: Date;
-  public slottime: Date;
+  public adate: string;
+  public slottime: string;
 
 
-  constructor(appID: number, clinicID: number, empID: number, patientID: number, checkin: number, adate: Date, slottime: Date) {
+  constructor(appID: number, clinicID: number, empID: number, patientID: number, checkin: number, adate: string, slottime: string) {
     this.appID = appID;
     this.clinicID = clinicID;
     this.empID = empID;
