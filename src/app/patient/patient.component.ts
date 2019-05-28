@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../service/auth.service';
 
 @Component({
   selector: 'app-patient',
@@ -6,12 +7,16 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
-  patientID = 401110796;
+  patientID = 0;
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
+    if (this.authService.isAuth()) {
+      this.patientID = +this.authService.getUserId();
+    }
+    console.log(this.patientID);
   }
 
 }

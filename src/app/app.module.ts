@@ -2,7 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {AdminComponent} from './admin/admin.component';
 import {AdminMenuComponent} from './admin/admin-menu/admin-menu.component';
-import {AuthService} from './login/auth.service';
+import {AuthService} from './service/auth.service';
 import {PatientListComponent} from './admin/patient-list/patient-list.component';
 import {PatientProfileDetailsComponent} from './admin/patient-list/patient-profile-details/patient-profile-details.component';
 import {PatientCreateComponent} from './admin/patient-create/patient-create.component';
