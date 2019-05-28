@@ -74,11 +74,12 @@ import {MessageModule} from 'primeng/message';
 import {AppoinmentServiceService} from './service/appoinment-service.service';
 import {EmployeeServiceService} from './service/employee-service.service';
 import {ScheduleServiceService} from './service/schedule-service.service';
+import {AuthGuardService} from './service/auth-guard.service';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {
-    path: 'admin', component: AdminComponent, children: [
+    path: 'admin', component: AdminComponent, canActivate: [AuthGuardService], data: {role: '4'}, children: [
       {path: '', component: ChartsComponent},
       {path: 'patient-create', component: PatientCreateComponent},
       {path: 'payments', component: AdminPaymentComponent},
@@ -112,7 +113,7 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'patient', component: PatientComponent, children: [
+    path: 'patient', component: PatientComponent, canActivate: [AuthGuardService], data: {role: '1'}, children: [
       {path: 'add-view-appointments', component: AddAppointmentComponent},
       {path: 'profile', component: ProfileComponent},
       {path: 'payments', component: PatientPaymentListComponent}
@@ -120,14 +121,14 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'doctor', component: DoctorComponent, children: [
+    path: 'doctor', component: DoctorComponent, canActivate: [AuthGuardService], data: {role: '3'}, children: [
       {path: 'schedule', component: DoctorScheduleComponent},
       {path: 'vacation', component: DoctorVacationComponent},
       {path: 'exception', component: DoctorExceptionComponent}
     ]
   },
   {
-    path: 'reception', component: ReceptionComponent, children: [
+    path: 'reception', component: ReceptionComponent, canActivate: [AuthGuardService], data: {role: '2'}, children: [
       {path: 'patient-create', component: PatientCreateComponent},
       {path: 'payments', component: AdminPaymentComponent},
       {
@@ -241,7 +242,8 @@ const appRoutes: Routes = [
     EmployeeServiceService,
     FormsModule,
     MatDatepickerModule,
-    MessageService
+    MessageService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
