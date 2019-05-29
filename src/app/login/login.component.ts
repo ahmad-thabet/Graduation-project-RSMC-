@@ -10,6 +10,12 @@ import {AuthService} from '../service/auth.service';
 export class LoginComponent implements OnInit {
 
   user: User;
+  patient: User[];
+  admin: User[];
+  doctor: User[];
+  reception: User[];
+  error = '';
+  sucsess = '';
 
   constructor(private authService: AuthService) {
   }
@@ -30,6 +36,53 @@ export class LoginComponent implements OnInit {
 
   }
 
+  private patient_login() {
+    this.authService.patient_login(this.user.id, this.user.password).subscribe(
+      (res: User[]) => {
+        this.patient = res;
+        console.log(this.patient);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private doctor_login() {
+    this.authService.doctor_login(this.user.id, this.user.password).subscribe(
+      (res: User[]) => {
+        this.doctor = res;
+        console.log(this.doctor);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private admin_login() {
+    this.authService.admin_login(this.user.id, this.user.password).subscribe(
+      (res: User[]) => {
+        this.admin = res;
+        console.log(this.admin);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private reception_login() {
+    this.authService.reception_login(this.user.id, this.user.password).subscribe(
+      (res: User[]) => {
+        this.reception = res;
+        console.log(this.reception);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
 }
 
 interface User {

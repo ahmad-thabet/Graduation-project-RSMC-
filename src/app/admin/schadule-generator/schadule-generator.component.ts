@@ -63,7 +63,8 @@ export class SchaduleGeneratorComponent implements OnInit {
     this.loadClinics();
   }
 
-  onGenerate() {
+  onGenerate(f) {
+    this.create_schedule(f);
     this.messageService.add({severity: 'info', summary: 'Generated', detail: 'details showing below'});
   }
 

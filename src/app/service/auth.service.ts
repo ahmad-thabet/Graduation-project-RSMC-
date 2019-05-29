@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng/api';
 
@@ -11,15 +11,18 @@ import {MessageService} from 'primeng/api';
 export class AuthService {
 
   /*For mac*/
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  // url = 'http://localhost/api';
+  url = 'http://localhost/api';
 
   token: any;
   loggedIn = false;
   user: LoggedUser;
-
+  patient: User[];
+  doctor: User[];
+admin: User[];
+reception: User[];
   constructor(private http: HttpClient,
               private router: Router,
               private messageService: MessageService) {
@@ -104,6 +107,55 @@ export class AuthService {
     });
   }
 
+  patient_login(patientID: string, password: string): Observable<User[]> {
+    return this.http.get(`${this.url}/login/patient-login?patientID=` + patientID + `&password=` + password,
+      {responseType: 'json'}).pipe(
+      map((res) => {
+        this.doctor = res[`data`];
+        // console.log(this.clinics);
+        return this.patient;
+      }),
+      catchError(this.handleError));
+  }
+
+  doctor_login(username: string, password: string): Observable<User[]> {
+    return this.http.get(`${this.url}/login/doctor-login?username=` + username + `&password=` + password,
+      {responseType: 'json'}).pipe(
+      map((res) => {
+        this.doctor = res[`data`];
+        // console.log(this.clinics);
+        return this.doctor;
+      }),
+      catchError(this.handleError));
+  }
+
+  admin_login(username: string, password: string): Observable<User[]> {
+    return this.http.get(`${this.url}/login/admin-login?username=` + username + `&password=` + password,
+      {responseType: 'json'}).pipe(
+      map((res) => {
+        this.admin = res[`data`];
+        // console.log(this.clinics);
+        return this.admin;
+      }),
+      catchError(this.handleError));
+  }
+
+  reception_login(username: string, password: string): Observable<User[]> {
+    return this.http.get(`${this.url}/login/reception-login?username=` + username + `&password=` + password,
+      {responseType: 'json'}).pipe(
+      map((res) => {
+        this.reception = res[`data`];
+        // console.log(this.clinics);
+        return this.reception;
+      }),
+      catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    // return an observable with a user friendly message
+    return throwError('Error! something went wrong.');
+  }
 }
 
 interface User {

@@ -77,7 +77,7 @@
                   #appoint
                   [(ngModel)]="appointment.slottime">
             <option selected> -- Select Time --</option>
-            <option *ngFor="let x of AllApoin" [value]="[x.start]">{{x.start}} - {{x.end}}</option>
+            <option *ngFor="let x of AllApoin" [disabled]="isNotReserved(x)" ][value]="[x.start]">{{x.start}} - {{x.end}}</option>
           </select>
         </div>
       </div>

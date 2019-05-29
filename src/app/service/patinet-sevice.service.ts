@@ -13,10 +13,10 @@ import {Clinic} from '../models/clinic.model';
 })
 export class PatinetSeviceService {
   /*For mac*/
-  url = 'http://localhost:8080/api';
+  // url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  // url = 'http://localhost/api';
+  url = 'http://localhost/api';
 
   cities: City[];
   quantom: Quantom[];
