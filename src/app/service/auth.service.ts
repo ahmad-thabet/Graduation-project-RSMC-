@@ -21,8 +21,9 @@ export class AuthService {
   user: LoggedUser;
   patient: User[];
   doctor: User[];
-admin: User[];
-reception: User[];
+  admin: User[];
+  reception: User[];
+
   constructor(private http: HttpClient,
               private router: Router,
               private messageService: MessageService) {
@@ -31,29 +32,39 @@ reception: User[];
   login(user: User) {
     console.log('this from ts: ' + user.id + '-' + user.password + '-' + user.type);
 
+    if (user.type === '1') {
+      this.patient_login(user.id, user.password);
+    } else if (user.type === '2') {
+      this.reception_login(user.id, user.password);
+    } else if (user.type === '3') {
+      this.doctor_login(user.id, user.password);
+    } else if (user.type === '4') {
+      this.admin_login(user.id, user.password);
+    } else {
+      // nothing
+    }
+
     this.user = {
       id: user.id,
       type: user.type
     };
 
-    /*TODO: make API request here*/
-
-    if (true && user.type === '1') {
+    if (this.patient.length === 1 && user.type === '1') {
       // patient login
       this.loggedIn = true;
       this.router.navigate(['/patient']);
       this.showSuccessAlarm();
-    } else if (true && user.type === '2') {
+    } else if (this.reception.length === 1 && user.type === '2') {
       // reception login
       this.loggedIn = true;
       this.router.navigate(['/reception']);
       this.showSuccessAlarm();
-    } else if (true && user.type === '3') {
+    } else if (this.doctor.length === 1 && user.type === '3') {
       // doctor login
       this.loggedIn = true;
       this.router.navigate(['/doctor']);
       this.showSuccessAlarm();
-    } else if (true && user.type === '4') {
+    } else if (this.admin.length === 1 && user.type === '4') {
       // admin login
       this.loggedIn = true;
       this.router.navigate(['/admin']);
@@ -81,6 +92,11 @@ reception: User[];
   logout() {
     this.loggedIn = false;
     this.user = {id: '', type: ''};
+
+    this.patient = [];
+    this.doctor = [];
+    this.admin = [];
+    this.reception = [];
 
     this.router.navigate(['login']);
     this.messageService.add({
@@ -111,8 +127,7 @@ reception: User[];
     return this.http.get(`${this.url}/login/patient-login?patientID=` + patientID + `&password=` + password,
       {responseType: 'json'}).pipe(
       map((res) => {
-        this.doctor = res[`data`];
-        // console.log(this.clinics);
+        this.patient = res[`data`];
         return this.patient;
       }),
       catchError(this.handleError));
@@ -123,7 +138,6 @@ reception: User[];
       {responseType: 'json'}).pipe(
       map((res) => {
         this.doctor = res[`data`];
-        // console.log(this.clinics);
         return this.doctor;
       }),
       catchError(this.handleError));
@@ -134,7 +148,6 @@ reception: User[];
       {responseType: 'json'}).pipe(
       map((res) => {
         this.admin = res[`data`];
-        // console.log(this.clinics);
         return this.admin;
       }),
       catchError(this.handleError));
@@ -145,7 +158,6 @@ reception: User[];
       {responseType: 'json'}).pipe(
       map((res) => {
         this.reception = res[`data`];
-        // console.log(this.clinics);
         return this.reception;
       }),
       catchError(this.handleError));
