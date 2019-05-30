@@ -31,7 +31,20 @@ export class LoginComponent implements OnInit {
     };
     // print data to console
     console.log('this from ts: ' + this.user.id + '-' + this.user.password + '-' + this.user.type);
-    this.authService.login(this.user);
+    // this.authService.login(this.user);
+
+
+    if (this.user.type === '1') {
+      this.patient_login();
+    } else if (this.user.type === '2') {
+      this.reception_login();
+    } else if (this.user.type === '3') {
+      this.doctor_login();
+    } else if (this.user.type === '4') {
+      this.admin_login();
+    } else {
+      // nothing
+    }
 
 
   }
@@ -44,6 +57,8 @@ export class LoginComponent implements OnInit {
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.authService.login(this.user);
       }
     );
   }
@@ -56,6 +71,8 @@ export class LoginComponent implements OnInit {
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.authService.login(this.user);
       }
     );
   }
@@ -68,6 +85,8 @@ export class LoginComponent implements OnInit {
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.authService.login(this.user);
       }
     );
   }
@@ -80,6 +99,8 @@ export class LoginComponent implements OnInit {
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.authService.login(this.user);
       }
     );
   }

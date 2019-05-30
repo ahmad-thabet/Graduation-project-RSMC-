@@ -77,7 +77,7 @@ import {ScheduleServiceService} from './service/schedule-service.service';
 import {AuthGuardService} from './service/auth-guard.service';
 
 const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
+  {path: '', component: LoginComponent},
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuardService], data: {role: '4'}, children: [
       {path: '', component: ChartsComponent},

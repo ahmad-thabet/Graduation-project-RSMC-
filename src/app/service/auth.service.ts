@@ -11,18 +11,19 @@ import {MessageService} from 'primeng/api';
 export class AuthService {
 
   /*For mac*/
-  // url = 'http://localhost:8080/api';
+  url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  url = 'http://localhost/api';
+  // url = 'http://localhost/api';
 
   token: any;
   loggedIn = false;
   user: LoggedUser;
-  patient: User[];
-  doctor: User[];
-  admin: User[];
-  reception: User[];
+
+  patient: User[] = [];
+  doctor: User[] = [];
+  admin: User[] = [];
+  reception: User[] = [];
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -32,42 +33,30 @@ export class AuthService {
   login(user: User) {
     console.log('this from ts: ' + user.id + '-' + user.password + '-' + user.type);
 
-    if (user.type === '1') {
-      this.patient_login(user.id, user.password);
-    } else if (user.type === '2') {
-      this.reception_login(user.id, user.password);
-    } else if (user.type === '3') {
-      this.doctor_login(user.id, user.password);
-    } else if (user.type === '4') {
-      this.admin_login(user.id, user.password);
-    } else {
-      // nothing
-    }
-
     this.user = {
       id: user.id,
       type: user.type
     };
 
-    if (this.patient.length === 1 && user.type === '1') {
+    if (this.patient.length !== 0 && user.type === '1') {
       // patient login
       this.loggedIn = true;
-      this.router.navigate(['/patient']);
+      this.router.navigate(['patient']);
       this.showSuccessAlarm();
-    } else if (this.reception.length === 1 && user.type === '2') {
+    } else if (this.reception.length !== 0 && user.type === '2') {
       // reception login
       this.loggedIn = true;
-      this.router.navigate(['/reception']);
+      this.router.navigate(['reception']);
       this.showSuccessAlarm();
-    } else if (this.doctor.length === 1 && user.type === '3') {
+    } else if (this.doctor.length !== 0 && user.type === '3') {
       // doctor login
       this.loggedIn = true;
-      this.router.navigate(['/doctor']);
+      this.router.navigate(['doctor']);
       this.showSuccessAlarm();
-    } else if (this.admin.length === 1 && user.type === '4') {
+    } else if (this.admin.length !== 0 && user.type === '4') {
       // admin login
       this.loggedIn = true;
-      this.router.navigate(['/admin']);
+      this.router.navigate(['admin']);
       this.showSuccessAlarm();
     } else {
       this.loggedIn = false;
@@ -98,7 +87,7 @@ export class AuthService {
     this.admin = [];
     this.reception = [];
 
-    this.router.navigate(['login']);
+    this.router.navigate(['../']);
     this.messageService.add({
       severity: 'info',
       summary: 'Logged Out',
@@ -128,6 +117,7 @@ export class AuthService {
       {responseType: 'json'}).pipe(
       map((res) => {
         this.patient = res[`data`];
+        console.log(this.patient);
         return this.patient;
       }),
       catchError(this.handleError));
@@ -138,6 +128,7 @@ export class AuthService {
       {responseType: 'json'}).pipe(
       map((res) => {
         this.doctor = res[`data`];
+        console.log(this.doctor);
         return this.doctor;
       }),
       catchError(this.handleError));
@@ -148,6 +139,7 @@ export class AuthService {
       {responseType: 'json'}).pipe(
       map((res) => {
         this.admin = res[`data`];
+        console.log(this.admin);
         return this.admin;
       }),
       catchError(this.handleError));
@@ -158,6 +150,7 @@ export class AuthService {
       {responseType: 'json'}).pipe(
       map((res) => {
         this.reception = res[`data`];
+        console.log(this.reception);
         return this.reception;
       }),
       catchError(this.handleError));
