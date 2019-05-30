@@ -6,6 +6,7 @@ import {City} from '../../models/city.model';
 import {Patientpayment} from '../../models/patientpayment.model';
 import {Paymentdetails} from '../../models/paymentdetails.model';
 import {ActivatedRoute, Params} from '@angular/router';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,7 @@ export class ProfileComponent implements OnInit {
   childs: Patient[];
   error = '';
 
-  patientID = 401110796;
+  patientID = 0;
 
   patientPayment: Patientpayment = new Patientpayment('', 0, '', '');
   patientDetails: Paymentdetails[] = [
@@ -40,12 +41,18 @@ export class ProfileComponent implements OnInit {
   ];
 
   constructor(private patientService: PatinetSeviceService,
-              public route: ActivatedRoute) {
+              public route: ActivatedRoute,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
+    if (this.authService.isAuth()) {
+      this.patientID = +this.authService.getUserId();
+    }
+    console.log(this.patientID);
     this.loadpatients();
     this.loadchild();
+
 
   }
 

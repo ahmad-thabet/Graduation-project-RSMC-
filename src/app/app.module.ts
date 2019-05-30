@@ -75,9 +75,10 @@ import {AppoinmentServiceService} from './service/appoinment-service.service';
 import {EmployeeServiceService} from './service/employee-service.service';
 import {ScheduleServiceService} from './service/schedule-service.service';
 import {AuthGuardService} from './service/auth-guard.service';
+import {NotFoundComponent} from './not-found/not-found.component';
 
 const appRoutes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '', component: LoginComponent, pathMatch: 'full'},
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuardService], data: {role: '4'}, children: [
       {path: '', component: ChartsComponent},
@@ -114,8 +115,9 @@ const appRoutes: Routes = [
   },
   {
     path: 'patient', component: PatientComponent, canActivate: [AuthGuardService], data: {role: '1'}, children: [
-      {path: 'add-view-appointments', component: AddAppointmentComponent},
+      {path: '', component: ProfileComponent},
       {path: 'profile', component: ProfileComponent},
+      {path: 'add-view-appointments', component: AddAppointmentComponent},
       {path: 'payments', component: PatientPaymentListComponent}
 
     ]
@@ -151,7 +153,8 @@ const appRoutes: Routes = [
         ]
       }
     ]
-  }
+  },
+  {path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({
@@ -197,7 +200,8 @@ const appRoutes: Routes = [
     ClinicListFullComponent,
     AdminPaymentComponent,
     PatientPaymentListComponent,
-    ChartsComponent
+    ChartsComponent,
+    NotFoundComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

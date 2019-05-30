@@ -143,11 +143,6 @@ export class PatientCreateComponent implements OnInit {
 
   onSelectCity(value: string) {
     this.quantoms = [];
-    /*    for (const i of this.quantom) {
-          if (i.cityID.toString() === value) {
-            this.quantoms.push(i);
-          }
-        }*/
     this.quantoms = this.quantom.filter(x => x.cityID.toString() === value);
     console.log(value);
   }
@@ -229,10 +224,6 @@ export class PatientCreateComponent implements OnInit {
 
   onSelectInsuranceCompany(value: string) {
     this.subincurancess = [];
-    for (const i of this.subincurances) {
-      if (i.insuranceID.toString() === value) {
-        this.subincurancess.push(i);
-      }
-    }
+    this.subincurancess = this.subincurances.filter(x => x.insuranceID.toString() === value);
   }
 }

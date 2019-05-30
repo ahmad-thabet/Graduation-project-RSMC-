@@ -11,14 +11,16 @@ import {Exception} from '../models/exception.model';
 })
 export class DoctorServiceService {
 
-  constructor(private  http: HttpClient) {
-  }
 
   /*For mac*/
-  // url = 'http://localhost:8080/api';
+  url = 'http://localhost:8080/api';
 
   /*For Windows*/
-  url = 'http://localhost/api';
+
+  // url = 'http://localhost/api';
+
+  constructor(private  http: HttpClient) {
+  }
 
   vac: Vacation[];
   exc: Exception[];

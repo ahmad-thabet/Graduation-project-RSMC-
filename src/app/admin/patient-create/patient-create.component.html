@@ -114,7 +114,7 @@
                   (change)="onSelectInsuranceCompany(insuranceCompany.value)"
           >
             <option selected>--Select Insurance Company--</option>
-            <option *ngFor="let x of insurances">{{x.insurancecompany}}</option>
+            <option *ngFor="let x of insurances" [value]="[x.insuranceID]">{{x.insurancecompany}}</option>
           </select>
         </div>
         <div class="col">
@@ -126,7 +126,7 @@
                   #subInsuranceType
           >
             <option selected>--Select Insurance Type--</option>
-            <option *ngFor="let x of subincurancess" value="">{{x.membership}}</option>
+            <option *ngFor="let x of subincurancess" [value]="[x.subinsuranceID]">{{x.membership}}</option>
           </select>
         </div>
       </div>

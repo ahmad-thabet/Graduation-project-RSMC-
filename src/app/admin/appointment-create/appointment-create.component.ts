@@ -358,7 +358,9 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
   private isNotReserved(slot: Appoin) {
-    return this.slots.find(x => x.slottime.toString().split(':')[0] === slot.start.toString().split(':')[0] && x.slottime.toString().split(':')[1] === slot.start.toString().split(':')[1] && x.adate.toString() === this.appointment.adate.toString());
+    return this.slots.find(x => x.slottime.split(':')[0] === slot.start.split(':')[0]
+      && x.slottime.split(':')[1] === slot.start.split(':')[1]
+      && x.adate === this.appointment.adate);
   }
 }
 
