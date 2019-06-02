@@ -94,6 +94,9 @@ export class AuthService {
       detail: 'See you soon :)'
     });
 
+    sessionStorage.clear();
+    localStorage.clear();
+
   }
 
   showSuccessAlarm() {
