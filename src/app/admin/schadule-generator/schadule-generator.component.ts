@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {SchedulerEvent} from '@progress/kendo-angular-scheduler';
-import {displayDate, sampleData} from './events-utc';
 import {MessageService} from 'primeng/api';
 import {Schadule} from '../../models/schedule.model';
 import {ScheduleServiceService} from '../../service/schedule-service.service';

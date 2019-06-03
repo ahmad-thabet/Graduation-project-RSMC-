@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Insurancefull} from '../../../models/insurancefull.model';
 import {Insurance} from '../../../models/insurance.model';
 import {Subinsurance} from '../../../models/subinsurance.model';
 import {InsuranceServiceService} from '../../../service/insurance-service.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {InsuranceAddClinicsComponent} from '../insurance-add-clinics/insurance-add-clinics.component';
 
 @Component({
   selector: 'app-insurance-update',
@@ -19,8 +21,10 @@ export class InsuranceUpdateComponent implements OnInit {
   subinsurances: Subinsurance[];
   success = '';
   error = '';
-insurances: Insurance[];
-  constructor(private insuranceService: InsuranceServiceService) {
+  insurances: Insurance[];
+
+  constructor(private insuranceService: InsuranceServiceService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -58,6 +62,7 @@ insurances: Insurance[];
       }
     );
   }
+
   private loadinsurance() {
     this.insuranceService.getinsurance().subscribe(
       (res: Insurance[]) => {
@@ -69,6 +74,7 @@ insurances: Insurance[];
       }
     );
   }
+
   private loadsub() {
     this.insuranceService.getsubinsurance().subscribe(
       (res: Subinsurance[]) => {
@@ -80,7 +86,14 @@ insurances: Insurance[];
       }
     );
   }
+
   getCurrentModel() {
     return JSON.stringify(this.insurancefull);
+  }
+
+  openAddComponent(id: any) {
+    const modalRef = this.modalService.open(InsuranceAddClinicsComponent);
+    modalRef.componentInstance.title = 'Add clinics';
+    modalRef.componentInstance.id = id;
   }
 }

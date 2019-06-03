@@ -39,7 +39,7 @@ import {FlatpickrModule} from 'angularx-flatpickr';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {CalendarModule as CalendarCModule} from 'primeng/calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
-import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import 'flatpickr/dist/flatpickr.css';
@@ -76,6 +76,7 @@ import {EmployeeServiceService} from './service/employee-service.service';
 import {ScheduleServiceService} from './service/schedule-service.service';
 import {AuthGuardService} from './service/auth-guard.service';
 import {NotFoundComponent} from './not-found/not-found.component';
+import {InsuranceAddClinicsComponent} from './admin/insurance/insurance-add-clinics/insurance-add-clinics.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent, pathMatch: 'full'},
@@ -201,7 +202,8 @@ const appRoutes: Routes = [
     AdminPaymentComponent,
     PatientPaymentListComponent,
     ChartsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    InsuranceAddClinicsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -232,7 +234,8 @@ const appRoutes: Routes = [
     ToastModule,
     SpinnerModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    NgbModule.forRoot(),
   ],
   exports: [AddAppointmentComponent],
   providers: [
@@ -247,9 +250,13 @@ const appRoutes: Routes = [
     FormsModule,
     MatDatepickerModule,
     MessageService,
-    AuthGuardService
+    AuthGuardService,
+    NgbActiveModal
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    InsuranceAddClinicsComponent
+  ]
 })
 export class AppModule {
 }
