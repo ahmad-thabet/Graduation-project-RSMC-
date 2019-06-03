@@ -4,6 +4,7 @@ import {ClinicServiceService} from '../../../service/clinic-service.service';
 import {InsuranceServiceService} from '../../../service/insurance-service.service';
 import {Clinic} from '../../../models/clinic.model';
 import {SelectItem} from 'primeng/api';
+import {InsurancePrice} from '../../../models/insuranceprice.model';
 
 @Component({
   selector: 'app-insurance-add-clinics',
@@ -15,11 +16,13 @@ export class InsuranceAddClinicsComponent implements OnInit {
   @Input() title = `Add Clinics`;
   @Input() id; // this is insurance id in array
   selectedClinics: any[] = []; // this will have all clinics id's
-  price = 0; //this is the price
-
-
+  price = 0; // this is the price
+  insurancepaice: InsurancePrice[];
+  insurancePrice = new InsurancePrice(0, 0, 0, 0);
   clinics: Clinic[];
   cc: SelectItem[];
+  error = '';
+  success = '';
 
   constructor(public activeModal: NgbActiveModal,
               private clinicService: ClinicServiceService,
@@ -28,6 +31,7 @@ export class InsuranceAddClinicsComponent implements OnInit {
 
   ngOnInit() {
     this.loadClinics();
+    this.loadInsurancePrice();
 
   }
 
@@ -53,7 +57,36 @@ export class InsuranceAddClinicsComponent implements OnInit {
   }
 
   AddClinics() {
-    // do request here
+    this.clinicService.add_insurancePrice(this.insurancePrice)
+      .subscribe(
+        (res: InsurancePrice[]) => {
+          // Update the list of cars
+          this.insurancepaice = res;
+          // Inform the user
+          console.log(this.insurancepaice);
+          this.success = 'Created successfully';
+          console.log(this.success);
+
+          // Reset the form
+        },
+        (err) => {
+          this.error = err;
+
+        }
+      );
     this.activeModal.close('Close click');
   }
+
+  private loadInsurancePrice() {
+    this.clinicService.get_insuranceprice().subscribe(
+      (res: InsurancePrice[]) => {
+        this.insurancepaice = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+
 }
