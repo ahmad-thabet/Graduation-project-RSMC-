@@ -60,6 +60,13 @@ export class InsuranceAddClinicsComponent implements OnInit {
   }
 
   AddClinics() {
+    this.selectedClinics.forEach(x => {
+      this.insurancePrice.clinicID = x;
+      this.addClinicFull();
+    });
+  }
+
+  private addClinicFull() {
     this.clinicService.add_insurancePrice(this.insurancePrice)
       .subscribe(
         (res: InsurancePrice[]) => {
