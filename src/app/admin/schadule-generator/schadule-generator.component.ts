@@ -48,6 +48,9 @@ export class SchaduleGeneratorComponent implements OnInit {
     new Date(), new Date(), 0, 0, 0, 0, 0, 0, 0);
   schedules: Schadule[];
 
+  fromdate;
+  todate;
+
   constructor(private messageService: MessageService,
               private scheduleServie: ScheduleServiceService,
               private employeeService: EmployeeServiceService,

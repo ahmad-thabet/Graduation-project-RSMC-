@@ -15,7 +15,7 @@ export class InsuranceAddClinicsComponent implements OnInit {
   @Input() title = `Add Clinics`;
   @Input() id; // this is insurance id in array
   selectedClinics: any[] = []; // this will have all clinics id's
-  price = 0; //this is the price
+  price = 0; // this is the price
 
 
   clinics: Clinic[];
@@ -54,6 +54,9 @@ export class InsuranceAddClinicsComponent implements OnInit {
 
   AddClinics() {
     // do request here
+    console.log('insurance ID: ' + this.id);
+    console.log('clinics ID: ' + this.selectedClinics);
+    console.log('Price: ' + this.price);
     this.activeModal.close('Close click');
   }
 }

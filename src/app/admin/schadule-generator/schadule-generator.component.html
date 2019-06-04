@@ -27,10 +27,17 @@
           <option *ngFor="let x of doctorsIDs" [value]="[x.empID]">{{x.firstname}}</option>
         </select>
       </div>
-
     </div>
     <div class="ui-g">
-      <div class="ui-g-12 ui-md-6 ui-lg-3">
+      <div class="ui-g-12 ui-md-6 ui-lg-4">
+        <h3>From Date</h3>
+        <p-calendar [(ngModel)]="fromdate" [showIcon]="true" name="fromdate"></p-calendar>
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-4">
+        <h3>To Date</h3>
+        <p-calendar [(ngModel)]="todate" [showIcon]="true" name="todate"></p-calendar>
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-4">
         <h3>Select Days</h3>
         <p-multiSelect [options]="days"
                        [(ngModel)]="selectedDays"
@@ -39,16 +46,18 @@
                        [maxSelectedLabels]="7"
         ></p-multiSelect>
       </div>
-      <div class="ui-g-12 ui-md-6 ui-lg-3">
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-6 ui-lg-4">
         <h3>From Time</h3>
         <p-calendar [(ngModel)]="selectedFromTime" [timeOnly]="true" name="fromtime"></p-calendar>
       </div>
-      <div class="ui-g-12 ui-md-6 ui-lg-3">
+      <div class="ui-g-12 ui-md-6 ui-lg-4">
         <h3>To Time</h3>
         <p-calendar [(ngModel)]="selectedToTime" [timeOnly]="true" name="totime"></p-calendar>
 
       </div>
-      <div class="ui-g-12 ui-md-6 ui-lg-3">
+      <div class="ui-g-12 ui-md-6 ui-lg-4">
         <h3>Slot Time</h3>
         <p-spinner [(ngModel)]="selectedSlotTime" [min]="0" [max]="60" [step]="5" name="slottime"></p-spinner>
 

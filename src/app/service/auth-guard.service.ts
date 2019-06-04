@@ -13,6 +13,8 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot): boolean {
     const userRole = this.authService.getUserType();
+    console.log('type: ' + this.authService.getUserType());
+    console.log('ID: ' + this.authService.getUserId());
     if (userRole === next.data.role) {
       return true;
     }
