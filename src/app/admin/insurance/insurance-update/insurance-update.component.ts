@@ -91,9 +91,10 @@ export class InsuranceUpdateComponent implements OnInit {
     return JSON.stringify(this.insurancefull);
   }
 
-  openAddComponent(id: any) {
+  openAddComponent(insuranceId: any, subInsuranceID: any) {
     const modalRef = this.modalService.open(InsuranceAddClinicsComponent);
     modalRef.componentInstance.title = 'Add clinics';
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.insuranceID = insuranceId;
+    modalRef.componentInstance.subInsuranceID = subInsuranceID;
   }
 }
