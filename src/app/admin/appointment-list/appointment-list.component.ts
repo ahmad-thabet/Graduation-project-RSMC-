@@ -161,7 +161,7 @@ export class AppointmentListComponent implements OnInit {
     // make this do check in
     const i = this.appointments.findIndex(x => x.appID === appID);
     this.appointments[i].checkin = 1;
-
+    this.update_checkin();
     console.log(this.appointments);
     this.messageService.add({
       severity: 'success',
@@ -169,5 +169,28 @@ export class AppointmentListComponent implements OnInit {
       detail: appID + ''
     });
   }
-}
 
+  update_checkin() {
+    this.appointmentService.update_checkin(this.appointment)
+      .subscribe(
+        (res: Appointment[]) => {
+          // Update the list of cars
+          this.appointments = res;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Created Successfully',
+            detail: ''
+          });
+          // Reset the form
+        },
+        (err) => {
+          this.error = err;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error! Try Again',
+            detail: '' + err
+          });
+        }
+      );
+  }
+}

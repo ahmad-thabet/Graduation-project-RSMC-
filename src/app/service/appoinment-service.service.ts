@@ -12,7 +12,7 @@ import {AppComponent} from '../app.component';
 export class AppoinmentServiceService {
   appintments: Appointment[];
   slots: Appointment[];
-
+  doctorAppointment: Appointment[];
   url = this.appComponent.getURL();
 
   constructor(private appComponent: AppComponent,
@@ -53,6 +53,28 @@ export class AppoinmentServiceService {
         this.slots = res[`data`];
         // console.log(this.clinics);
         return this.slots;
+      }),
+      catchError(this.handleError));
+  }
+
+  update_checkin(appointment: Appointment): Observable<Appointment[]> {
+    return this.http.post(`${this.url}/appointment/add/checkin`, {data: appointment}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.appintments = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.appintments;
+        }),
+        catchError(this.handleError));
+  }
+
+  load_doctor_appointment(empID: number) {
+    return this.http.get(`${this.url}appointment/get/get-checkin.php?empID` + empID,
+      {responseType: 'json'}).pipe(
+      map((res) => {
+        this.doctorAppointment = res[`data`];
+        // console.log(this.clinics);
+        return this.doctorAppointment;
       }),
       catchError(this.handleError));
   }
