@@ -12,6 +12,10 @@ import {Appointment} from '../../models/appointment.model';
 import {Schadule} from '../../models/schedule.model';
 import {Payment} from '../../models/payment.model';
 import {PaymentServiceService} from '../../service/payment-service.service';
+import {InsuranceAddClinicsComponent} from '../insurance/insurance-add-clinics/insurance-add-clinics.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../../service/auth.service';
+import {PaymentPopupComponent} from './payment-popup/payment-popup.component';
 
 @Component({
   selector: 'app-appointment-list',
@@ -51,7 +55,9 @@ export class AppointmentListComponent implements OnInit {
               private employeeService: EmployeeServiceService,
               private scheduleService: ScheduleServiceService,
               private messageService: MessageService,
-              private paymentService: PaymentServiceService) {
+              private paymentService: PaymentServiceService,
+              private modalService: NgbModal,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -163,11 +169,11 @@ export class AppointmentListComponent implements OnInit {
   dateChanged() {
   }
 
-  checkin(appID: number) {
-    // make this do check in
+  checkin(f: Appointment) {
+    const appID = f.appID;
     const i = this.appointments.findIndex(x => x.appID === appID);
     this.appointments[i].checkin = 1;
-    this.update_checkin();
+    this.update_checkin(this.appointments[i]);
     console.log(this.appointments);
     this.messageService.add({
       severity: 'success',
@@ -176,18 +182,11 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
-  update_checkin() {
-    this.appointmentService.update_checkin(this.appointment)
+  update_checkin(CurrentAppointment: any) {
+    this.appointmentService.update_checkin(CurrentAppointment)
       .subscribe(
         (res: Appointment[]) => {
-          // Update the list of cars
           this.appointments = res;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Created Successfully',
-            detail: ''
-          });
-          // Reset the form
         },
         (err) => {
           this.error = err;
@@ -212,30 +211,10 @@ export class AppointmentListComponent implements OnInit {
     );
   }
 
-// Todo: add payment to check in on new window
-  // hint use this function
-  // model payment to connect with ng
-  add_payment() {
-    this.paymentService.add_payments(this.payment)
-      .subscribe(
-        (res: Payment[]) => {
-          // Update the list of cars
-          this.payments = res;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Created Successfully',
-            detail: ''
-          });
-          // Reset the form
-        },
-        (err) => {
-          this.error = err;
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error! Try Again',
-            detail: '' + err
-          });
-        }
-      );
+  openAddComponent(patientID: any) {
+    const modalRef = this.modalService.open(PaymentPopupComponent);
+    modalRef.componentInstance.title = 'Add Payment';
+    modalRef.componentInstance.employeeID = this.authService.getUserId();
+    modalRef.componentInstance.patientID = patientID;
   }
 }

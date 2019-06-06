@@ -36,7 +36,6 @@ export class InsuranceAddClinicsComponent implements OnInit {
     this.insurancePrice.subinsuranceID = this.subInsuranceID;
     this.loadClinics();
     this.loadInsurancePrice();
-
   }
 
   private loadClinics() {

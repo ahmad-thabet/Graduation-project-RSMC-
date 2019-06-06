@@ -67,7 +67,6 @@ export class EmployeeServiceService {
       catchError(this.handleError));
   }
 
-  // TODO: implement this function
   updateemployee(employee: Employee): Observable<Employee[]> {
     return this.http.post(`${this.url}/employee/update/update-employee`, {data: employee}, {responseType: 'text'})
       .pipe(map((res) => {

@@ -18,7 +18,6 @@ import {MessageService} from 'primeng/api';
   styleUrls: ['./appointment-create.component.css']
 })
 
-// TODO disable slots
 export class AppointmentCreateComponent implements OnInit {
   selectedClinic: any;
   selectedDoctor: any;

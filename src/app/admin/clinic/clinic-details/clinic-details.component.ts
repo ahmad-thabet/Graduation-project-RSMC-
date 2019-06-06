@@ -32,7 +32,6 @@ export class ClinicDetailsComponent implements OnInit {
   clinicprices: ClinicPrice[];
   hasDiscount: false;
 
-  // TODO: implement doctor model
   insurances: Insurance[];
   subinsurances: Subinsurance[];
 

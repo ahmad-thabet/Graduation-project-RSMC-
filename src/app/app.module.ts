@@ -77,6 +77,8 @@ import {ScheduleServiceService} from './service/schedule-service.service';
 import {AuthGuardService} from './service/auth-guard.service';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {InsuranceAddClinicsComponent} from './admin/insurance/insurance-add-clinics/insurance-add-clinics.component';
+import {PaymentPopupComponent} from './admin/appointment-list/payment-popup/payment-popup.component';
+import {RadioButtonModule} from 'primeng/primeng';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent, pathMatch: 'full'},
@@ -204,7 +206,8 @@ const appRoutes: Routes = [
     PatientPaymentListComponent,
     ChartsComponent,
     NotFoundComponent,
-    InsuranceAddClinicsComponent
+    InsuranceAddClinicsComponent,
+    PaymentPopupComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -236,6 +239,7 @@ const appRoutes: Routes = [
     SpinnerModule,
     MessagesModule,
     MessageModule,
+    RadioButtonModule,
     NgbModule.forRoot(),
   ],
   exports: [AddAppointmentComponent],
@@ -257,7 +261,8 @@ const appRoutes: Routes = [
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    InsuranceAddClinicsComponent
+    InsuranceAddClinicsComponent,
+    PaymentPopupComponent
   ]
 })
 export class AppModule {
