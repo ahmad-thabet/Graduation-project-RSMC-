@@ -132,6 +132,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'reception', component: ReceptionComponent, canActivate: [AuthGuardService], data: {role: '2'}, children: [
+      {path: '', component: ChartsComponent},
       {path: 'patient-create', component: PatientCreateComponent},
       {path: 'payments', component: AdminPaymentComponent},
       {

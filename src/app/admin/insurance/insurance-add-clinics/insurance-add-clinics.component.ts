@@ -3,7 +3,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ClinicServiceService} from '../../../service/clinic-service.service';
 import {InsuranceServiceService} from '../../../service/insurance-service.service';
 import {Clinic} from '../../../models/clinic.model';
-import {SelectItem} from 'primeng/api';
+import {MessageService, SelectItem} from 'primeng/api';
 import {InsurancePrice} from '../../../models/insuranceprice.model';
 
 @Component({
@@ -27,7 +27,8 @@ export class InsuranceAddClinicsComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private clinicService: ClinicServiceService,
-              private insuranceService: InsuranceServiceService) {
+              private insuranceService: InsuranceServiceService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -79,7 +80,11 @@ export class InsuranceAddClinicsComponent implements OnInit {
           this.error = err;
 
         }, () => {
-          this.activeModal.close('Close click');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Added Successfully',
+            detail: this.insurancePrice.price + ''
+          });
         }
       );
   }

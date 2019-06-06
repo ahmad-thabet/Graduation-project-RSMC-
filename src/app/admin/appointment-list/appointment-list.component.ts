@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {displayDate} from '../schadule-generator/events-utc';
-import {SchedulerEvent} from '@progress/kendo-angular-scheduler';
 import {Clinic} from '../../models/clinic.model';
 import {ClinicDoctor} from '../../models/clinic-doctor.model';
 import {ClinicServiceService} from '../../service/clinic-service.service';
@@ -11,7 +9,6 @@ import {ScheduleServiceService} from '../../service/schedule-service.service';
 import {MessageService} from 'primeng/api';
 import {Employee} from '../../models/employee.model';
 import {Appointment} from '../../models/appointment.model';
-import {Patient} from '../../models/patient.model';
 import {Schadule} from '../../models/schedule.model';
 
 @Component({
@@ -30,6 +27,7 @@ export class AppointmentListComponent implements OnInit {
   selectedDoctor: any;
 
   appointments: Appointment[] = [];
+  filteredAppointment: Appointment[] = [];
   appointment = new Appointment(0, 0, 0, 0, 0, '', '');
 
   doctors: ClinicDoctor[];
@@ -99,6 +97,7 @@ export class AppointmentListComponent implements OnInit {
     this.appointmentService.get_appointment().subscribe(
       (res: Appointment[]) => {
         this.appointments = res;
+        this.filteredAppointment = this.appointments;
       },
       (err) => {
         this.error = err;
@@ -121,11 +120,34 @@ export class AppointmentListComponent implements OnInit {
 
   doctorSelected(value: any) {
     this.selectedDoctor = value;
-    console.log(this.doctorsSchedules);
-    this.doctorsSchedules.splice(0, this.doctorsSchedules.length);
-    this.doctorsSchedules = this.doctorsSchedule.filter(x =>
-      (x.clinicID.toString() === this.selectedClinic) && (x.empID.toString() === this.selectedDoctor));
-    console.log(this.doctorsSchedules);
+    if (this.selectedDoctor !== '-- Doctor --') {
+      this.filteredAppointment = this.appointments.filter(x => x.empID.toString() === value);
+    } else {
+      this.filteredAppointment = this.appointments;
+    }
+
+    // this.selectedDoctor = value;
+    // console.log(this.doctorsSchedules);
+    // this.doctorsSchedules.splice(0, this.doctorsSchedules.length);
+    // this.doctorsSchedules = this.doctorsSchedule.filter(x =>
+    //   (x.clinicID.toString() === this.selectedClinic) && (x.empID.toString() === this.selectedDoctor));
+    // console.log(this.doctorsSchedules);
+  }
+
+  getDoctorName(value: any) {
+    const k = this.doctorsID.findIndex(x => x.empID === value);
+    console.log(k);
+    if (k !== -1) {
+      return JSON.stringify(this.doctorsID[k].firstname + ' ' + this.doctorsID[k].lastname);
+    }
+  }
+
+  getClinicName(value: any) {
+    const k = this.clinics.findIndex(x => x.clinicID === value);
+    console.log(k);
+    if (k !== -1) {
+      return JSON.stringify(this.clinics[k].clinicname);
+    }
   }
 
   getCurrentModel() {

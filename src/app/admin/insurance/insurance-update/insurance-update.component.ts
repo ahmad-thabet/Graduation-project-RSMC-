@@ -55,10 +55,11 @@ export class InsuranceUpdateComponent implements OnInit {
     this.insuranceService.getall().subscribe(
       (res: Insurancefull[]) => {
         this.insurancefulls = res;
-        console.log(this.insurancefulls);
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.insurancefulls.forEach(x => console.log(x));
       }
     );
   }
