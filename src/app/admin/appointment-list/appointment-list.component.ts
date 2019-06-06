@@ -10,6 +10,8 @@ import {MessageService} from 'primeng/api';
 import {Employee} from '../../models/employee.model';
 import {Appointment} from '../../models/appointment.model';
 import {Schadule} from '../../models/schedule.model';
+import {Payment} from '../../models/payment.model';
+import {PaymentServiceService} from '../../service/payment-service.service';
 
 @Component({
   selector: 'app-appointment-list',
@@ -40,13 +42,16 @@ export class AppointmentListComponent implements OnInit {
 
   doctorsSchedule: Schadule[] = [];
   doctorsSchedules: Schadule[] = [];
+  payments: Payment[];
+  payment = new Payment('', 0, '', '', '', '', '', '');
 
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
               private patinetservice: PatinetSeviceService,
               private employeeService: EmployeeServiceService,
               private scheduleService: ScheduleServiceService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private paymentService: PaymentServiceService) {
   }
 
   ngOnInit() {
@@ -54,6 +59,7 @@ export class AppointmentListComponent implements OnInit {
     this.loadalldoctors();
     this.loadAppointmant();
     this.loadClinics();
+    this.loadpayment();
   }
 
   clinicSelected(id: any) {
@@ -176,6 +182,45 @@ export class AppointmentListComponent implements OnInit {
         (res: Appointment[]) => {
           // Update the list of cars
           this.appointments = res;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Created Successfully',
+            detail: ''
+          });
+          // Reset the form
+        },
+        (err) => {
+          this.error = err;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error! Try Again',
+            detail: '' + err
+          });
+        }
+      );
+  }
+
+  private loadpayment() {
+    this.paymentService.get_payments().subscribe(
+      (res: Payment[]) => {
+        this.payments = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+// Todo: add payment to check in on new window
+  // hint use this function
+  // model payment to connect with ng
+  add_payment() {
+    this.paymentService.add_payments(this.payment)
+      .subscribe(
+        (res: Payment[]) => {
+          // Update the list of cars
+          this.payments = res;
           this.messageService.add({
             severity: 'success',
             summary: 'Created Successfully',

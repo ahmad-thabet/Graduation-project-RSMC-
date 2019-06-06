@@ -6,6 +6,7 @@ import {map, catchError} from 'rxjs/operators';
 import {Patientpayment} from '../models/patientpayment.model';
 import {Paymentdetails} from '../models/paymentdetails.model';
 import {AppComponent} from '../app.component';
+import {Payment} from '../models/payment.model';
 
 // @ts-ignore
 @Injectable({
@@ -15,7 +16,7 @@ import {AppComponent} from '../app.component';
 export class PaymentServiceService {
   payment: Patientpayment[];
   details: Paymentdetails[];
-
+payments: Payment[];
   url = this.appComponent.getURL();
 
   constructor(private appComponent: AppComponent,
@@ -47,17 +48,6 @@ export class PaymentServiceService {
     return throwError('Error! something went wrong.');
   }
 
-  add_payment(payments: Patientpayment): Observable<Patientpayment[]> {
-    return this.http.post(`${this.url}/patient/add/add-patient`, {data: payments}, {responseType: 'text'})
-      .pipe(map((res) => {
-          this.payment = res[`data`];
-          console.log('ok');
-          console.log(res[`data`]);
-          return this.payment;
-        }),
-        catchError(this.handleError));
-  }
-
   add_paymentdetails(detail: Paymentdetails): Observable<Paymentdetails[]> {
     return this.http.post(`${this.url}/patient/add/add-patient`, {data: detail}, {responseType: 'text'})
       .pipe(map((res) => {
@@ -67,5 +57,25 @@ export class PaymentServiceService {
           return this.details;
         }),
         catchError(this.handleError));
+  }
+
+  add_payments(payment: Payment) {
+    return this.http.post(`${this.url}/payment/add/add_payment`, {data: payment}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.payments = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.payments;
+        }),
+        catchError(this.handleError));
+  }
+  get_payments(): Observable<Payment[]> {
+    return this.http.get(`${this.url}/payment/get/get-payments`, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.payments = res[`data`];
+        console.log(this.details);
+        return this.payments;
+      }),
+      catchError(this.handleError));
   }
 }
