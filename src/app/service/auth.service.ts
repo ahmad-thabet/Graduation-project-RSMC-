@@ -5,6 +5,8 @@ import {Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng/api';
 import {AppComponent} from '../app.component';
+import {Employee} from '../models/employee.model';
+import {EmployeeServiceService} from './employee-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +20,16 @@ export class AuthService {
   admin: User[] = [];
   reception: User[] = [];
 
+  emp: Employee;
+  emps: Employee[] = [];
+
   url = this.appComponent.getURL();
 
   constructor(private appComponent: AppComponent,
               private http: HttpClient,
               private router: Router,
               private messageService: MessageService,
+              private empService: EmployeeServiceService
   ) {
   }
 
@@ -161,6 +167,23 @@ export class AuthService {
     // return an observable with a user friendly message
     return throwError('Error! something went wrong.');
   }
+
+  getEmpObject(username: string) {
+    this.empService.get_employee().subscribe(
+      (res: Employee[]) => {
+        this.emps = res;
+      }, () => {
+      }, () => {
+        if (this.getUserType() !== '1' && this.getUserType() !== '0') {
+          const k = this.emps.findIndex(x => x.username === username);
+          if (k !== -1) {
+            this.emp = this.emps[k];
+          }
+        }
+      }
+    );
+  }
+
 }
 
 interface User {
