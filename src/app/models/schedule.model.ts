@@ -1,5 +1,3 @@
-import {Data} from '@angular/router';
-
 export class Schadule {
   public scID: number;
   public clinicID: number;

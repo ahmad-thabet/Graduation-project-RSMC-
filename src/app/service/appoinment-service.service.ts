@@ -4,21 +4,19 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {Appointment} from '../models/appointment.model';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppoinmentServiceService {
-  /*For mac*/
-  // url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-  url = 'http://localhost/api';
-
   appintments: Appointment[];
   slots: Appointment[];
 
-  constructor(private http: HttpClient) {
+  url = this.appComponent.getURL();
+
+  constructor(private appComponent: AppComponent,
+              private http: HttpClient) {
   }
 
   private handleError(error: HttpErrorResponse) {

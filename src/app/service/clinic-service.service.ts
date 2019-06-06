@@ -8,19 +8,16 @@ import {Employee} from '../models/employee.model';
 import {ClinicDoctor} from '../models/clinic-doctor.model';
 import {InsurancePrice} from '../models/insuranceprice.model';
 import {ClinicPrice} from '../models/clinicprice.model';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClinicServiceService {
-  /*For mac*/
-  url = 'http://localhost:8080/api';
+  url = this.appComponent.getURL();
 
-  /*For Windows*/
-
-  // url = 'http://localhost/api';
-
-  constructor(private  http: HttpClient) {
+  constructor(private appComponent: AppComponent,
+              private  http: HttpClient) {
   }
 
 

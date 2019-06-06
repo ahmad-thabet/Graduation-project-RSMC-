@@ -6,20 +6,16 @@ import {map, catchError} from 'rxjs/operators';
 import {Insurance} from '../models/insurance.model';
 import {Subinsurance} from '../models/subinsurance.model';
 import {Insurancefull} from '../models/insurancefull.model';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InsuranceServiceService {
+  url = this.appComponent.getURL();
 
-  /*For mac*/
-  url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-
-  // url = 'http://localhost/api';
-
-  constructor(private  http: HttpClient) {
+  constructor(private appComponent: AppComponent,
+              private  http: HttpClient) {
   }
 
   // insurance = new Insurance(0, ' ');

@@ -7,6 +7,8 @@ import {EmployeeServiceService} from '../../service/employee-service.service';
 import {Clinic} from '../../models/clinic.model';
 import {ClinicServiceService} from '../../service/clinic-service.service';
 import {ClinicDoctor} from '../../models/clinic-doctor.model';
+import {Time} from '@angular/common';
+import {DateTime} from 'rrule/dist/esm/src/datetime';
 
 
 @Component({
@@ -16,8 +18,8 @@ import {ClinicDoctor} from '../../models/clinic-doctor.model';
 })
 export class SchaduleGeneratorComponent implements OnInit {
 
-  selectedDoctor: any;
-  selectedClinic: any;
+  selectedFromTime: DateTime;
+  selectedToTime: DateTime;
 
   doctorsID: Employee[] = [];
   doctorsIDs: Employee[] = [];
@@ -40,16 +42,9 @@ export class SchaduleGeneratorComponent implements OnInit {
   error = '';
   success = '';
 
-  selectedFromTime;
-  selectedToTime;
-  selectedSlotTime = 5;
-
   schedule = new Schadule(0, 0, 0, '', '', 0,
     new Date(), new Date(), 0, 0, 0, 0, 0, 0, 0);
   schedules: Schadule[];
-
-  fromdate;
-  todate;
 
   constructor(private messageService: MessageService,
               private scheduleServie: ScheduleServiceService,
@@ -64,17 +59,50 @@ export class SchaduleGeneratorComponent implements OnInit {
     this.loadClinics();
   }
 
-  onGenerate(f) {
-    this.create_schedule(f);
-    this.messageService.add({severity: 'info', summary: 'Generated', detail: 'details showing below'});
+  onGenerate() {
+    // this.create_schedule(f);
+    // this.messageService.add({severity: 'info', summary: 'Generated', detail: 'details showing below'});
+
+    console.log(this.setTimeFormat(this.selectedFromTime));
+    console.log(this.setTimeFormat(this.selectedToTime));
+
   }
 
-  onSubmit() {
+  setTimeFormat(t: DateTime) {
+    return t.getHours() + ':' + t.getMinutes() + ':' + t.getSeconds();
+  }
+
+  onSubmit(f) {
+    this.selectedDays.forEach(x => this.setDay(x));
+    this.schedule.starttime = this.setTimeFormat(this.selectedFromTime);
+    this.schedule.endtime = this.setTimeFormat(this.selectedToTime);
+    this.create_schedule(f);
     this.messageService.add({severity: 'success', summary: 'Submitted', detail: 'Submitted Successfully'});
   }
 
   onClear() {
     this.messageService.add({severity: 'warn', summary: 'Cleared', detail: 'All selection cleared'});
+  }
+
+  setDay(s: string) {
+    if ((s.split('=')[0] === 'sat') || s === 'sat') {
+      this.schedule.sat = 1;
+    } else if ((s.split('=')[0] === 'sun') || s === 'sun') {
+      this.schedule.sun = 1;
+    } else if ((s.split('=')[0] === 'mon') || s === 'mon') {
+      this.schedule.mon = 1;
+    } else if ((s.split('=')[0] === 'tue') || s === 'tue') {
+      this.schedule.tue = 1;
+    } else if ((s.split('=')[0] === 'wen') || s === 'wen') {
+      this.schedule.wen = 1;
+    } else if ((s.split('=')[0] === 'thu') || s === 'thu') {
+      this.schedule.thu = 1;
+    } else if ((s.split('=')[0] === 'fri') || s === 'fri') {
+      this.schedule.fri = 1;
+    } else {
+      // nothing
+    }
+
   }
 
   create_schedule(f) {
@@ -105,8 +133,8 @@ export class SchaduleGeneratorComponent implements OnInit {
     );
   }
 
-  clinicSelected(id: number) {
-    this.selectedClinic = id;
+  clinicSelected(id: any) {
+    this.schedule.clinicID = +id;
     this.doctorsIDs.splice(0, this.doctorsIDs.length);
     this.doctorss = this.doctors.filter(x => x.clinicID === id);
     for (const x of this.doctorss) {
@@ -152,5 +180,9 @@ export class SchaduleGeneratorComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  getCurrentModel() {
+    return JSON.stringify(this.schedule);
   }
 }

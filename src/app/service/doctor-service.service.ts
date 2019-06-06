@@ -5,21 +5,17 @@ import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {Vacation} from '../models/vacation.model';
 import {Exception} from '../models/exception.model';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DoctorServiceService {
 
+  url = this.appComponent.getURL();
 
-  /*For mac*/
-  // url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-
-  url = 'http://localhost/api';
-
-  constructor(private  http: HttpClient) {
+  constructor(private appComponent: AppComponent,
+              private  http: HttpClient) {
   }
 
   vac: Vacation[];

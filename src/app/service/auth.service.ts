@@ -4,19 +4,12 @@ import {catchError, map} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng/api';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  /*For mac*/
-  url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-  // url = 'http://localhost/api';
-
-  token: any;
   loggedIn = false;
   user: LoggedUser;
 
@@ -25,9 +18,13 @@ export class AuthService {
   admin: User[] = [];
   reception: User[] = [];
 
-  constructor(private http: HttpClient,
+  url = this.appComponent.getURL();
+
+  constructor(private appComponent: AppComponent,
+              private http: HttpClient,
               private router: Router,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+  ) {
   }
 
   login(user: User) {

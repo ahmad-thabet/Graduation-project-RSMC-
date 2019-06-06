@@ -7,23 +7,22 @@ import {City} from '../models/city.model';
 import {Quantom} from '../models/quantom.model';
 import {Patient} from '../models/patient.model';
 import {Clinic} from '../models/clinic.model';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatinetSeviceService {
-  /*For mac*/
-  // url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-  url = 'http://localhost/api';
-
   cities: City[];
   quantom: Quantom[];
   patients: Patient[];
   clinics: Clinic[];
-child: Patient[];
-  constructor(private  http: HttpClient) {
+  child: Patient[];
+
+  url = this.appComponent.getURL();
+
+  constructor(private appComponent: AppComponent,
+              private  http: HttpClient) {
   }
 
   getcity(): Observable<City[]> {

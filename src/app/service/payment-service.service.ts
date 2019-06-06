@@ -5,6 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {Patientpayment} from '../models/patientpayment.model';
 import {Paymentdetails} from '../models/paymentdetails.model';
+import {AppComponent} from '../app.component';
 
 // @ts-ignore
 @Injectable({
@@ -12,17 +13,13 @@ import {Paymentdetails} from '../models/paymentdetails.model';
 })
 
 export class PaymentServiceService {
-  /*For mac*/
-  // url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-  url = 'http://localhost/api';
-
-
   payment: Patientpayment[];
   details: Paymentdetails[];
 
-  constructor(private  http: HttpClient) {
+  url = this.appComponent.getURL();
+
+  constructor(private appComponent: AppComponent,
+              private  http: HttpClient) {
   }
 
   getpayment(): Observable<Patientpayment[]> {

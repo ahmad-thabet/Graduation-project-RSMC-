@@ -6,24 +6,20 @@ import {map, catchError} from 'rxjs/operators';
 import {Employee} from '../models/employee.model';
 import {Job} from '../models/job.model';
 import {Specialist} from '../models/specialist.model';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeServiceService {
-
-  /*For mac*/
-  // url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-  url = 'http://localhost/api';
-
   jobs: Job[];
   sp: Specialist[];
   employees: Employee[];
 
+  url = this.appComponent.getURL();
 
-  constructor(private  http: HttpClient) {
+  constructor(private appComponent: AppComponent,
+              private  http: HttpClient) {
   }
 
   add_employee(employee: Employee): Observable<Employee[]> {

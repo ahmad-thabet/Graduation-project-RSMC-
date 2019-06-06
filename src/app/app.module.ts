@@ -239,6 +239,7 @@ const appRoutes: Routes = [
   ],
   exports: [AddAppointmentComponent],
   providers: [
+    AppComponent,
     AuthService,
     PatinetSeviceService,
     DoctorServiceService,

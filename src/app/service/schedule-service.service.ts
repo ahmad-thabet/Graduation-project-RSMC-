@@ -4,20 +4,18 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {Schadule} from '../models/schedule.model';
+import {AppComponent} from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleServiceService {
-  /*For mac*/
-  // url = 'http://localhost:8080/api';
-
-  /*For Windows*/
-  url = 'http://localhost/api';
 
   schedules: Schadule[];
+  url = this.appComponent.getURL();
 
-  constructor(private http: HttpClient) {
+  constructor(private appComponent: AppComponent,
+              private http: HttpClient) {
   }
 
   private handleError(error: HttpErrorResponse) {
