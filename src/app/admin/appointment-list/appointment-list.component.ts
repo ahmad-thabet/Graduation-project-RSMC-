@@ -17,6 +17,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
 import {PaymentPopupComponent} from './payment-popup/payment-popup.component';
 import {InsurancePrice} from '../../models/insuranceprice.model';
+import {AppointmentPrice} from "../../models/appointmentprice.model";
 
 @Component({
   selector: 'app-appointment-list',
@@ -32,8 +33,8 @@ export class AppointmentListComponent implements OnInit {
 
   selectedClinic: any;
   selectedDoctor: any;
-  insurancePrice = new InsurancePrice(0, 0, 0, 0);
-  appointmentPrice: InsurancePrice[];
+  insurancePrice = new AppointmentPrice(0, 0);
+  appointmentPrice: AppointmentPrice[];
   appointments: Appointment[] = [];
   filteredAppointment: Appointment[] = [];
   appointment = new Appointment(0, 0, 0, 0, 0, '', '');
@@ -219,7 +220,7 @@ export class AppointmentListComponent implements OnInit {
 
   load_appointment_price(appID: number) {
     this.appointmentService.get_appointment_price(appID).subscribe(
-      (res: InsurancePrice[]) => {
+      (res: AppointmentPrice[]) => {
         this.appointmentPrice = res;
         // this.pricePrice = this.appointmentPrice[0].price;
         // console.log(this.pricePrice);

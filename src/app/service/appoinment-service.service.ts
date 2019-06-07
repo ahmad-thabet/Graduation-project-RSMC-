@@ -6,6 +6,7 @@ import {map, catchError} from 'rxjs/operators';
 import {Appointment} from '../models/appointment.model';
 import {AppComponent} from '../app.component';
 import {InsurancePrice} from '../models/insuranceprice.model';
+import {AppointmentPrice} from '../models/appointmentprice.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AppoinmentServiceService {
   slots: Appointment[];
   doctorAppointment: Appointment[];
   url = this.appComponent.getURL();
-  appointmentprice: InsurancePrice[];
+  appointmentprice: AppointmentPrice[];
 
   constructor(private appComponent: AppComponent,
               private http: HttpClient) {
