@@ -17,7 +17,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
 import {PaymentPopupComponent} from './payment-popup/payment-popup.component';
 import {InsurancePrice} from '../../models/insuranceprice.model';
-import {AppointmentPrice} from "../../models/appointmentprice.model";
+import {AppointmentPrice} from '../../models/appointmentprice.model';
 
 @Component({
   selector: 'app-appointment-list',
@@ -34,7 +34,8 @@ export class AppointmentListComponent implements OnInit {
   selectedClinic: any;
   selectedDoctor: any;
   insurancePrice = new AppointmentPrice(0, 0);
-  appointmentPrice: AppointmentPrice[];
+  appointmentPrice: AppointmentPrice[] = [];
+  appointmentPriceTmp: AppointmentPrice[] = [];
   appointments: Appointment[] = [];
   filteredAppointment: Appointment[] = [];
   appointment = new Appointment(0, 0, 0, 0, 0, '', '');
@@ -71,7 +72,6 @@ export class AppointmentListComponent implements OnInit {
     this.loadAppointmant();
     this.loadClinics();
     this.loadpayment();
-    this.load_appointment_price(2);
   }
 
   clinicSelected(id: any) {
@@ -119,6 +119,8 @@ export class AppointmentListComponent implements OnInit {
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.loadAllPayments();
       }
     );
   }
@@ -144,13 +146,17 @@ export class AppointmentListComponent implements OnInit {
     } else {
       this.filteredAppointment = this.appointments;
     }
+  }
 
-    // this.selectedDoctor = value;
-    // console.log(this.doctorsSchedules);
-    // this.doctorsSchedules.splice(0, this.doctorsSchedules.length);
-    // this.doctorsSchedules = this.doctorsSchedule.filter(x =>
-    //   (x.clinicID.toString() === this.selectedClinic) && (x.empID.toString() === this.selectedDoctor));
-    // console.log(this.doctorsSchedules);
+  getPaymentById(id: any) {
+    console.log(this.appointmentPrice);
+    const k = this.appointmentPrice.findIndex(x => x.appID === id);
+    if (k !== -1) {
+      return this.appointmentPrice[k].price + '';
+    } else {
+      return 0;
+    }
+
   }
 
   getDoctorName(value: any) {
@@ -220,15 +226,16 @@ export class AppointmentListComponent implements OnInit {
 
   load_appointment_price(appID: number) {
     this.appointmentService.get_appointment_price(appID).subscribe(
-      (res: AppointmentPrice[]) => {
-        this.appointmentPrice = res;
-        // this.pricePrice = this.appointmentPrice[0].price;
-        // console.log(this.pricePrice);
+      (res) => {
+        // this.appointmentPriceTmp.push(res);
+        console.log(res);
+
       },
       (err) => {
         this.error = err;
       }, () => {
-        return JSON.stringify(this.appointmentPrice[0].price + '');
+        // console.log('kksks: ' + this.appointmentPriceTmp.toString());
+        this.appointmentPrice.push(this.appointmentPriceTmp[0]);
       }
     );
   }
@@ -238,5 +245,9 @@ export class AppointmentListComponent implements OnInit {
     modalRef.componentInstance.title = 'Add Payment';
     modalRef.componentInstance.employeeID = this.authService.getUserId();
     modalRef.componentInstance.patientID = patientID;
+  }
+
+  private loadAllPayments() {
+    this.appointments.forEach(x => this.load_appointment_price(x.appID));
   }
 }

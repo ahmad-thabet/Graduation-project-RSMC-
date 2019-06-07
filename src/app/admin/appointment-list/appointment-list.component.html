@@ -47,6 +47,7 @@
       <th>Date</th>
       <th>From</th>
       <th>Checked</th>
+      <th>Amount</th>
       <th>Payment</th>
     </tr>
     </thead>
@@ -73,11 +74,11 @@
           Checked
         </button>
       </td>
+      <td>{{getPaymentById(x.appID)}}</td>
       <td>
         <button (click)="openAddComponent(x.patientID)"
                 class="btn btn-info btn-sm">
           Add funds
-          {{load_appointment_price(x.appID)}}
           <!--<span class="fa-stack">-->
           <!--<i class="fa fa-money-bill-alt"></i>-->
           <!--</span>-->
