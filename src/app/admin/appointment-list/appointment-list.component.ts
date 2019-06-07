@@ -16,6 +16,7 @@ import {InsuranceAddClinicsComponent} from '../insurance/insurance-add-clinics/i
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
 import {PaymentPopupComponent} from './payment-popup/payment-popup.component';
+import {InsurancePrice} from '../../models/insuranceprice.model';
 
 @Component({
   selector: 'app-appointment-list',
@@ -31,7 +32,8 @@ export class AppointmentListComponent implements OnInit {
 
   selectedClinic: any;
   selectedDoctor: any;
-
+  insurancePrice = new InsurancePrice(0, 0, 0, 0);
+  appointmentPrice: InsurancePrice[];
   appointments: Appointment[] = [];
   filteredAppointment: Appointment[] = [];
   appointment = new Appointment(0, 0, 0, 0, 0, '', '');
@@ -66,6 +68,7 @@ export class AppointmentListComponent implements OnInit {
     this.loadAppointmant();
     this.loadClinics();
     this.loadpayment();
+    this.load_appointment_price(this.appointment.appID);
   }
 
   clinicSelected(id: any) {
@@ -204,6 +207,18 @@ export class AppointmentListComponent implements OnInit {
       (res: Payment[]) => {
         this.payments = res;
         console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private load_appointment_price(appID: number) {
+    this.appointmentService.get_appointment_price(appID).subscribe(
+      (res: InsurancePrice[]) => {
+        this.appointmentPrice = res;
+        console.log(this.appointmentPrice);
       },
       (err) => {
         this.error = err;

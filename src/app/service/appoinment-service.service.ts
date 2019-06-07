@@ -5,6 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {Appointment} from '../models/appointment.model';
 import {AppComponent} from '../app.component';
+import {InsurancePrice} from '../models/insuranceprice.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AppoinmentServiceService {
   slots: Appointment[];
   doctorAppointment: Appointment[];
   url = this.appComponent.getURL();
+  appointmentprice: InsurancePrice[];
 
   constructor(private appComponent: AppComponent,
               private http: HttpClient) {
@@ -68,13 +70,24 @@ export class AppoinmentServiceService {
         catchError(this.handleError));
   }
 
-  load_doctor_appointment(empID: number) {
-    return this.http.get(`${this.url}appointment/get/get-checkin.php?empID` + empID,
+  get_doctor_appointment(empID: number) {
+    return this.http.get(`${this.url}appointment/get/get-checkin.php?empID=` + empID,
       {responseType: 'json'}).pipe(
       map((res) => {
         this.doctorAppointment = res[`data`];
         // console.log(this.clinics);
         return this.doctorAppointment;
+      }),
+      catchError(this.handleError));
+  }
+
+  get_appointment_price(appID: number) {
+    return this.http.get(`${this.url}appointment/get/get-appointment-price.php?appID=` + appID,
+      {responseType: 'json'}).pipe(
+      map((res) => {
+        this.appointmentprice = res[`data`];
+        // console.log(this.clinics);
+        return this.appointmentprice;
       }),
       catchError(this.handleError));
   }
