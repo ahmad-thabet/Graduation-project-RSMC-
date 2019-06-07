@@ -12,11 +12,9 @@ import {Appointment} from '../../models/appointment.model';
 import {Schadule} from '../../models/schedule.model';
 import {Payment} from '../../models/payment.model';
 import {PaymentServiceService} from '../../service/payment-service.service';
-import {InsuranceAddClinicsComponent} from '../insurance/insurance-add-clinics/insurance-add-clinics.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
 import {PaymentPopupComponent} from './payment-popup/payment-popup.component';
-import {InsurancePrice} from '../../models/insuranceprice.model';
 import {AppointmentPrice} from '../../models/appointmentprice.model';
 
 @Component({
@@ -35,7 +33,6 @@ export class AppointmentListComponent implements OnInit {
   selectedDoctor: any;
   insurancePrice = new AppointmentPrice(0, 0);
   appointmentPrice: AppointmentPrice[] = [];
-  appointmentPriceTmp: AppointmentPrice[] = [];
   appointments: Appointment[] = [];
   filteredAppointment: Appointment[] = [];
   appointment = new Appointment(0, 0, 0, 0, 0, '', '');
@@ -149,7 +146,6 @@ export class AppointmentListComponent implements OnInit {
   }
 
   getPaymentById(id: any) {
-    console.log(this.appointmentPrice);
     const k = this.appointmentPrice.findIndex(x => x.appID === id);
     if (k !== -1) {
       return this.appointmentPrice[k].price + '';
@@ -161,7 +157,6 @@ export class AppointmentListComponent implements OnInit {
 
   getDoctorName(value: any) {
     const k = this.doctorsID.findIndex(x => x.empID === value);
-    // console.log(k);
     if (k !== -1) {
       return JSON.stringify(this.doctorsID[k].firstname + ' ' + this.doctorsID[k].lastname);
     }
@@ -169,7 +164,6 @@ export class AppointmentListComponent implements OnInit {
 
   getClinicName(value: any) {
     const k = this.clinics.findIndex(x => x.clinicID === value);
-    // console.log(k);
     if (k !== -1) {
       return JSON.stringify(this.clinics[k].clinicname);
     }
@@ -226,16 +220,12 @@ export class AppointmentListComponent implements OnInit {
 
   load_appointment_price(appID: number) {
     this.appointmentService.get_appointment_price(appID).subscribe(
-      (res) => {
-        // this.appointmentPriceTmp.push(res);
-        console.log(res);
-
+      (res: any) => {
+        const k = new AppointmentPrice(res.appID, res.price);
+        this.appointmentPrice.push(k);
       },
       (err) => {
         this.error = err;
-      }, () => {
-        // console.log('kksks: ' + this.appointmentPriceTmp.toString());
-        this.appointmentPrice.push(this.appointmentPriceTmp[0]);
       }
     );
   }
