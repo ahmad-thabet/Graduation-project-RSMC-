@@ -135,6 +135,7 @@ export class AuthService {
       map((res) => {
         this.doctor = res[`data`];
         console.log(this.doctor);
+        this.getEmpObject(username);
         return this.doctor;
       }),
       catchError(this.handleError));
@@ -146,6 +147,8 @@ export class AuthService {
       map((res) => {
         this.admin = res[`data`];
         console.log(this.admin);
+        this.getEmpObject(username);
+
         return this.admin;
       }),
       catchError(this.handleError));
@@ -156,6 +159,7 @@ export class AuthService {
       {responseType: 'json'}).pipe(
       map((res) => {
         this.reception = res[`data`];
+        this.getEmpObject(username);
         console.log(this.reception);
         return this.reception;
       }),

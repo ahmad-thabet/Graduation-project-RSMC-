@@ -6,6 +6,7 @@ export class Appointment {
   public checkin: number;
   public adate: string;
   public slottime: string;
+  public rempID: number;
 
 
   constructor(appID: number, clinicID: number, empID: number, patientID: number, checkin: number, adate: string, slottime: string) {

@@ -52,6 +52,8 @@ export class AppointmentListComponent implements OnInit {
 
   pricePrice;
 
+  empID = '';
+
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
               private patinetservice: PatinetSeviceService,
@@ -69,6 +71,11 @@ export class AppointmentListComponent implements OnInit {
     this.loadAppointmant();
     this.loadClinics();
     this.loadpayment();
+    this.empID = this.authService.emp.empID;
+
+    setInterval(() => {
+      this.loadAppointmant();
+    }, 10000);
   }
 
   clinicSelected(id: any) {

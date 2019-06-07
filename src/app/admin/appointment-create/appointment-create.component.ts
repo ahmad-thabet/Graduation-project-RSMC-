@@ -11,6 +11,7 @@ import {EmployeeServiceService} from '../../service/employee-service.service';
 import {ScheduleServiceService} from '../../service/schedule-service.service';
 import {Schadule} from '../../models/schedule.model';
 import {MessageService} from 'primeng/api';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-appointment-create',
@@ -19,6 +20,7 @@ import {MessageService} from 'primeng/api';
 })
 
 export class AppointmentCreateComponent implements OnInit {
+  empID = '';
   selectedClinic: any;
   selectedDoctor: any;
 
@@ -57,7 +59,8 @@ export class AppointmentCreateComponent implements OnInit {
               private patinetservice: PatinetSeviceService,
               private employeeService: EmployeeServiceService,
               private scheduleService: ScheduleServiceService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -69,6 +72,8 @@ export class AppointmentCreateComponent implements OnInit {
     this.loadClinics();
     this.loadpatient();
     this.maxDate.setFullYear(this.minDate.getFullYear(), this.minDate.getMonth() + 11, this.minDate.getDay());
+    this.empID = this.authService.emp.empID;
+    this.appointment.rempID = +this.empID;
   }
 
   filterDates() {
