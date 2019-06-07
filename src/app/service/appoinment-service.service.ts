@@ -82,7 +82,7 @@ export class AppoinmentServiceService {
   }
 
   get_appointment_price(appID: number) {
-    return this.http.get(`${this.url}appointment/get/get-appointment-price.php?appID=` + appID,
+    return this.http.get(`${this.url}/appointment/get/get-appointment-price.php?appID=` + appID,
       {responseType: 'json'}).pipe(
       map((res) => {
         this.appointmentprice = res[`data`];

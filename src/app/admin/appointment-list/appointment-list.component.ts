@@ -51,6 +51,8 @@ export class AppointmentListComponent implements OnInit {
   payments: Payment[];
   payment = new Payment('', 0, '', '', '', '', '', '');
 
+  pricePrice;
+
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
               private patinetservice: PatinetSeviceService,
@@ -68,7 +70,7 @@ export class AppointmentListComponent implements OnInit {
     this.loadAppointmant();
     this.loadClinics();
     this.loadpayment();
-    this.load_appointment_price(this.appointment.appID);
+    this.load_appointment_price(2);
   }
 
   clinicSelected(id: any) {
@@ -125,7 +127,7 @@ export class AppointmentListComponent implements OnInit {
     this.employeeService.get_employee().subscribe(
       (res: Employee[]) => {
         this.doctorsID = res;
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         this.error = err;
@@ -137,6 +139,7 @@ export class AppointmentListComponent implements OnInit {
     this.selectedDoctor = value;
     if (this.selectedDoctor !== '-- Doctor --') {
       this.filteredAppointment = this.appointments.filter(x => x.empID.toString() === value);
+      console.log(this.filteredAppointment);
     } else {
       this.filteredAppointment = this.appointments;
     }
@@ -151,7 +154,7 @@ export class AppointmentListComponent implements OnInit {
 
   getDoctorName(value: any) {
     const k = this.doctorsID.findIndex(x => x.empID === value);
-    console.log(k);
+    // console.log(k);
     if (k !== -1) {
       return JSON.stringify(this.doctorsID[k].firstname + ' ' + this.doctorsID[k].lastname);
     }
@@ -159,7 +162,7 @@ export class AppointmentListComponent implements OnInit {
 
   getClinicName(value: any) {
     const k = this.clinics.findIndex(x => x.clinicID === value);
-    console.log(k);
+    // console.log(k);
     if (k !== -1) {
       return JSON.stringify(this.clinics[k].clinicname);
     }
@@ -214,14 +217,17 @@ export class AppointmentListComponent implements OnInit {
     );
   }
 
-  private load_appointment_price(appID: number) {
+  load_appointment_price(appID: number) {
     this.appointmentService.get_appointment_price(appID).subscribe(
       (res: InsurancePrice[]) => {
         this.appointmentPrice = res;
-        console.log(this.appointmentPrice);
+        // this.pricePrice = this.appointmentPrice[0].price;
+        // console.log(this.pricePrice);
       },
       (err) => {
         this.error = err;
+      }, () => {
+        return JSON.stringify(this.appointmentPrice[0].price + '');
       }
     );
   }
