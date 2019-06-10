@@ -366,6 +366,30 @@ export class AppointmentCreateComponent implements OnInit {
       && x.slottime.split(':')[1] === slot.start.split(':')[1]
       && x.adate === this.appointment.adate);
   }
+
+  private get_ex(empID: number, clinicID: number) {
+    this.scheduleService.get_ex(this.selectedDoctor, this.selectedClinic).subscribe(
+      (res: Schadule[]) => {
+        this.doctorsSchedule = res;
+        console.log(this.doctorsSchedule);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private getvac(empID: number, clinicID: number) {
+    this.appointmentService.get_vac(this.selectedDoctor, this.selectedClinic).subscribe(
+      (res: Appointment[]) => {
+        this.appointments = res;
+        console.log(this.appointments);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
 }
 
 interface Appoin {

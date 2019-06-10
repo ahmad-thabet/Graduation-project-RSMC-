@@ -9,11 +9,11 @@ export class AppComponent {
   title = 'Fronend-NEW';
 
   /*For mac*/
-  private apiUrl = 'http://localhost:8080/api';
+  // private apiUrl = 'http://localhost:8080/api';
 
   /*For Windows*/
 
-  // private apiUrl = 'http://localhost/api';
+  private apiUrl = 'http://localhost/api';
 
 
   getURL() {

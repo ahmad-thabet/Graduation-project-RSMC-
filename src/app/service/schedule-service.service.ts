@@ -44,4 +44,18 @@ export class ScheduleServiceService {
         }),
         catchError(this.handleError));
   }
+
+  get_ex(empID: number, clinicID: number) {
+    return this.http.get(`${this.url}/appointment/update/update-ex.php?clinicID=` + clinicID + `&empID=` + empID,
+      {responseType: 'json'}).pipe(
+      map((res: any) => {
+        this.schedules = res;
+        console.log(res);
+        console.log(this.schedules);
+        // console.log(this.clinics);
+        return this.schedules;
+      }),
+      catchError(this.handleError));
+  }
+
 }

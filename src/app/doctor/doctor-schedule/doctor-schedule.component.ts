@@ -158,7 +158,22 @@ export class DoctorScheduleComponent implements OnInit {
   appointmentDone(appID: number) {
 
   }
-
+  done_checkin(CurrentAppointment: any) {
+    this.appointmentService.update_done(CurrentAppointment)
+      .subscribe(
+        (res: Appointment[]) => {
+          this.appointments = res;
+        },
+        (err) => {
+          this.error = err;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error! Try Again',
+            detail: '' + err
+          });
+        }
+      );
+  }
   private loadDoctorId() {
     this.doctorID = this.authService.emp.empID;
     console.log('doctor id: ' + this.doctorID);

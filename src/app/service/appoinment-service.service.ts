@@ -94,4 +94,28 @@ export class AppoinmentServiceService {
       }),
       catchError(this.handleError));
   }
+
+  update_done(appointment: Appointment): Observable<Appointment[]> {
+    return this.http.post(`${this.url}/appointment/add/done-appointment`, {data: appointment}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.appintments = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.appintments;
+        }),
+        catchError(this.handleError));
+  }
+  get_vac(empID: number, clinicID: number) {
+    return this.http.get(`${this.url}/appointment/update/update-vacation.php?clinicID=` + clinicID + `&empID=` + empID,
+      {responseType: 'json'}).pipe(
+      map((res: any) => {
+        this.appintments = res;
+        console.log(res);
+        console.log(this.appintments);
+        // console.log(this.clinics);
+        return this.appintments;
+      }),
+      catchError(this.handleError));
+  }
+
 }
