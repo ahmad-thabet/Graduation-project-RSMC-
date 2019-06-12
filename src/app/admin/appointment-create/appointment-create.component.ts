@@ -156,6 +156,7 @@ export class AppointmentCreateComponent implements OnInit {
   // TODO: fix this
   setTimeSlots() {
     this.setDateFormat();
+    this.AllApoin.splice(0, this.AllApoin.length);
 
     for (const k of this.doctorsSchedules) {
       const startTimeHours = +(k.starttime.split(':')[0]);
