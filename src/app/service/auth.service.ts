@@ -35,7 +35,7 @@ export class AuthService {
   url = this.appComponent.getURL();
 
   // return date format
-  static setDateFormat(date: Date) {
+  setDateFormat(date: Date) {
     let returnDate = '';
     returnDate += date.getUTCFullYear();
 
