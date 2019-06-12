@@ -121,6 +121,7 @@ const appRoutes: Routes = [
   {
     path: 'patient', component: PatientComponent, canActivate: [AuthGuardService], data: {role: '1'}, children: [
       {path: '', component: PatientAppointmentListComponent},
+      {path: 'home', component: PatientAppointmentListComponent},
       {path: 'profile', component: ProfileComponent},
       {path: 'add-view-appointments', component: AddAppointmentComponent},
       {path: 'payments', component: PatientPaymentListComponent}
