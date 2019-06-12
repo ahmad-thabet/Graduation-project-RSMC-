@@ -7,15 +7,14 @@ import {EmployeeServiceService} from '../../service/employee-service.service';
 import {Clinic} from '../../models/clinic.model';
 import {ClinicServiceService} from '../../service/clinic-service.service';
 import {ClinicDoctor} from '../../models/clinic-doctor.model';
-import {Time} from '@angular/common';
 import {DateTime} from 'rrule/dist/esm/src/datetime';
-
 
 @Component({
   selector: 'app-schadule-generator',
   templateUrl: './schadule-generator.component.html',
   styleUrls: ['./schadule-generator.component.css']
 })
+
 export class SchaduleGeneratorComponent implements OnInit {
 
   selectedFromTime: DateTime;

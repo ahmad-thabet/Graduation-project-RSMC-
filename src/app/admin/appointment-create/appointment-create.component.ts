@@ -153,6 +153,7 @@ export class AppointmentCreateComponent implements OnInit {
     }
   }
 
+  // TODO: fix this
   setTimeSlots() {
     this.setDateFormat();
 
@@ -336,11 +337,6 @@ export class AppointmentCreateComponent implements OnInit {
     this.doctorsSchedules = this.doctorsSchedule.filter(x =>
       (x.clinicID.toString() === this.selectedClinic) && (x.empID.toString() === this.selectedDoctor));
 
-    /*    for (const i of this.doctorsSchedule) {
-          if (i.clinicID === this.selectedClinic && i.empID === this.selectedDoctor) {
-            this.doctorsSchedules.push(i);
-          }
-        }*/
 
     console.log(this.doctorsSchedules);
 

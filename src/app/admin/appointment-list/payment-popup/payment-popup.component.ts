@@ -14,7 +14,6 @@ import {EmployeeServiceService} from '../../../service/employee-service.service'
 export class PaymentPopupComponent implements OnInit {
   title: 'Payment';
 
-  // @Input() payment: Payment;
   @Input() employeeID;
   @Input() patientID;
 

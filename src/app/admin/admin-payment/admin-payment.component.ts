@@ -3,6 +3,10 @@ import {Paymentdetails} from '../../models/paymentdetails.model';
 import {PaymentServiceService} from '../../service/payment-service.service';
 import {Patient} from '../../models/patient.model';
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
+import {Employee} from '../../models/employee.model';
+import {PaymentPopupComponent} from '../appointment-list/payment-popup/payment-popup.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-admin-payment',
@@ -27,9 +31,12 @@ export class AdminPaymentComponent implements OnInit {
   allDetails = this.details;
   error = '';
   patients: Patient[] = [];
+  emps: Employee[] = [];
 
   constructor(private paymentService: PaymentServiceService,
-              private patinetService: PatinetSeviceService) {
+              private patinetService: PatinetSeviceService,
+              private modalService: NgbModal,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -100,4 +107,25 @@ export class AdminPaymentComponent implements OnInit {
     return tmpdate;
   }
 
+  getPatientName(patientID: string) {
+    const k = this.patients.findIndex(x => x.patientID.toString() === patientID);
+    if (k !== -1) {
+      return this.patients[k].firstname + ' ' + this.patients[k].lastname;
+    }
+
+  }
+
+  getEmployeeName(empID: string) {
+    const k = this.emps.findIndex(x => x.empID === empID);
+    if (k !== -1) {
+      return this.emps[k].firstname + ' ' + this.emps[k].lastname;
+    }
+  }
+
+  openAddComponent(patientID: string) {
+    const modalRef = this.modalService.open(PaymentPopupComponent);
+    modalRef.componentInstance.title = 'Add Payment';
+    modalRef.componentInstance.employeeID = this.authService.getUserId();
+    modalRef.componentInstance.patientID = patientID;
+  }
 }

@@ -24,7 +24,6 @@ export class DoctorExceptionComponent implements OnInit {
     this.loadexceprion();
   }
 
-  // TODO: implement this function
   /*  add_exception(f) {
       this.doctorService.add_exception()
         .subscribe(

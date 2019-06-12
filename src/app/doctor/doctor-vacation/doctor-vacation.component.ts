@@ -24,7 +24,6 @@ export class DoctorVacationComponent implements OnInit {
     this.loadvacation();
   }
 
-  // TODO: implement this function
   /*  add_vacation(f) {
       this.doctorService.add_vacation()
         .subscribe(

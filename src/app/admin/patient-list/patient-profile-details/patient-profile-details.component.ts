@@ -29,7 +29,7 @@ export class PatientProfileDetailsComponent implements OnInit {
   childs: Patient[] = [];
   error = '';
 
-  personalID = '';
+  patientID = 0;
 
   patientPayment: Patientpayment = new Patientpayment('', 0, '', '');
   patientDetails: Paymentdetails[] = [
@@ -47,6 +47,7 @@ export class PatientProfileDetailsComponent implements OnInit {
     const id = this.route.params.subscribe((params: Params) => {
       this.id = +params[`id`];
       this.patient = this.patientService.patients[this.id];
+      this.patientID = this.patient.patientID;
       console.log(this.patient.patientID);
     });
     this.loadchild();
@@ -57,7 +58,7 @@ export class PatientProfileDetailsComponent implements OnInit {
   }
 
   private loadchild() {
-    this.patientService.get_child(this.personalID).subscribe(
+    this.patientService.get_child(this.patientID + '').subscribe(
       (res: Patient[]) => {
         this.childs = res;
         console.log(this.childs);

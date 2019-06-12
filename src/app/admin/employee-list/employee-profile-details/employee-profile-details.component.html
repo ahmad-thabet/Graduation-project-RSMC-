@@ -20,7 +20,7 @@
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
                  aria-selected="true">About</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="employee.jobID == 2 || employee.jobID == 3">
               <a class="nav-link" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
                  aria-controls="profile"
                  aria-selected="false">Activity</a>
@@ -147,6 +147,8 @@
                 <thead>
                 <tr>
                   <th>#</th>
+                  <th>Patient ID</th>
+                  <th>Name</th>
                   <th>Activity</th>
                   <th>Date</th>
                 </tr>
@@ -154,6 +156,8 @@
                 <tbody>
                 <tr *ngFor="let x of allActivity; let i = index">
                   <td>{{i}}</td>
+                  <td>{{x.patientID}}</td>
+                  <td>{{x.firstname}} {{x.lastname}}</td>
                   <td>{{x.activity}}</td>
                   <td>{{x.date}}</td>
                 </tr>

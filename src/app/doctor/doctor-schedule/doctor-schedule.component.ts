@@ -136,6 +136,8 @@ export class DoctorScheduleComponent implements OnInit {
   }
 
   dateChanged() {
+    // TODO: implement this function
+    // get appointments by date
   }
 
   update_checkin(CurrentAppointment: any) {

@@ -180,16 +180,16 @@
               <table class="paleBlueRows" style="width: 100%">
                 <thead>
                 <tr>
-                  <th>Payment ID</th>
+                  <th>#</th>
                   <th>Employee ID</th>
                   <th>Amount</th>
-                  <th>Send Date</th>
+                  <th>Pay Date</th>
                   <th>Type</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let x of patientDetails">
-                  <td>{{x.paymnetID}}</td>
+                <tr *ngFor="let x of patientDetails; let i = index">
+                  <td>{{i}}</td>
                   <td>{{x.empID}}</td>
                   <td>{{x.amount}}</td>
                   <td>{{x.senddate}}</td>

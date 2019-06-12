@@ -19,10 +19,27 @@ export class EmployeeProfileDetailsComponent implements OnInit {
   fromdate = new Date();
   todate = new Date();
 
-  allActivity: any[] = [
-    {activity: 'Reservation for id 10', date: new Date()},
-    {activity: 'Payment for id 12', date: new Date()},
-    {activity: 'Reservation for id 17', date: new Date()},
+  allActivity: Activity[] = [
+    {
+      patientID: 23,
+      firstname: 'Ahmad',
+      lastname: 'Thabet',
+      activity: 'reservation',
+      date: '2019-01-01'
+    }, {
+      patientID: 33,
+      firstname: 'samer',
+      lastname: 'saed',
+      activity: 'reservation',
+      date: '2019-01-04'
+    }, {
+      patientID: 3333,
+      firstname: 'Moe',
+      lastname: 'seif',
+      activity: 'reservation',
+      date: '2019-03-05'
+    }
+
   ];
 
   constructor(private employeeService: EmployeeServiceService, private route: ActivatedRoute) {
@@ -40,4 +57,12 @@ export class EmployeeProfileDetailsComponent implements OnInit {
     // do query when date changed
     // TODO: implement this
   }
+}
+
+interface Activity {
+  patientID: number;
+  firstname: string;
+  lastname: string;
+  activity: string;
+  date: string;
 }

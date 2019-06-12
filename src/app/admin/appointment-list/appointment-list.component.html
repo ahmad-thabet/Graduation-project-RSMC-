@@ -3,20 +3,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <label for="fromdate">From: </label>
+      <label for="selectedDate">Date: </label>
       <input type="date"
-             id="fromdate"
-             name="fromdate"
-             [(ngModel)]="fromdate"
-             class="form-control"
-             (change)="dateChanged()">
-    </div>
-    <div class="col">
-      <label for="todate">From: </label>
-      <input type="date"
-             id="todate"
-             name="todate"
-             [(ngModel)]="todate"
+             id="selectedDate"
+             name="selectedDate"
+             [(ngModel)]="date"
              class="form-control"
              (change)="dateChanged()">
     </div>
@@ -81,9 +72,8 @@
           Done
         </button>
       </td>
-      <td>
-        {{getPaymentById(x.appID)}}
-      </td>
+      <td *ngIf="getPaymentById(x.appID) == null">0</td>
+      <td *ngIf="getPaymentById(x.appID) !== null">{{getPaymentById(x.appID)}}</td>
       <td>
         <button (click)="openAddComponent(x.patientID)"
                 class="btn btn-info btn-sm"

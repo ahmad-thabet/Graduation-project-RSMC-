@@ -71,12 +71,6 @@ export class PatinetSeviceService {
       catchError(this.handleError));
   }
 
-  // TODO: implement this function
-  getPatientById(id: number) {
-    return undefined;
-  }
-
-  // TODO: implement this function
   update_patient(patient: Patient): Observable<Patient[]> {
     return this.http.post(`${this.url}/patient/update/update-patient`, {data: patient}, {responseType: 'text'})
       .pipe(map((res) => {

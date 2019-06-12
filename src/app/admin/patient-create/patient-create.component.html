@@ -61,9 +61,9 @@
         </div>
         <div class="col">
           <label>Gender</label>
-          <select class="custom-select" id="gender" [(ngModel)]="patient.gender" name="gender">
-            <option selected value="male">Male</option>
-            <option selected value="female">Female</option>
+          <select class="custom-select" id="gender" [(ngModel)]="patient.gender" name="gender" #gender>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
       </div>
@@ -90,15 +90,7 @@
       <hr>
 
       <h2>Insurance</h2>
-      <select class="custom-select"
-              id="insuranceList" name="insuranceList"
-              #insuranceList
-              (change)="insuranceListType = insuranceList.value">
-        <option value="private">Private</option>
-        <option value="hasInsurance">Public</option>
-      </select>
-
-      <div class="row" *ngIf="insuranceListType == 'hasInsurance'">
+      <div class="row">
         <div class="col">
           <label>Insurance Number</label>
           <input type="text" class="form-control" placeholder="Insurance Number" [(ngModel)]="patient.insurancenumber"
@@ -138,9 +130,9 @@
               id="familyList" name="familyList"
               #familyList
               (change)="familyListType = familyList.value">
-        <option value="married" [(ngModel)]="patient.relation ">Married</option>
-        <option value="single" [(ngModel)]="patient.relation ">Single</option>
-        <option value="child" [(ngModel)]="patient.relation ">Child</option>
+        <option value="single" [(ngModel)]="patient.relation">Single</option>
+        <option value="married" [(ngModel)]="patient.relation">Married</option>
+        <option value="child" [(ngModel)]="patient.relation">Child</option>
       </select>
       <div class="row" *ngIf="familyListType == 'child'">
         <div class="col">
@@ -150,17 +142,17 @@
           <label>Mother ID</label>
           <input type="text" class="form-control" placeholder="Mother ID" name="motherID"
                  [(ngModel)]="patient.motherID">
-          <!--[(ngModel)]="parentID"-->
         </div>
       </div>
       <div class="row" *ngIf="familyListType == 'single'">
-        <div class="col">
-          <label>Single</label>
-        </div>
       </div>
       <div class="row" *ngIf="familyListType == 'married'">
         <div class="col">
           <label>Married</label>
+          <input type="text" class="form-control" placeholder="Wife ID" name="wifeID"
+                 [(ngModel)]="wifeID" *ngIf="gender.value == 'male'">
+          <input type="text" class="form-control" placeholder="Husband ID" name="husbandID"
+                 [(ngModel)]="husbandID" *ngIf="gender.value == 'female'">
         </div>
       </div>
 

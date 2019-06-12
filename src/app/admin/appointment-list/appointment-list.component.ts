@@ -26,8 +26,7 @@ export class AppointmentListComponent implements OnInit {
   error = '';
   success = '';
 
-  fromdate = new Date();
-  todate = new Date();
+  date = new Date();
 
   selectedClinic: any;
   selectedDoctor: any;
@@ -49,8 +48,6 @@ export class AppointmentListComponent implements OnInit {
   doctorsSchedules: Schadule[] = [];
   payments: Payment[];
   payment = new Payment('', 0, '', '', '', '', '', '');
-
-  pricePrice;
 
   empID = '';
 
@@ -75,7 +72,7 @@ export class AppointmentListComponent implements OnInit {
 
     setInterval(() => {
       this.loadAppointmant();
-    }, 10000);
+    }, 180000);
   }
 
   clinicSelected(id: any) {
@@ -181,6 +178,7 @@ export class AppointmentListComponent implements OnInit {
   }
 
   dateChanged() {
+    // TODO: implement this function
   }
 
   checkin(f: Appointment) {

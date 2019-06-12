@@ -79,6 +79,8 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {InsuranceAddClinicsComponent} from './admin/insurance/insurance-add-clinics/insurance-add-clinics.component';
 import {PaymentPopupComponent} from './admin/appointment-list/payment-popup/payment-popup.component';
 import {RadioButtonModule} from 'primeng/primeng';
+import { PatientAppointmentListComponent } from './patient/patient-appointment-list/patient-appointment-list.component';
+import { DoctorPatientHistoryComponent } from './doctor/doctor-patient-history/doctor-patient-history.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent, pathMatch: 'full'},
@@ -118,7 +120,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'patient', component: PatientComponent, canActivate: [AuthGuardService], data: {role: '1'}, children: [
-      {path: '', component: ProfileComponent},
+      {path: '', component: PatientAppointmentListComponent},
       {path: 'profile', component: ProfileComponent},
       {path: 'add-view-appointments', component: AddAppointmentComponent},
       {path: 'payments', component: PatientPaymentListComponent}
@@ -208,7 +210,9 @@ const appRoutes: Routes = [
     ChartsComponent,
     NotFoundComponent,
     InsuranceAddClinicsComponent,
-    PaymentPopupComponent
+    PaymentPopupComponent,
+    PatientAppointmentListComponent,
+    DoctorPatientHistoryComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

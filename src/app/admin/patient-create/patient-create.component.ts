@@ -34,10 +34,12 @@ export class PatientCreateComponent implements OnInit {
 
   personalIDMatch: any;
   familyListType = '';
-  insuranceListType = '';
 
   hasID = false;
   validID = false;
+
+  wifeID = 0;
+  husbandID = 0;
 
   constructor(private patinetservice: PatinetSeviceService,
               private insuranceservice: InsuranceServiceService,
