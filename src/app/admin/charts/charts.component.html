@@ -42,8 +42,16 @@
               [labels]="pieChartLabels"
               [chartType]="pieChartType"></canvas>
     </div>
-    <!--TODO: choose year-->
     <div class="col" style="display: block">
+      <select class="custom-select"
+              id="year"
+              name="year"
+              [(ngModel)]="year"
+              (ngModelChange)="yearChanged()"
+      >
+        <option hidden>Select</option>
+        <option *ngFor="let x of years" [value]="x">{{x}}</option>
+      </select>
       <canvas baseChart
               [data]="lineChartData"
               [labels]="lineChartLabels"

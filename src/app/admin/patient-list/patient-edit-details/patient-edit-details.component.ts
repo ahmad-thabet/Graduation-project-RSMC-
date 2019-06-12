@@ -24,6 +24,8 @@ export class PatientEditDetailsComponent implements OnInit {
   subincurances: Subinsurance[];
 
   quantom: Quantom[];
+  quantoms: Quantom[];
+
   cities: City[];
   error = '';
   success = '';
@@ -39,7 +41,6 @@ export class PatientEditDetailsComponent implements OnInit {
   insuranceListType = '';
 
   hasID = false;
-
 
   constructor(private patientService: PatinetSeviceService,
               public route: ActivatedRoute,
@@ -144,7 +145,8 @@ export class PatientEditDetailsComponent implements OnInit {
   }
 
   onSelectCity(value: string) {
-    // TODO: implement this
-    // value will contain cityid, using it get the qid's contained in that city
+    this.quantoms = [];
+    this.quantoms = this.quantom.filter(x => x.cityID.toString() === value);
+    console.log(value);
   }
 }

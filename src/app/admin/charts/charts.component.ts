@@ -47,6 +47,8 @@ export class ChartsComponent implements OnInit {
 
   fromdate: Date = new Date();
   todate: Date = new Date();
+  year: any;
+  years = [2016, 2017, 2018, 2019, 2020, 2021, 2022];
 
   constructor() {
   }
@@ -55,4 +57,9 @@ export class ChartsComponent implements OnInit {
     // TODO: insert data from here
   }
 
+
+  yearChanged() {
+    //  TODO: implement this
+    console.log('selected year: ' + this.year);
+  }
 }
