@@ -2,20 +2,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <label for="fromdate">From: </label>
+      <label for="fromdate">Date: </label>
       <input type="date"
              id="fromdate"
              name="fromdate"
              [(ngModel)]="fromdate"
-             class="form-control"
-             (change)="dateChanged()">
-    </div>
-    <div class="col">
-      <label for="todate">To: </label>
-      <input type="date"
-             id="todate"
-             name="todate"
-             [(ngModel)]="todate"
              class="form-control"
              (change)="dateChanged()">
     </div>

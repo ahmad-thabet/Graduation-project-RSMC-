@@ -60,15 +60,15 @@ export class PatientAppointmentListComponent implements OnInit {
   ngOnInit() {
     if (this.authService.isAuth()) {
       this.patientID = +this.authService.getUserId();
-    }
-    this.loaddoctors();
-    this.loadalldoctors();
-    this.loadAppointmant();
-    this.loadClinics();
-
-    setInterval(() => {
+      this.loaddoctors();
+      this.loadalldoctors();
       this.loadAppointmant();
-    }, 1000000);
+      this.loadClinics();
+
+      setInterval(() => {
+        this.loadAppointmant();
+      }, 1000000);
+    }
   }
 
   private loadClinics() {
@@ -99,11 +99,12 @@ export class PatientAppointmentListComponent implements OnInit {
     this.appointmentService.get_appointment().subscribe(
       (res: Appointment[]) => {
         this.appointments = res;
+        this.filteredAppointment = this.appointments;
       },
       (err) => {
         this.error = err;
       }, () => {
-        this.filteredAppointment = this.appointments.filter(x => x.patientID === this.patientID);
+        this.filteredAppointment = this.appointments.filter(x => x.patientID.toString() === this.patientID.toString());
       }
     );
   }

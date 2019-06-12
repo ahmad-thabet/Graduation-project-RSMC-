@@ -12,6 +12,15 @@ import {EmployeeServiceService} from './employee-service.service';
   providedIn: 'root'
 })
 export class AuthService {
+
+  constructor(private appComponent: AppComponent,
+              private http: HttpClient,
+              private router: Router,
+              private messageService: MessageService,
+              private empService: EmployeeServiceService
+  ) {
+  }
+
   loggedIn = false;
   user: LoggedUser;
 
@@ -25,12 +34,23 @@ export class AuthService {
 
   url = this.appComponent.getURL();
 
-  constructor(private appComponent: AppComponent,
-              private http: HttpClient,
-              private router: Router,
-              private messageService: MessageService,
-              private empService: EmployeeServiceService
-  ) {
+  // return date format
+  static setDateFormat(date: Date) {
+    let returnDate = '';
+    returnDate += date.getUTCFullYear();
+
+    if (+date.getUTCMonth() < 10) {
+      returnDate += '-0' + (+date.getUTCMonth() + 1);
+    } else {
+      returnDate += '-' + (+date.getUTCMonth() + 1);
+    }
+
+    if (+date.getUTCDate() < 10) {
+      returnDate += '-0' + date.getUTCDate();
+    } else {
+      returnDate += '-' + date.getUTCDate();
+    }
+    return returnDate;
   }
 
   login(user: User) {
