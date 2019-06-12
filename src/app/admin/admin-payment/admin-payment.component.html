@@ -63,12 +63,12 @@
               </thead>
               <tbody>
               <tr *ngFor="let x of details; let i = index">
-                <td>{{x.paymnetID}}</td>
-                <td>{{x.personalID}}</td>
+                <td>{{i}}</td>
+                <td>{{x.patientID}}</td>
                 <td>{{x.empID}}</td>
                 <td>{{x.amount}}</td>
                 <td>{{x.senddate}}</td>
-                <td>{{x.paymenttype}}</td>
+                <td>{{x.paymenttype | uppercase}}</td>
               </tr>
               </tbody>
             </table>

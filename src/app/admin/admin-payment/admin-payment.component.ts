@@ -35,6 +35,10 @@ export class AdminPaymentComponent implements OnInit {
   ngOnInit() {
     this.loaddetails();
     this.loadpatient();
+
+    setInterval(() => {
+      this.onSelectPatient(this.patient);
+    }, 10000);
   }
 
   private loaddetails() {
@@ -55,7 +59,11 @@ export class AdminPaymentComponent implements OnInit {
   }
 
   onSelectPatient(id: string) {
-    this.details = this.allDetails.filter(x => x.personalID === id);
+    if (id !== '') {
+      this.details = this.allDetails.filter(x => x.patientID === id);
+    } else {
+      this.loaddetails();
+    }
   }
 
   private loadpatient() {

@@ -30,7 +30,7 @@
         <div class="col">
           <label>personal ID </label>
           <input type="checkbox" name="disableID" #disableID [(ngModel)]="hasID">
-          <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.personalID"
+          <input type="text" class="form-control" placeholder="personalID" [(ngModel)]="patient.patientID"
                  name="personalID" #personalID [disabled]="hasID" (change)="checkValidID()">
           <p-message
             severity="error"
@@ -45,7 +45,7 @@
                    name="personalIDMatch" #p="ngModel" [disabled]="hasID">
             <p-message
               severity="error"
-              *ngIf="p.touched && (patient.personalID != personalIDMatch)"
+              *ngIf="p.touched && (patient.patientID != personalIDMatch)"
               text="does not match"
             ></p-message>
           </div>

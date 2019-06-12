@@ -10,6 +10,8 @@ import {AppoinmentServiceService} from '../../service/appoinment-service.service
 import {PatinetSeviceService} from '../../service/patinet-sevice.service';
 import {EmployeeServiceService} from '../../service/employee-service.service';
 import {ScheduleServiceService} from '../../service/schedule-service.service';
+import {MessageService} from 'primeng/api';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -18,20 +20,21 @@ import {ScheduleServiceService} from '../../service/schedule-service.service';
 })
 export class AddAppointmentComponent implements OnInit {
 
-  personalID = 1;
+  patientID = 0;
   patient: Patient;
 
+  empID = '';
   selectedClinic: any;
   selectedDoctor: any;
-  selectedFromDate = new Date();
-  selectedToDate = new Date();
+
   selectedAppointment: any;
-  selectedPatient = this.personalID;
+  selectedPatient: any;
 
   appointments: Appointment[];
   appointment = new Appointment(0, 0, 0, 0, 0, '', '');
 
-  AllApoin: any[] = [];
+
+  AllApoin: Appoin[] = [];
 
   doctors: ClinicDoctor[];
   doctorss: ClinicDoctor[];
@@ -52,15 +55,23 @@ export class AddAppointmentComponent implements OnInit {
   doctorsSchedules: Schadule[] = [];
 
   invalidDates: Array<Date> = [];
+  slots: Appointment[];
 
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
-              private  patinetservice: PatinetSeviceService,
+              private patinetservice: PatinetSeviceService,
               private employeeService: EmployeeServiceService,
-              private scheduleService: ScheduleServiceService) {
+              private scheduleService: ScheduleServiceService,
+              private messageService: MessageService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
+    if (this.authService.isAuth()) {
+      this.patientID = +this.authService.getUserId();
+      this.appointment.patientID = this.patientID;
+    }
+
     // load stuff here
     this.loaddoctors();
     this.loadSchedule();
@@ -69,6 +80,7 @@ export class AddAppointmentComponent implements OnInit {
     this.loadClinics();
     this.loadpatient();
     this.maxDate.setFullYear(this.minDate.getFullYear(), this.minDate.getMonth() + 11, this.minDate.getDay());
+    this.appointment.rempID = 0;
   }
 
   filterDates() {
@@ -78,9 +90,8 @@ export class AddAppointmentComponent implements OnInit {
 
     let startDate;
     let endDate;
-
     for (const i of this.doctorsSchedules) {
-      const days = [i.sun, i.mon, i.tue, i.wen, i.thu, i.fri];
+      const days = [i.sun, i.mon, i.tue, i.wen, i.thu, i.fri, i.sat];
       startDate = new Date(i.startdate);
       endDate = new Date(i.enddate);
 
@@ -109,20 +120,19 @@ export class AddAppointmentComponent implements OnInit {
       tempDate.setDate(tempDate.getDate() + 1);
     }
 
-    invalidDates = invalidDates.filter((invalidDate) => !validDates.find(validDate => validDate.getDate() === invalidDate.getDate()));
+    invalidDates = invalidDates.filter((invalidDate) => !validDates.find(
+      validDate => validDate.getDate() === invalidDate.getDate()));
 
     this.invalidDates = invalidDates;
   }
 
   getCurrentModel() {
-    return JSON.stringify(this.date5 + '--' + this.selectedClinic + '-' + this.selectedDoctor + '-'
-      + this.selectedAppointment + '-' + this.selectedPatient + '-' + this.selectedFromDate + '-' + this.selectedToDate);
+    return JSON.stringify(this.appointment);
   }
 
 
   clinicSelected(id: any) {
     this.selectedClinic = id;
-
     this.doctorsIDs.splice(0, this.doctorsIDs.length);
     this.doctorss = this.doctors.filter(x => x.clinicID === id);
     for (const x of this.doctorss) {
@@ -134,14 +144,26 @@ export class AddAppointmentComponent implements OnInit {
     }
   }
 
+  setDateFormat() {
+    this.appointment.adate = '';
+    this.appointment.adate += this.date5.getUTCFullYear();
+    if (+this.date5.getUTCMonth() < 10) {
+      this.appointment.adate += '-0' + (+this.date5.getUTCMonth() + 1);
+    } else {
+      this.appointment.adate += '-' + (+this.date5.getUTCMonth() + 1);
+    }
+
+    if (+this.date5.getUTCDate() < 10) {
+      this.appointment.adate += '-0' + this.date5.getUTCDate();
+    } else {
+      this.appointment.adate += '-' + this.date5.getUTCDate();
+    }
+  }
+
   setTimeSlots() {
-    // get valid dates of doctor, put it in this.validDates
-    // load time slots in all apointment
-    // date selected == date 5
+    this.setDateFormat();
 
     for (const k of this.doctorsSchedules) {
-
-
       const startTimeHours = +(k.starttime.split(':')[0]);
       const startTimeMinutes = +(k.starttime.split(':')[1]);
       console.log(startTimeHours + ':' + startTimeMinutes);
@@ -169,8 +191,39 @@ export class AddAppointmentComponent implements OnInit {
           tempEndTimeHours = tempEndTimeHours + 1;
         }
 
-        this.AllApoin.push(tempStartTimeHours + ':' + tempStartTimeMinutes +
-          ' - ' + tempEndTimeHours + ':' + tempEndTimeMinutes);
+        let t1 = '';
+        if (tempStartTimeHours < 10) {
+          t1 += '0' + tempStartTimeHours;
+        } else {
+          t1 += tempStartTimeHours;
+        }
+        t1 += ':';
+        if (tempStartTimeMinutes < 10) {
+          t1 += '0' + tempStartTimeMinutes;
+        } else {
+          t1 += tempStartTimeMinutes;
+        }
+
+        let t2 = '';
+        if (tempEndTimeHours < 10) {
+          t2 += '0' + tempEndTimeHours;
+        } else {
+          t2 += tempEndTimeHours;
+        }
+        t2 += ':';
+        if (tempEndTimeMinutes < 10) {
+          t2 += '0' + tempEndTimeMinutes;
+        } else {
+          t2 += tempEndTimeMinutes;
+        }
+
+
+        this.AllApoin.push(
+          {
+            start: t1,
+            end: t2
+          }
+        );
 
         tempStartTimeMinutes = tempEndTimeMinutes;
         tempStartTimeHours = tempEndTimeHours;
@@ -225,14 +278,23 @@ export class AddAppointmentComponent implements OnInit {
         (res: Appointment[]) => {
           // Update the list of cars
           this.appointments = res;
-          // Inform the user
-          console.log(this.appointments);
-          this.success = 'Created successfully';
-          console.log(this.success);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Created Successfully',
+            detail: ''
+          });
           // Reset the form
           f.reset();
+          this.AllApoin = [];
         },
-        (err) => this.error = err
+        (err) => {
+          this.error = err;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error! Try Again',
+            detail: '' + err
+          });
+        }
       );
   }
 
@@ -252,7 +314,7 @@ export class AddAppointmentComponent implements OnInit {
     this.scheduleService.get_schedule().subscribe(
       (res: Schadule[]) => {
         this.doctorsSchedule = res;
-        console.log(res);
+        console.log('ww ' + res);
       },
       (err) => {
         this.error = err;
@@ -274,22 +336,40 @@ export class AddAppointmentComponent implements OnInit {
 
   doctorSelected(value: any) {
     this.selectedDoctor = value;
-
+    console.log(this.doctorsSchedules);
     // clear temp array
     this.doctorsSchedules.splice(0, this.doctorsSchedules.length);
 
     this.doctorsSchedules = this.doctorsSchedule.filter(x =>
-      (x.clinicID === this.selectedClinic) && (x.empID === this.selectedDoctor));
-
-    /*    for (const i of this.doctorsSchedule) {
-          if (i.clinicID === this.selectedClinic && i.empID === this.selectedDoctor) {
-            this.doctorsSchedules.push(i);
-          }
-        }*/
+      (x.clinicID.toString() === this.selectedClinic) && (x.empID.toString() === this.selectedDoctor));
 
     console.log(this.doctorsSchedules);
 
     this.filterDates();
+    this.loadslot();
 
   }
+
+  private loadslot() {
+    this.appointmentService.getslots(this.selectedDoctor, this.selectedClinic).subscribe(
+      (res: Appointment[]) => {
+        this.slots = res;
+        console.log(this.slots);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private isNotReserved(slot: Appoin) {
+    return this.slots.find(x => x.slottime.split(':')[0] === slot.start.split(':')[0]
+      && x.slottime.split(':')[1] === slot.start.split(':')[1]
+      && x.adate === this.appointment.adate);
+  }
+}
+
+interface Appoin {
+  start: string;
+  end: string;
 }
