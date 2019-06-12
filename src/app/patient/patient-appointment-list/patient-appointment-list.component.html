@@ -22,6 +22,8 @@
       <th>Date</th>
       <th>From</th>
       <th>Checked</th>
+      <th>Update</th>
+      <th>Cancel</th>
     </tr>
     </thead>
     <tbody>
@@ -49,6 +51,22 @@
                 class="btn btn-success btn-sm"
                 disabled>
           Done
+        </button>
+      </td>
+      <td *ngIf="canUpdate(x.adate)">
+        <button type="button"
+                class="btn btn-info btn-sm"
+                (click)="openUpdateComponent(x)"
+        >
+          Update
+        </button>
+      </td>
+      <td *ngIf="canUpdate(x.adate)">
+        <button type="button"
+                class="btn btn-danger btn-sm"
+                (click)="cancelAppointment(x)"
+        >
+          Cancel
         </button>
       </td>
     </tr>

@@ -13,6 +13,8 @@ import {MessageService} from 'primeng/api';
 import {PaymentServiceService} from '../../service/payment-service.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
+import {PaymentPopupComponent} from '../../admin/appointment-list/payment-popup/payment-popup.component';
+import {PatientUpdateAppointmentComponent} from './patient-update-appointment/patient-update-appointment.component';
 
 @Component({
   selector: 'app-patient-appointment-list',
@@ -132,4 +134,19 @@ export class PatientAppointmentListComponent implements OnInit {
     // get appointments by date
   }
 
+  // TODO: Ahmad implement this
+  canUpdate(adate: string) {
+    return true;
+  }
+
+  openUpdateComponent(x: Appointment) {
+    const modalRef = this.modalService.open(PatientUpdateAppointmentComponent);
+    modalRef.componentInstance.title = 'Update Appointment';
+    modalRef.componentInstance.appointment = x;
+  }
+
+  // TODO: implement this
+  cancelAppointment(x: Appointment) {
+
+  }
 }

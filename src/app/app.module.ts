@@ -81,6 +81,7 @@ import {PaymentPopupComponent} from './admin/appointment-list/payment-popup/paym
 import {RadioButtonModule} from 'primeng/primeng';
 import { PatientAppointmentListComponent } from './patient/patient-appointment-list/patient-appointment-list.component';
 import { DoctorPatientHistoryComponent } from './doctor/doctor-patient-history/doctor-patient-history.component';
+import { PatientUpdateAppointmentComponent } from './patient/patient-appointment-list/patient-update-appointment/patient-update-appointment.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent, pathMatch: 'full'},
@@ -213,7 +214,8 @@ const appRoutes: Routes = [
     InsuranceAddClinicsComponent,
     PaymentPopupComponent,
     PatientAppointmentListComponent,
-    DoctorPatientHistoryComponent
+    DoctorPatientHistoryComponent,
+    PatientUpdateAppointmentComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -268,7 +270,8 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent],
   entryComponents: [
     InsuranceAddClinicsComponent,
-    PaymentPopupComponent
+    PaymentPopupComponent,
+    PatientUpdateAppointmentComponent
   ]
 })
 export class AppModule {
