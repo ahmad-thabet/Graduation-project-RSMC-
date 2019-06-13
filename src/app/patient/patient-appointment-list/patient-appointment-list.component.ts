@@ -32,9 +32,9 @@ export class PatientAppointmentListComponent implements OnInit {
 
   selectedClinic: any;
   selectedDoctor: any;
-  appointments: Appointment[] = [];
-  filteredAppointment: Appointment[] = [];
-
+  // appointments: Appointment[];
+//  filteredAppointment: Appointment[] = [];
+  appointment: Appointment[];
   doctors: ClinicDoctor[];
   doctorss: ClinicDoctor[];
 
@@ -47,6 +47,7 @@ export class PatientAppointmentListComponent implements OnInit {
   doctorsSchedules: Schadule[] = [];
 
   patientID = 0;
+  fromdates = '';
 
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
@@ -64,12 +65,10 @@ export class PatientAppointmentListComponent implements OnInit {
       this.patientID = +this.authService.getUserId();
       this.loaddoctors();
       this.loadalldoctors();
-      this.loadAppointmant();
+      this.fromdates = this.authService.setDateFormat(this.fromdate);
+      this.loadAppointmant(this.patientID, this.fromdates);
       this.loadClinics();
 
-      setInterval(() => {
-        this.loadAppointmant();
-      }, 1000000);
     }
   }
 
@@ -97,16 +96,14 @@ export class PatientAppointmentListComponent implements OnInit {
     );
   }
 
-  private loadAppointmant() {
-    this.appointmentService.get_appointment().subscribe(
+  private loadAppointmant(patientID: number, fromdate: string) {
+    this.appointmentService.get_patientAppointmnet(patientID, fromdate).subscribe(
       (res: Appointment[]) => {
-        this.appointments = res;
-        this.filteredAppointment = this.appointments;
+        this.appointment = res;
+        console.log(this.appointment);
       },
       (err) => {
         this.error = err;
-      }, () => {
-        this.filteredAppointment = this.appointments.filter(x => x.patientID.toString() === this.patientID.toString());
       }
     );
   }
@@ -129,9 +126,9 @@ export class PatientAppointmentListComponent implements OnInit {
     }
   }
 
-  dateChanged() {
-    // TODO: implement this function
-    // get appointments by date
+  dateChanged(fromdate: any) {
+    console.log(fromdate);
+    this.loadAppointmant(this.patientID, fromdate);
   }
 
   // TODO: Ahmad implement this
@@ -147,6 +144,27 @@ export class PatientAppointmentListComponent implements OnInit {
 
   // TODO: implement this
   cancelAppointment(x: Appointment) {
-
+    this.appointmentService.delete_appointment(x)
+      .subscribe(
+        (res: Appointment[]) => {
+          // Update the list of cars
+          this.appointment = res;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Created Successfully',
+            detail: ''
+          });
+          // Reset the form
+          // this.AllApoin = [];
+        },
+        (err) => {
+          this.error = err;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error! Try Again',
+            detail: '' + err
+          });
+        }
+      );
   }
 }

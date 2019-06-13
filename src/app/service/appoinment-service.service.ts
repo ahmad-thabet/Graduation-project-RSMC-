@@ -105,6 +105,7 @@ export class AppoinmentServiceService {
         }),
         catchError(this.handleError));
   }
+
   get_vac(empID: number, clinicID: number) {
     return this.http.get(`${this.url}/appointment/update/update-vacation.php?clinicID=` + clinicID + `&empID=` + empID,
       {responseType: 'json'}).pipe(
@@ -118,4 +119,36 @@ export class AppoinmentServiceService {
       catchError(this.handleError));
   }
 
+  get_patientAppointmnet(patientID: number, fromdate: string): Observable<Appointment[]> {
+    return this.http.get(`${this.url}/appointment/get/get-bypatientID.php?patientID=` + patientID + `&fromdate=` + fromdate,
+      {responseType: 'json'}).pipe(
+      map((res) => {
+        this.appintments = res[`data`];
+        console.log(this.appintments);
+        return this.appintments;
+      }),
+      catchError(this.handleError));
+  }
+
+  update_appointment(appointment: Appointment): Observable<Appointment[]> {
+    return this.http.post(`${this.url}/appointment/update/update-appointment`, {data: appointment}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.appintments = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.appintments;
+        }),
+        catchError(this.handleError));
+  }
+
+  delete_appointment(appointment: Appointment): Observable<Appointment[]> {
+    return this.http.post(`${this.url}/appointment/update/delete-appointment`, {data: appointment}, {responseType: 'text'})
+      .pipe(map((res) => {
+          this.appintments = res[`data`];
+          console.log('ok');
+          console.log(res[`data`]);
+          return this.appintments;
+        }),
+        catchError(this.handleError));
+  }
 }

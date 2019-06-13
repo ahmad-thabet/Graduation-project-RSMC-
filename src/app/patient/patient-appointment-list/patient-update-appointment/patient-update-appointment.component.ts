@@ -4,6 +4,8 @@ import {Appointment} from '../../../models/appointment.model';
 import {Schadule} from '../../../models/schedule.model';
 import {ScheduleServiceService} from '../../../service/schedule-service.service';
 import {AuthService} from '../../../service/auth.service';
+import {AppoinmentServiceService} from '../../../service/appoinment-service.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-patient-update-appointment',
@@ -23,9 +25,14 @@ export class PatientUpdateAppointmentComponent implements OnInit {
   AllApoin: Appoin[] = [];
   slots: Appointment[] = [];
   doctorsSchedules: Schadule[] = [];
+  appointments: Appointment[];
+  error = '';
+  success = '';
 
   constructor(public activeModal: NgbActiveModal,
               private scheduleService: ScheduleServiceService,
+              private appointmentService: AppoinmentServiceService,
+              private messageService: MessageService,
               private authService: AuthService) {
   }
 
@@ -34,9 +41,29 @@ export class PatientUpdateAppointmentComponent implements OnInit {
     this.maxDate.setFullYear(this.minDate.getFullYear(), this.minDate.getMonth() + 11, this.minDate.getDay());
   }
 
-  // TODO: implement this
   Update() {
-
+    this.appointmentService.update_appointment(this.appointment)
+      .subscribe(
+        (res: Appointment[]) => {
+          // Update the list of cars
+          this.appointments = res;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Created Successfully',
+            detail: ''
+          });
+          // Reset the form
+          this.AllApoin = [];
+        },
+        (err) => {
+          this.error = err;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error! Try Again',
+            detail: '' + err
+          });
+        }
+      );
   }
 
   private loadSchedule() {

@@ -8,7 +8,7 @@
              name="fromdate"
              [(ngModel)]="fromdate"
              class="form-control"
-             (change)="dateChanged()">
+             (change)="dateChanged(fromdate)">
     </div>
   </div>
   <hr>
@@ -27,7 +27,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let x of filteredAppointment; let i = index">
+    <tr *ngFor="let x of appointment; let i = index">
       <th scope="row">{{i}}</th>
       <td>{{getClinicName(x.clinicID)}}</td>
       <td>{{x.adate}}</td>
