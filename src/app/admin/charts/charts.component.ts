@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ChartServiceService} from '../../service/chart-service.service';
 import {forEach} from '@angular/router/src/utils/collection';
+import {Clinic} from '../../models/clinic.model';
+import {ClinicServiceService} from '../../service/clinic-service.service';
 
 
 @Component({
@@ -15,6 +17,9 @@ export class ChartsComponent implements OnInit {
   clinicount: CharTwo[];
   incomecount: CharThree[];
   reservationcount: CharFour[];
+
+  clinics: Clinic[];
+
 
   error = '';
   public barChartOptions = {
@@ -50,10 +55,12 @@ export class ChartsComponent implements OnInit {
   year: any;
   years = [2016, 2017, 2018, 2019, 2020, 2021, 2022];
 
-  constructor(private charService: ChartServiceService) {
+  constructor(private charService: ChartServiceService,
+              private clinicService: ClinicServiceService) {
   }
 
   ngOnInit() {
+    this.loadClinicsAll();
     this.loadGender();
     this.loadIncome();
     this.loadClinics();
@@ -95,6 +102,13 @@ export class ChartsComponent implements OnInit {
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.pieChartLabels = [];
+        this.pieChartData = [];
+        this.clinicount.forEach(x => {
+          this.pieChartLabels.push(this.getClinicName(x.clinicID));
+          this.pieChartData.push(x.value);
+        });
       }
     );
   }
@@ -133,6 +147,25 @@ export class ChartsComponent implements OnInit {
           this.lineChartData.push(x.value);
           this.lineChartLabels.push(x.month);
         });
+      }
+    );
+  }
+
+  getClinicName(value: any) {
+    const k = this.clinics.findIndex(x => x.clinicID === value);
+    if (k !== -1) {
+      return this.clinics[k].clinicname;
+    }
+  }
+
+  private loadClinicsAll() {
+    this.clinicService.get_clinic().subscribe(
+      (res: Clinic[]) => {
+        this.clinics = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
       }
     );
   }
