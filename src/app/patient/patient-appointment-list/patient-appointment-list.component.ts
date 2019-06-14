@@ -151,7 +151,7 @@ export class PatientAppointmentListComponent implements OnInit {
           this.appointment = res;
           this.messageService.add({
             severity: 'success',
-            summary: 'Created Successfully',
+            summary: 'Deleted Successfully',
             detail: ''
           });
           // Reset the form

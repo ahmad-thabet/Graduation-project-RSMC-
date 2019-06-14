@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ChartServiceService} from '../../service/chart-service.service';
 
 
 @Component({
@@ -9,6 +10,11 @@ import {Component, OnInit} from '@angular/core';
 export class ChartsComponent implements OnInit {
   // @documentation: https://www.chartjs.org/docs/latest
   // data for bar chart
+  gendercount: CharOne[];
+  clinicount: CharTwo[];
+  incomecount: CharThree[];
+  reservationcount: CharFour[];
+  error = '';
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -50,11 +56,14 @@ export class ChartsComponent implements OnInit {
   year: any;
   years = [2016, 2017, 2018, 2019, 2020, 2021, 2022];
 
-  constructor() {
+  constructor(private charService: ChartServiceService) {
   }
 
   ngOnInit() {
-    // TODO: insert data from here
+    this.loadClinics();
+    this.loadGender();
+    this.loadIncome();
+    this.loadReservation();
   }
 
 
@@ -62,4 +71,72 @@ export class ChartsComponent implements OnInit {
     //  TODO: implement this
     console.log('selected year: ' + this.year);
   }
+
+  private loadGender() {
+    this.charService.get_gender().subscribe(
+      (res: CharOne[]) => {
+        this.gendercount = res;
+        console.log(this.gendercount);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadClinics() {
+    this.charService.get_clinics().subscribe(
+      (res: CharTwo[]) => {
+        this.clinicount = res;
+        console.log(this.clinicount);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadIncome() {
+    this.charService.get_income().subscribe(
+      (res: CharThree[]) => {
+        this.incomecount = res;
+        console.log(this.incomecount);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  private loadReservation() {
+    this.charService.get_reservation().subscribe(
+      (res: CharFour[]) => {
+        this.reservationcount = res;
+        console.log(this.reservationcount);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+}
+
+interface CharOne {
+  value: number;
+  gender: string;
+}
+
+interface CharTwo {
+  value: number;
+  clinicID: string;
+}
+
+interface CharThree {
+  value: number;
+  incoming: string;
+}
+
+interface CharFour {
+  value: number;
+  month: string;
 }
