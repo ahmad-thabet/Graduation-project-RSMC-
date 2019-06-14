@@ -6,17 +6,23 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Fronend-NEW';
+  title = 'R S M C';
+
+  private token = '';
 
   /*For mac*/
-  // private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'http://localhost:8080/api';
 
   /*For Windows*/
 
-  private apiUrl = 'http://localhost/api';
+  // private apiUrl = 'http://localhost/api';
 
 
   getURL() {
     return this.apiUrl;
+  }
+
+  getToken() {
+    return this.token;
   }
 }

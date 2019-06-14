@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ChartServiceService} from '../../service/chart-service.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -14,31 +15,24 @@ export class ChartsComponent implements OnInit {
   clinicount: CharTwo[];
   incomecount: CharThree[];
   reservationcount: CharFour[];
+
   error = '';
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels = ['2016', '2017', '2018', '2019'];
+  public barChartLabels = ['2019'];
   public barChartType = 'bar';
   public barChartLegend = true;
   public barChartData = [
-    {data: [100, 250, 700, 1224], label: 'Male'},
-    {data: [45, 156, 599, 920], label: 'Female'}
+    {data: [12, 2], label: 'f'},
+    {data: [23, 3], label: 'm'}
   ];
-  ////////////////////
+
   // data for doughnut chart
   public doughnutChartLabels = ['Incoming Q1', 'Incoming Q2', 'Incoming Q3', 'Incoming Q4'];
   public doughnutChartData = [120, 150, 180, 90];
   public doughnutChartType = 'doughnut';
-
-  // // data for radar
-  // public radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
-  // public radarChartData = [
-  //   {data: [120, 130, 180, 70], label: 'Male'},
-  //   {data: [90, 150, 200, 45], label: 'Female'}
-  // ];
-  // public radarChartType = 'radar';
 
   // data for pie
   public pieChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
@@ -60,9 +54,9 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadClinics();
     this.loadGender();
     this.loadIncome();
+    this.loadClinics();
     this.loadReservation();
   }
 
@@ -76,10 +70,19 @@ export class ChartsComponent implements OnInit {
     this.charService.get_gender().subscribe(
       (res: CharOne[]) => {
         this.gendercount = res;
-        console.log(this.gendercount);
+        // console.log(this.gendercount);
       },
       (err) => {
         this.error = err;
+      }, () => {
+        // this.barChartData = [
+        //   {data: [this.gendercount[1].value], label: this.gendercount[1].gender},
+        //   {data: [this.gendercount[0].value], label: this.gendercount[0].gender}
+        // ];
+        this.barChartData = [];
+        this.gendercount.forEach(x => {
+          this.barChartData.push({data: [x.value], label: x.gender});
+        });
       }
     );
   }
@@ -104,6 +107,13 @@ export class ChartsComponent implements OnInit {
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        this.incomecount.forEach(x => {
+          this.doughnutChartData.push(x.value);
+          this.doughnutChartLabels.push(x.incoming);
+        });
       }
     );
   }
@@ -116,6 +126,13 @@ export class ChartsComponent implements OnInit {
       },
       (err) => {
         this.error = err;
+      }, () => {
+        this.lineChartData = [];
+        this.lineChartLabels = [];
+        this.reservationcount.forEach(x => {
+          this.lineChartData.push(x.value);
+          this.lineChartLabels.push(x.month);
+        });
       }
     );
   }

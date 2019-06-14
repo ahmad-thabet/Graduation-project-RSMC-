@@ -29,12 +29,13 @@ export class ChartServiceService {
     return this.http.get(`${this.url}/count/gender-count`, {responseType: 'json'}).pipe(
       map((res) => {
         this.charone = res[`data`];
-        console.log(this.charone);
+        // console.log(this.charone);
         return this.charone;
       }),
       catchError(this.handleError));
 
   }
+
   get_clinics(): Observable<CharTwo[]> {
     return this.http.get(`${this.url}/count/clinic-count`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -45,6 +46,7 @@ export class ChartServiceService {
       catchError(this.handleError));
 
   }
+
   get_income(): Observable<CharThree[]> {
     return this.http.get(`${this.url}/count/count-income`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -55,6 +57,7 @@ export class ChartServiceService {
       catchError(this.handleError));
 
   }
+
   get_reservation(): Observable<CharFour[]> {
     return this.http.get(`${this.url}/count/reservation-count`, {responseType: 'json'}).pipe(
       map((res) => {
@@ -66,6 +69,7 @@ export class ChartServiceService {
 
   }
 }
+
 interface CharOne {
   value: number;
   gender: string;
