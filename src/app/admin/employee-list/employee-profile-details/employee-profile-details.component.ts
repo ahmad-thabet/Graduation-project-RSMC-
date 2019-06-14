@@ -18,8 +18,9 @@ export class EmployeeProfileDetailsComponent implements OnInit {
 
   fromdate = new Date();
   todate = new Date();
-
-  allActivity: Activity[] = [
+error = '' ;
+  allActivity: Activity[];
+  /*= [
     {
       patientID: 23,
       firstname: 'Ahmad',
@@ -41,7 +42,7 @@ export class EmployeeProfileDetailsComponent implements OnInit {
     }
 
   ];
-
+*/
   constructor(private employeeService: EmployeeServiceService, private route: ActivatedRoute) {
   }
 
@@ -51,9 +52,22 @@ export class EmployeeProfileDetailsComponent implements OnInit {
       this.id = +params[`id`];
       this.employee = this.employeeService.employees[this.id];
     });
+    console.log(this.employee.empID);
+    this.load_activity(this.employee.empID);
   }
 
-  onDateChanged() {
+  private load_activity(empID: string) {
+    this.employeeService.get_activity(empID).subscribe(
+      (res: Activity[]) => {
+        this.allActivity = res;
+        console.log(this.allActivity);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+  dateChanged() {
     // do query when date changed
     // TODO: implement this
   }

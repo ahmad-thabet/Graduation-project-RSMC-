@@ -15,7 +15,7 @@ export class EmployeeServiceService {
   jobs: Job[];
   sp: Specialist[];
   employees: Employee[];
-
+  activity: Activity[];
   url = this.appComponent.getURL();
 
   constructor(private appComponent: AppComponent,
@@ -77,4 +77,22 @@ export class EmployeeServiceService {
         }),
         catchError(this.handleError));
   }
+
+  get_activity(empID: string): Observable<Activity[]> {
+    return this.http.get(`${this.url}/employee/get/get-history.php?rempID=` + empID, {responseType: 'json'}).pipe(
+      map((res) => {
+        this.activity = res[`data`];
+        console.log(this.activity);
+        return this.activity;
+      }),
+      catchError(this.handleError));
+  }
+}
+
+interface Activity {
+  patientID: number;
+  firstname: string;
+  lastname: string;
+  activity: string;
+  date: string;
 }
