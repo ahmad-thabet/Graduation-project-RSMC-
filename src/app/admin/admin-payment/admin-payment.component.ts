@@ -128,4 +128,14 @@ export class AdminPaymentComponent implements OnInit {
     modalRef.componentInstance.employeeID = this.authService.getUserId();
     modalRef.componentInstance.patientID = patientID;
   }
+
+  printTable() {
+    const printContent = document.getElementById('tableTable');
+    const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+    WindowPrt.document.write(printContent.outerHTML);
+    WindowPrt.document.close();
+    WindowPrt.focus();
+    WindowPrt.print();
+    WindowPrt.close();
+  }
 }

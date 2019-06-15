@@ -62,3 +62,13 @@ a {
   border-top: 1px solid #e7ebee;
   padding: 12px 8px;
 }
+
+
+@media print {
+  * {
+    display: none;
+  }
+  #tableTable {
+    display: block;
+  }
+}

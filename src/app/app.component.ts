@@ -14,8 +14,10 @@ export class AppComponent {
   private apiUrl = 'http://localhost:8080/api';
 
   /*For Windows*/
-
   // private apiUrl = 'http://localhost/api';
+
+
+
 
 
   getURL() {

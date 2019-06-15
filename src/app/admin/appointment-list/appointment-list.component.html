@@ -72,8 +72,8 @@
           Done
         </button>
       </td>
-      <td *ngIf="getPaymentById(x.appID) == null">0</td>
-      <td *ngIf="getPaymentById(x.appID) !== null">{{getPaymentById(x.appID)}}</td>
+      <td *ngIf="getPaymentById(x.appID) == 'null'">0</td>
+      <td *ngIf="getPaymentById(x.appID) !== 'null'">{{getPaymentById(x.appID)}}</td>
       <td>
         <button (click)="openAddComponent(x.patientID)"
                 class="btn btn-info btn-sm"
@@ -85,5 +85,8 @@
     </tr>
     </tbody>
   </table>
+  <div class="col">
+    <button class="btn btn-outline-info btn-sm" (click)="printTable()">Print Table</button>
+  </div>
   <!--Table-->
 </div>

@@ -4,8 +4,8 @@
 }
 
 body {
-/*  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);*/
+  /*  background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);*/
   /*
   background-image: url("https://i0.wp.com/www.knoxalliance.store/wp-content/uploads/2017/05/light-color-background-images-for-website-top-hd-images-for-free-background-for-website-in-light-color-1-1024x640.jpg?ssl=1");
   */
@@ -117,7 +117,7 @@ body {
   background-color: #3b5998;
 }
 
-.custom-select,.form-control {
+.custom-select, .form-control {
   height: auto;
   border-radius: 2rem;
   border: 1px solid #AAAAAA;

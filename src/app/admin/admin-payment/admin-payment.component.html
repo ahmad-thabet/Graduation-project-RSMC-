@@ -50,7 +50,7 @@
       <div class="main-box no-header clearfix">
         <div class="main-box-body clearfix">
           <div class="table-responsive">
-            <table class="table user-list">
+            <table class="table user-list" id="tableTable">
               <thead>
               <tr>
                 <th><span>#</span></th>
@@ -82,9 +82,13 @@
               </tr>
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="col">
+    <button class="btn btn-outline-info btn-sm" (click)="printTable()">Print Table</button>
   </div>
 </div>
