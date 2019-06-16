@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AppointmentPrice} from '../../models/appointmentprice.model';
 import {Appointment} from '../../models/appointment.model';
 import {ClinicDoctor} from '../../models/clinic-doctor.model';
 import {Clinic} from '../../models/clinic.model';
@@ -14,8 +13,8 @@ import {MessageService} from 'primeng/api';
 import {PaymentServiceService} from '../../service/payment-service.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
-import {PaymentPopupComponent} from '../../admin/appointment-list/payment-popup/payment-popup.component';
 import {DoctorPatientHistoryComponent} from '../doctor-patient-history/doctor-patient-history.component';
+import {Patient} from '../../models/patient.model';
 
 @Component({
   selector: 'app-doctor-schedule',
@@ -46,6 +45,8 @@ export class DoctorScheduleComponent implements OnInit {
   doctorsSchedule: Schadule[] = [];
   doctorsSchedules: Schadule[] = [];
 
+  patients: Patient[] = [];
+
   constructor(private clinicService: ClinicServiceService,
               private appointmentService: AppoinmentServiceService,
               private patinetservice: PatinetSeviceService,
@@ -54,7 +55,8 @@ export class DoctorScheduleComponent implements OnInit {
               private messageService: MessageService,
               private paymentService: PaymentServiceService,
               private modalService: NgbModal,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private patinetService: PatinetSeviceService) {
   }
 
   ngOnInit() {
@@ -63,6 +65,7 @@ export class DoctorScheduleComponent implements OnInit {
     this.loadalldoctors();
     this.loadAppointmant();
     this.loadClinics();
+    this.loadpatient();
 
     setInterval(() => {
       this.loadAppointmant();
@@ -120,6 +123,13 @@ export class DoctorScheduleComponent implements OnInit {
     );
   }
 
+  getPatientName(patientID: any) {
+    const k = this.patients.findIndex(x => x.patientID.toString() === patientID.toString());
+    if (k !== -1) {
+      return this.patients[k].firstname + ' ' + this.patients[k].lastname;
+    }
+  }
+
   doctorSelected(value: any) {
     this.selectedDoctor = value;
     if (this.selectedDoctor !== '-- Doctor --') {
@@ -133,7 +143,7 @@ export class DoctorScheduleComponent implements OnInit {
   getClinicName(value: any) {
     const k = this.clinics.findIndex(x => x.clinicID === value);
     if (k !== -1) {
-      return JSON.stringify(this.clinics[k].clinicname);
+      return this.clinics[k].clinicname;
     }
   }
 
@@ -189,5 +199,17 @@ export class DoctorScheduleComponent implements OnInit {
     const modalRef = this.modalService.open(DoctorPatientHistoryComponent);
     modalRef.componentInstance.employeeID = this.authService.getUserId();
     modalRef.componentInstance.patientID = patientID;
+  }
+
+  private loadpatient() {
+    this.patinetService.get_patient().subscribe(
+      (res: Patient[]) => {
+        this.patients = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }

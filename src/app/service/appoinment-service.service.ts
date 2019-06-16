@@ -120,7 +120,7 @@ export class AppoinmentServiceService {
   }
 
   get_patientAppointmnet(patientID: number, fromdate: string): Observable<Appointment[]> {
-    return this.http.get(`${this.url}/appointment/get/get-bypatientID.php?patientID=` + patientID + `&fromdate=` + fromdate,
+    return this.http.get(`${this.url}/appointment/get/get-byPatientID.php?patientID=` + patientID + `&fromdate=` + fromdate,
       {responseType: 'json'}).pipe(
       map((res) => {
         this.appintments = res[`data`];

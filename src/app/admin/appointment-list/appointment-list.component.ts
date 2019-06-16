@@ -162,14 +162,14 @@ export class AppointmentListComponent implements OnInit {
   getDoctorName(value: any) {
     const k = this.doctorsID.findIndex(x => x.empID === value);
     if (k !== -1) {
-      return JSON.stringify(this.doctorsID[k].firstname + ' ' + this.doctorsID[k].lastname);
+      return this.doctorsID[k].firstname + ' ' + this.doctorsID[k].lastname;
     }
   }
 
   getClinicName(value: any) {
     const k = this.clinics.findIndex(x => x.clinicID === value);
     if (k !== -1) {
-      return JSON.stringify(this.clinics[k].clinicname);
+      return this.clinics[k].clinicname;
     }
   }
 

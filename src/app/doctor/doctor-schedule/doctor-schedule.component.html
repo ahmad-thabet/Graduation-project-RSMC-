@@ -23,13 +23,13 @@
       <th>#</th>
       <th>ID</th>
       <th>PatientID</th>
+      <th>Patient Name</th>
       <th>Clinic</th>
       <th>Date</th>
       <th>From</th>
       <th>Checked</th>
-      <th>Done</th>
       <th>History</th>
-
+      <th>Done</th>
     </tr>
     </thead>
     <tbody>
@@ -37,6 +37,7 @@
       <th scope="row">{{i}}</th>
       <td>{{x.appID}}</td>
       <td>{{x.patientID}}</td>
+      <td>{{getPatientName(x.patientID)}}</td>
       <td>{{getClinicName(x.clinicID)}}</td>
       <td>{{x.adate}}</td>
       <td>{{x.slottime}}</td>
@@ -72,6 +73,14 @@
         <button type="button"
                 class="btn btn-success btn-sm"
                 (click)=done_checkin(x)
+        >
+          Mark As Done
+        </button>
+      </td>
+      <td *ngIf="x.checkin == 0">
+        <button type="button"
+                class="btn btn-outline-danger btn-sm"
+                disabled
         >
           Mark As Done
         </button>
