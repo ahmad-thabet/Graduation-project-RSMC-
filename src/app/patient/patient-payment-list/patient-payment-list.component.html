@@ -3,11 +3,11 @@
   <div class="row">
     <div class="col">
       <label>Total Balance </label>
-      <input type="text" class="form-control" disabled>
+      <input type="text" class="form-control" [(ngModel)]="totalBalance" disabled>
     </div>
     <div class="col">
       <label>Last Payment Date </label>
-      <input type="text" class="form-control" disabled>
+      <input type="text" class="form-control" [(ngModel)]="lastPaymentDate" disabled>
     </div>
   </div>
 </div>
@@ -21,18 +21,20 @@
             <table class="table user-list">
               <thead>
               <tr>
-                <th><span>Employee Name</span></th>
+                <th><span>#</span></th>
                 <th><span>Amount</span></th>
                 <th><span>Type</span></th>
-                <th><span>Last Pay Date</span></th>
+                <th><span>Date</span></th>
+                <th><span>Employee Name</span></th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let x of payments; let i = index">
-                <td>{{x.empName}}</td>
+                <td>{{i}}</td>
                 <td>{{x.amount}}</td>
-                <td>{{x.type}}</td>
-                <td>{{x.lastPayDate}}</td>
+                <td>{{x.paymenttype}}</td>
+                <td>{{x.senddate}}</td>
+                <td>{{getEmployeeName(x.empID)}}</td>
               </tr>
               </tbody>
             </table>

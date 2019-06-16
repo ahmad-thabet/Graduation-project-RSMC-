@@ -16,7 +16,7 @@ import {Payment} from '../models/payment.model';
 export class PaymentServiceService {
   payment: Patientpayment[];
   details: Paymentdetails[];
-payments: Payment[];
+  payments: Payment[];
   url = this.appComponent.getURL();
 
   constructor(private appComponent: AppComponent,
@@ -69,6 +69,7 @@ payments: Payment[];
         }),
         catchError(this.handleError));
   }
+
   get_payments(): Observable<Payment[]> {
     return this.http.get(`${this.url}/payment/get/get-payments`, {responseType: 'json'}).pipe(
       map((res) => {
