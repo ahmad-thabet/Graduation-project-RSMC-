@@ -14,6 +14,8 @@ import {MessageService} from 'primeng/api';
 import {PaymentServiceService} from '../../service/payment-service.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
+import {PaymentPopupComponent} from '../../admin/appointment-list/payment-popup/payment-popup.component';
+import {DoctorPatientHistoryComponent} from '../doctor-patient-history/doctor-patient-history.component';
 
 @Component({
   selector: 'app-doctor-schedule',
@@ -160,6 +162,7 @@ export class DoctorScheduleComponent implements OnInit {
   appointmentDone(appID: number) {
 
   }
+
   done_checkin(CurrentAppointment: any) {
     this.appointmentService.update_done(CurrentAppointment)
       .subscribe(
@@ -176,8 +179,15 @@ export class DoctorScheduleComponent implements OnInit {
         }
       );
   }
+
   private loadDoctorId() {
     this.doctorID = this.authService.emp.empID;
     console.log('doctor id: ' + this.doctorID);
+  }
+
+  openHistoryComponent(patientID: any) {
+    const modalRef = this.modalService.open(DoctorPatientHistoryComponent);
+    modalRef.componentInstance.employeeID = this.authService.getUserId();
+    modalRef.componentInstance.patientID = patientID;
   }
 }

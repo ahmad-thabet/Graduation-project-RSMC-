@@ -79,9 +79,9 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {InsuranceAddClinicsComponent} from './admin/insurance/insurance-add-clinics/insurance-add-clinics.component';
 import {PaymentPopupComponent} from './admin/appointment-list/payment-popup/payment-popup.component';
 import {RadioButtonModule} from 'primeng/primeng';
-import { PatientAppointmentListComponent } from './patient/patient-appointment-list/patient-appointment-list.component';
-import { DoctorPatientHistoryComponent } from './doctor/doctor-patient-history/doctor-patient-history.component';
-import { PatientUpdateAppointmentComponent } from './patient/patient-appointment-list/patient-update-appointment/patient-update-appointment.component';
+import {PatientAppointmentListComponent} from './patient/patient-appointment-list/patient-appointment-list.component';
+import {DoctorPatientHistoryComponent} from './doctor/doctor-patient-history/doctor-patient-history.component';
+import {PatientUpdateAppointmentComponent} from './patient/patient-appointment-list/patient-update-appointment/patient-update-appointment.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent, pathMatch: 'full'},
@@ -134,7 +134,8 @@ const appRoutes: Routes = [
       {path: '', component: DoctorScheduleComponent},
       {path: 'schedule', component: DoctorScheduleComponent},
       {path: 'vacation', component: DoctorVacationComponent},
-      {path: 'exception', component: DoctorExceptionComponent}
+      {path: 'exception', component: DoctorExceptionComponent},
+      {path: '**', component: DoctorScheduleComponent}
     ]
   },
   {
@@ -271,7 +272,8 @@ const appRoutes: Routes = [
   entryComponents: [
     InsuranceAddClinicsComponent,
     PaymentPopupComponent,
-    PatientUpdateAppointmentComponent
+    PatientUpdateAppointmentComponent,
+    DoctorPatientHistoryComponent
   ]
 })
 export class AppModule {
