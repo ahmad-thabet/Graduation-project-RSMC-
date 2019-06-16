@@ -27,9 +27,6 @@ export class AddAppointmentComponent implements OnInit {
   selectedClinic: any;
   selectedDoctor: any;
 
-  selectedAppointment: any;
-  selectedPatient: any;
-
   appointments: Appointment[];
   appointment = new Appointment(0, 0, 0, 0, 0, '', '');
 
@@ -145,19 +142,20 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   setDateFormat() {
-    this.appointment.adate = '';
-    this.appointment.adate += this.date5.getUTCFullYear();
-    if (+this.date5.getUTCMonth() < 10) {
-      this.appointment.adate += '-0' + (+this.date5.getUTCMonth() + 1);
+    let x = '';
+    x += this.date5.getFullYear();
+    if (this.date5.getMonth() < 10) {
+      x += '-0' + (this.date5.getMonth() + 1);
     } else {
-      this.appointment.adate += '-' + (+this.date5.getUTCMonth() + 1);
+      x += '-' + (this.date5.getMonth() + 1);
     }
-
-    if (+this.date5.getUTCDate() < 10) {
-      this.appointment.adate += '-0' + this.date5.getUTCDate();
+    if (this.date5.getDate() < 10) {
+      x += '-0' + this.date5.getDate();
     } else {
-      this.appointment.adate += '-' + this.date5.getUTCDate();
+      x += '-' + this.date5.getDate();
     }
+    this.appointment.adate = x;
+    console.log(this.appointment.adate);
   }
 
   setTimeSlots() {

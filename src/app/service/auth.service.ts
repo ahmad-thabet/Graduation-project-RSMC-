@@ -34,23 +34,21 @@ export class AuthService {
 
   url = this.appComponent.getURL();
 
-  // return date format
+  // return date formt
   setDateFormat(date: Date) {
-    let returnDate = '';
-    returnDate += date.getUTCFullYear();
-
-    if (+date.getUTCMonth() < 10) {
-      returnDate += '-0' + (+date.getUTCMonth() + 1);
+    let x = '';
+    x += date.getFullYear();
+    if (date.getMonth() < 10) {
+      x += '-0' + (date.getMonth() + 1);
     } else {
-      returnDate += '-' + (+date.getUTCMonth() + 1);
+      x += '-' + (date.getMonth() + 1);
     }
-
-    if (+date.getUTCDate() < 10) {
-      returnDate += '-0' + date.getUTCDate();
+    if (date.getDate() < 10) {
+      x += '-0' + date.getDate();
     } else {
-      returnDate += '-' + date.getUTCDate();
+      x += '-' + date.getDate();
     }
-    return returnDate;
+    return x;
   }
 
   login(user: User) {

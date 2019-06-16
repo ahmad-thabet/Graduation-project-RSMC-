@@ -12,6 +12,7 @@ import {ScheduleServiceService} from '../../service/schedule-service.service';
 import {Schadule} from '../../models/schedule.model';
 import {MessageService} from 'primeng/api';
 import {AuthService} from '../../service/auth.service';
+import {DateTime} from 'rrule/dist/esm/src/datetime';
 
 @Component({
   selector: 'app-appointment-create',
@@ -123,7 +124,6 @@ export class AppointmentCreateComponent implements OnInit {
     return JSON.stringify(this.appointment);
   }
 
-
   clinicSelected(id: any) {
     this.selectedClinic = id;
     this.doctorsIDs.splice(0, this.doctorsIDs.length);
@@ -138,19 +138,20 @@ export class AppointmentCreateComponent implements OnInit {
   }
 
   setDateFormat() {
-    this.appointment.adate = '';
-    this.appointment.adate += this.date5.getUTCFullYear();
-    if (+this.date5.getUTCMonth() < 10) {
-      this.appointment.adate += '-0' + (+this.date5.getUTCMonth() + 1);
+    let x = '';
+    x += this.date5.getFullYear();
+    if (this.date5.getMonth() < 10) {
+      x += '-0' + (this.date5.getMonth() + 1);
     } else {
-      this.appointment.adate += '-' + (+this.date5.getUTCMonth() + 1);
+      x += '-' + (this.date5.getMonth() + 1);
     }
-
-    if (+this.date5.getUTCDate() < 10) {
-      this.appointment.adate += '-0' + this.date5.getUTCDate();
+    if (this.date5.getDate() < 10) {
+      x += '-0' + this.date5.getDate();
     } else {
-      this.appointment.adate += '-' + this.date5.getUTCDate();
+      x += '-' + this.date5.getDate();
     }
+    this.appointment.adate = x;
+    console.log(this.appointment.adate);
   }
 
   setTimeSlots() {
@@ -277,9 +278,6 @@ export class AppointmentCreateComponent implements OnInit {
             summary: 'Created Successfully',
             detail: ''
           });
-          // Reset the form
-          f.reset();
-          this.AllApoin = [];
         },
         (err) => {
           this.error = err;

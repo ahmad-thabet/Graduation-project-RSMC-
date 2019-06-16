@@ -17,12 +17,13 @@
                     [disabledDates]="invalidDates"
                     [minDate]="minDate"
                     [maxDate]="maxDate"
-                    [readonlyInput]="true"
                     name="datepicker"
                     (ngModelChange)="setTimeSlots()"
                     [inline]="true"
                     [disabled]="appointment.empID == 0"
         >
+          <!--[readonlyInput]="true"-->
+
           <ng-template pTemplate="date" let-date>
             <span [ngStyle]="{backgroundColor: invalidDates ? '#81C784' : 'inherit'}"
                   style="border-radius:50%;padding: .25em;width: 1.5em; height:1.75em; display:block;">{{date.day}}</span>
@@ -30,24 +31,24 @@
         </p-calendar>
       </div>
       <div class="col">
-          <div class="row">
-            <label>Select Patient</label>
-            <select class="custom-select"
-                    id="patient"
-                    name="patient"
-                    #patient
-                    [(ngModel)]="appointment.patientID"
-                    (change)="selectedPatient = patient.value">
-              <option selected> -- Patient --</option>
-              <option *ngFor="let x of patients"
-                      [value]="[x.patientID]">{{x.firstname}} {{x.secondname}} {{x.lastname}}</option>
-            </select>
-          </div>
-          <div class="row">
-            <label>ID:</label>
-            <input type="text" class="form-control" id="patientID" name="patientID" [(ngModel)]="appointment.patientID"
-                   placeholder="Search Patient by ID">
-          </div>
+        <div class="row">
+          <label>Select Patient</label>
+          <select class="custom-select"
+                  id="patient"
+                  name="patient"
+                  #patient
+                  [(ngModel)]="appointment.patientID"
+                  (change)="selectedPatient = patient.value">
+            <option selected> -- Patient --</option>
+            <option *ngFor="let x of patients"
+                    [value]="[x.patientID]">{{x.firstname}} {{x.secondname}} {{x.lastname}}</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>ID:</label>
+          <input type="text" class="form-control" id="patientID" name="patientID" [(ngModel)]="appointment.patientID"
+                 placeholder="Search Patient by ID">
+        </div>
         <div class="row">
           <label for="clinic">Select Clinic</label>
           <select class="custom-select" id="clinic" name="clinic" #clinic
@@ -77,7 +78,8 @@
                   #appoint
                   [(ngModel)]="appointment.slottime">
             <option selected> -- Select Time --</option>
-            <option *ngFor="let x of AllApoin" [disabled]="isNotReserved(x)" [value]="[x.start]">{{x.start}} - {{x.end}}</option>
+            <option *ngFor="let x of AllApoin" [disabled]="isNotReserved(x)" [value]="[x.start]">{{x.start}}
+              - {{x.end}}</option>
           </select>
         </div>
       </div>
