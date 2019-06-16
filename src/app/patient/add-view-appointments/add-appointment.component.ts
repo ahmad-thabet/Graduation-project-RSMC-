@@ -365,6 +365,17 @@ export class AddAppointmentComponent implements OnInit {
       && x.slottime.split(':')[1] === slot.start.split(':')[1]
       && x.adate === this.appointment.adate);
   }
+
+  validateForm() {
+    if (this.appointment.clinicID === 0
+      || this.appointment.empID === 0
+      || this.appointment.adate === ''
+      || this.appointment.slottime === '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 interface Appoin {
