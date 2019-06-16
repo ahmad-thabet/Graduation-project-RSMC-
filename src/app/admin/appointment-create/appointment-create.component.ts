@@ -384,6 +384,18 @@ export class AppointmentCreateComponent implements OnInit {
       }
     );
   }
+
+  ValidateForm() {
+    if (this.appointment.clinicID === 0
+      || this.appointment.empID === 0
+      || this.appointment.patientID === 0
+      || this.appointment.adate === ''
+      || this.appointment.slottime === '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 interface Appoin {
