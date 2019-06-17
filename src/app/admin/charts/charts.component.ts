@@ -82,13 +82,9 @@ export class ChartsComponent implements OnInit {
       (err) => {
         this.error = err;
       }, () => {
-        // this.barChartData = [
-        //   {data: [this.gendercount[1].value], label: this.gendercount[1].gender},
-        //   {data: [this.gendercount[0].value], label: this.gendercount[0].gender}
-        // ];
         this.barChartData = [];
         this.gendercount.forEach(x => {
-          this.barChartData.push({data: [x.value], label: x.gender});
+          this.barChartData.push({data: [x.value, 0, 0], label: x.gender});
         });
       }
     );

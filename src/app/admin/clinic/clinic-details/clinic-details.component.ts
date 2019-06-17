@@ -109,6 +109,7 @@ export class ClinicDetailsComponent implements OnInit {
     this.clinicService.getdoctors().subscribe(
       (res: Employee[]) => {
         this.doctors = res;
+        console.log('docs: ' + this.doctors);
       },
       (err) => {
         this.error = err;
