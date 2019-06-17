@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DoctorServiceService} from '../../service/doctor-service.service';
 import {Exception} from '../../models/exception.model';
+import {Employee} from '../../models/employee.model';
+import {Vacation} from '../../models/vacation.model';
+import {EmployeeServiceService} from '../../service/employee-service.service';
 
 @Component({
   selector: 'app-exception-date',
@@ -13,12 +16,18 @@ export class ExceptionDateComponent implements OnInit {
   sucssess = '';
   error = '';
 
-  constructor(private doctorService: DoctorServiceService) {
+  doctors: Employee[] = [];
+
+
+  constructor(private doctorService: DoctorServiceService,
+              private employeeService: EmployeeServiceService) {
   }
 
   ngOnInit() {
+    this.loadDoctors();
     this.loadexception();
   }
+
   private loadexception() {
     this.doctorService.get_exception().subscribe(
       (res: Exception[]) => {
@@ -28,5 +37,32 @@ export class ExceptionDateComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  getDoctorName(value: any) {
+    const k = this.doctors.findIndex(x => x.empID === value);
+    if (k !== -1) {
+      return this.doctors[k].firstname + ' ' + this.doctors[k].lastname;
+    }
+  }
+
+  private loadDoctors() {
+    this.employeeService.get_employee().subscribe(
+      (res: Employee[]) => {
+        this.doctors = res;
+
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
+
+  approve(x: Exception) {
+
+  }
+
+  decline(x: Exception) {
+
   }
 }

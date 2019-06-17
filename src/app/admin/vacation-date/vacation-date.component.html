@@ -11,28 +11,34 @@
               <table class="table user-list">
                 <thead>
                 <tr>
-                  <th><span>ID</span></th>
                   <th><span>Name</span></th>
                   <th><span>Date</span></th>
+                  <th><span>Time</span></th>
                   <th><span>Reason</span></th>
                   <th><span>Status</span></th>
                   <th><span>&nbsp;</span></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let x of vacations; let i = index">
-                  <td>{{x.empID}}</td>
-                  <td>{{"hasan"}}</td>
+                <tr *ngFor="let x of vacations">
+                  <td>{{getDoctorName(x.empID)}}</td>
                   <td>{{x.vdate}}</td>
+                  <td>{{x.start}} - {{x.end}}</td>
                   <td>{{x.note}}</td>
-                  <td>{{"pin"}}</td>
+                  <td>{{"Pending"}}</td>
                   <td>
-                    <a class="table-link">
-                      <span class="fa fa-check-circle"></span>
-                    </a>
-                    <a [routerLink]="[i,'edit']" class="table-link">
-                      <span class="fa fa-times-circle"></span>
-                    </a>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button (click)="approve(x)"
+                              class="btn btn-outline-success btn-sm"
+                      >
+                        Approve
+                      </button>
+                      <button (click)="decline(x)"
+                              class="btn btn-outline-danger btn-sm"
+                      >
+                        Decline
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 </tbody>
@@ -44,5 +50,3 @@
     </div>
   </div>
 </div>
-
-<app-doctor-vacation></app-doctor-vacation>

@@ -11,28 +11,30 @@
               <table class="table user-list">
                 <thead>
                 <tr>
-                  <th><span>ID</span></th>
                   <th><span>Name</span></th>
-                  <th><span>From</span></th>
-                  <th><span>To</span></th>
-                  <th><span>Status</span></th>
+                  <th><span>Date</span></th>
+                  <th><span>Time</span></th>
                   <th><span>&nbsp;</span></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let x of exceptions; let i = index">
-                  <td>{{x.empID}}</td>
-                  <td>{{x.empID}}</td>
+                <tr *ngFor="let x of exceptions">
+                  <td>{{getDoctorName(x.empID)}}</td>
                   <td>{{x.edate}}</td>
-                  <td>{{x.start}}</td>
-                  <td>{{x.status}}</td>
+                  <td>{{x.start}} - {{x.end}}</td>
                   <td>
-                    <a class="table-link">
-                      <span class="fa fa-check-circle"></span>
-                    </a>
-                    <a class="table-link">
-                      <span class="fa fa-times-circle"></span>
-                    </a>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button (click)="approve(x)"
+                              class="btn btn-outline-success btn-sm"
+                      >
+                        Approve
+                      </button>
+                      <button (click)="decline(x)"
+                              class="btn btn-outline-danger btn-sm"
+                      >
+                        Decline
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 </tbody>
@@ -44,4 +46,3 @@
     </div>
   </div>
 </div>
-<app-doctor-exception></app-doctor-exception>

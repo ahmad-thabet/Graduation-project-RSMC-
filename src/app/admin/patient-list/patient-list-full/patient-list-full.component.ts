@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Patient} from '../../../models/patient.model';
 import {PatinetSeviceService} from '../../../service/patinet-sevice.service';
 import {InsuranceServiceService} from '../../../service/insurance-service.service';
+import {Employee} from '../../../models/employee.model';
+import {EmployeeServiceService} from '../../../service/employee-service.service';
 
 @Component({
   selector: 'app-patient-list-full',
@@ -11,6 +13,7 @@ import {InsuranceServiceService} from '../../../service/insurance-service.servic
 export class PatientListFullComponent implements OnInit {
   patients: Patient[];
   allPatients: Patient[];
+
   error = '';
   success = '';
 
@@ -51,4 +54,6 @@ export class PatientListFullComponent implements OnInit {
   clearSearch() {
     this.patients = this.allPatients;
   }
+
+
 }
