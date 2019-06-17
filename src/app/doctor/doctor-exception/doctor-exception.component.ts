@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DoctorServiceService} from '../../service/doctor-service.service';
 import {Exception} from '../../models/exception.model';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-doctor-exception',
@@ -9,7 +10,7 @@ import {Exception} from '../../models/exception.model';
 })
 export class DoctorExceptionComponent implements OnInit {
   exception = new Exception(0, 0, new Date(), '', '', '', false);
-  selectedDate: Date = new Date();
+
   fromtime: Date = new Date();
   totime: Date = new Date();
   notes = '';
@@ -17,29 +18,20 @@ export class DoctorExceptionComponent implements OnInit {
   success = '';
   error = '';
 
-  constructor(private doctorService: DoctorServiceService) {
+  constructor(private doctorService: DoctorServiceService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
+    this.loadDoctorId();
     this.loadexceprion();
   }
 
-  /*  add_exception(f) {
-      this.doctorService.add_exception()
-        .subscribe(
-          (res: Any[]) => {
-            // Update the list of cars
-            this.patients = res;
-            // Inform the user
-            console.log(this.patients);
-            this.success = 'Created successfully';
-            console.log(this.success);
-            // Reset the form
-            f.reset();
-          },
-          (err) => this.error = err
-        );
-    }*/
+  private loadDoctorId() {
+    const k = this.authService.emp.empID;
+    this.exception.empID = +k;
+  }
+
   add_exception(f) {
     this.doctorService.add_exception(this.exception)
       .subscribe(

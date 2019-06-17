@@ -1,5 +1,3 @@
-import {Time} from '@angular/common';
-
 export class Vacation {
   public clinicID: number;
   public empID: number;
@@ -14,6 +12,7 @@ export class Vacation {
               start: string,
               end: string,
               note: string) {
+
     this.clinicID = clinicID;
     this.empID = empID;
     this.vdate = vdate;
