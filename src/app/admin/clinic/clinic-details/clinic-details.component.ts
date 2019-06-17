@@ -21,7 +21,8 @@ export class ClinicDetailsComponent implements OnInit {
   insuranceprice = new InsurancePrice(0, 0, 0, 0);
   clinicdoctor = new ClinicDoctor(0, this.id);
   clinic = new Clinic('', 0);
-  employee = new Employee('', '', '', '', '', '', '', '', new Date(), '', '', '', '', '',
+  employee = new Employee('', '', '', '',
+    '', '', '', '', new Date(), '', '', '', '', '',
     '', '', '', '');
   doctors: Employee[];
   clinics: Clinic[] = [];
@@ -34,9 +35,6 @@ export class ClinicDetailsComponent implements OnInit {
 
   insurances: Insurance[];
   subinsurances: Subinsurance[];
-
-/*  AllInsurance: any[];
-  AllMempership: any[];*/
 
 
   constructor(private clinicService: ClinicServiceService,
@@ -142,5 +140,11 @@ export class ClinicDetailsComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+
+  selectDoctor(value: string) {
+    console.log(value);
+    this.clinicdoctor.empID = +value;
+
   }
 }

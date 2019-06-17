@@ -13,7 +13,6 @@ import {MessageService} from 'primeng/api';
 import {PaymentServiceService} from '../../service/payment-service.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
-import {PaymentPopupComponent} from '../../admin/appointment-list/payment-popup/payment-popup.component';
 import {PatientUpdateAppointmentComponent} from './patient-update-appointment/patient-update-appointment.component';
 
 @Component({

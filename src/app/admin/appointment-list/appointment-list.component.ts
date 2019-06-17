@@ -16,6 +16,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../service/auth.service';
 import {PaymentPopupComponent} from './payment-popup/payment-popup.component';
 import {AppointmentPrice} from '../../models/appointmentprice.model';
+import {PatientUpdateAppointmentComponent} from '../../patient/patient-appointment-list/patient-update-appointment/patient-update-appointment.component';
 
 @Component({
   selector: 'app-appointment-list',
@@ -254,5 +255,11 @@ export class AppointmentListComponent implements OnInit {
     WindowPrt.focus();
     WindowPrt.print();
     WindowPrt.close();
+  }
+
+  openUpdateComponent(x: Appointment) {
+    const modalRef = this.modalService.open(PatientUpdateAppointmentComponent);
+    modalRef.componentInstance.title = 'Update Appointment';
+    modalRef.componentInstance.appointment = x;
   }
 }

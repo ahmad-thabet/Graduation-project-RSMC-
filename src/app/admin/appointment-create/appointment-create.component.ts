@@ -12,7 +12,6 @@ import {ScheduleServiceService} from '../../service/schedule-service.service';
 import {Schadule} from '../../models/schedule.model';
 import {MessageService} from 'primeng/api';
 import {AuthService} from '../../service/auth.service';
-import {DateTime} from 'rrule/dist/esm/src/datetime';
 
 @Component({
   selector: 'app-appointment-create',
@@ -25,7 +24,6 @@ export class AppointmentCreateComponent implements OnInit {
   selectedClinic: any;
   selectedDoctor: any;
 
-  selectedAppointment: any;
   selectedPatient: any;
 
   appointments: Appointment[];

@@ -35,7 +35,8 @@
       <th>Clinic</th>
       <th>Doctor</th>
       <th>Date</th>
-      <th>From</th>
+      <th>Time</th>
+      <th>Update</th>
       <th>Checked</th>
       <th>Amount</th>
       <th>Payment</th>
@@ -50,6 +51,14 @@
       <td>{{getDoctorName(x.empID)}}</td>
       <td>{{x.adate}}</td>
       <td>{{x.slottime}}</td>
+      <td>
+        <button type="button"
+                class="btn btn-info btn-sm"
+                (click)="openUpdateComponent(x)"
+        >
+          Update
+        </button>
+      </td>
       <td *ngIf="x.checkin == 0">
         <button type="button"
                 (click)="checkin(x)"

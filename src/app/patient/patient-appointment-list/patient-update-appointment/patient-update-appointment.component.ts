@@ -38,6 +38,7 @@ export class PatientUpdateAppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.loadSchedule();
+    this.loadSlots();
     this.maxDate.setFullYear(this.minDate.getFullYear(), this.minDate.getMonth() + 11, this.minDate.getDay());
   }
 
@@ -212,6 +213,17 @@ export class PatientUpdateAppointmentComponent implements OnInit {
 
   getCurrentModel() {
     return JSON.stringify(this.appointment);
+  }
+
+  private loadSlots() {
+    this.appointmentService.getslots(this.appointment.empID, this.appointment.clinicID).subscribe(
+      (res: Appointment[]) => {
+        this.slots = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }
 

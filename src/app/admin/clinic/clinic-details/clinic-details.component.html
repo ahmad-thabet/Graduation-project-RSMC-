@@ -6,7 +6,7 @@
   <div class="col-md-10">
     <form (submit)="add_insurance_price(ff)" #ff="ngForm">
       <div class="row  align-items-center">
-        <div class="col">
+        <div class="col-10">
           <label>Price</label>
           <input type="text" class="form-control" id="price" name="price">
         </div>
@@ -14,49 +14,22 @@
           <label></label>
           <button class="btn btn-success btn-block" type="submit">Add</button>
         </div>
-<!--        <div class="col">
-          <label>discount</label>
-          <input type="checkbox" class="form-control" [(ngModel)]="hasDiscount" value="hasDiscount" id="hasDiscount"
-                 name="hasDiscount">
-        </div>-->
       </div>
     </form>
   </div>
 </div>
-<!--<hr *ngIf="hasDiscount">
-<div class="row justify-content-around" *ngIf="hasDiscount">
-  <div class="col-md-10">
-    <form (submit)="update_insurance_price(fff)" #fff="ngForm">
-      <div class="row  align-items-center">
-        <div class="col">
-          <label>Insurance Company</label>
-          <select class="custom-select" [(ngModel)]="clinicdoctor.empID" id="insuranceCompany" name="insuranceCompany">
-            <option *ngFor="let x of AllInsurance" [value]="[x.insuranceID]">{{x.company}}</option>
-          </select>
-        </div>
-        <div class="col">
-          <label>Membership</label>
-          <select class="custom-select" id="mempership" name="mempership">
-            <option *ngFor="let x of AllMempership" [value]="[x.subinsuranceID]">{{x.membership}}</option>
-          </select>
-        </div>
-        <div class="col">
-          <label></label>
-          <button class="btn btn-success btn-block" type="submit">Add</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
--->
 <hr>
 <div class="row justify-content-around">
   <div class="col-md-10">
     <form (submit)="add_doctorClinic(f)" #f="ngForm" name="theform">
       <div class="row  align-items-center">
-        <div class="col">
-          <label>Select Doctor from list</label>
-          <select class="custom-select" [(ngModel)]="clinicdoctor.empID" name="doctorlist">
+        <div class="col-10">
+          <label for="doctorlist">Select Doctor from list</label>
+          <select class="custom-select"
+                  #docList
+                  (change)="selectDoctor(docList.value)"
+                  name="doctorlist"
+                  id="doctorlist">
             <option *ngFor="let x of doctors"
                     [value]="[x.empID]">{{x.firstname}} {{x.secondname}} {{x.lastname}} </option>
           </select>
@@ -101,20 +74,20 @@
                 <td>{{empp.mobilenumber}}</td>
                 <td>{{empp.dateofbirth}}
                 </td>
-                <td>
-                  <a [routerLink]="[i]" class="table-link">
-                    <span class="fa-stack">
-                      <i class="fa fa-square fa-stack-2x"></i>
-                      <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                    </span>
-                  </a>
-                  <a [routerLink]="[i,'edit']" class="table-link">
-                     <span class="fa-stack">
-                       <i class="fa fa-square fa-stack-2x"></i>
-                       <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                     </span>
-                  </a>
-                </td>
+                <!--<td>-->
+                <!--<a [routerLink]="[i]" class="table-link">-->
+                <!--<span class="fa-stack">-->
+                <!--<i class="fa fa-square fa-stack-2x"></i>-->
+                <!--<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>-->
+                <!--</span>-->
+                <!--</a>-->
+                <!--<a [routerLink]="[i,'edit']" class="table-link">-->
+                <!--<span class="fa-stack">-->
+                <!--<i class="fa fa-square fa-stack-2x"></i>-->
+                <!--<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>-->
+                <!--</span>-->
+                <!--</a>-->
+                <!--</td>-->
               </tr>
               </tbody>
             </table>
