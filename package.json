@@ -54,7 +54,7 @@
     "flatpickr": "^4.5.7",
     "fullcalendar": "^4.0.0-alpha.4",
     "jquery": "^3.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ng-material-datetimepicker": "^1.18.3",
     "ng2-charts": "^2.2.3",
     "ngx-file-helpers": "^2.0.0",
